@@ -30,41 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
 
             <ul style="margin-top:14px; line-height:1.7; padding-left:18px;">
-                <li>
-                    <b>📅 15/12/2025 (Monday)</b><br>
-                    👗 <b>Kurta & Saree Day</b><br>
-                    (Wear Kurta & Saree)
-                </li>
-
-                <li>
-                    <b>📅 16/12/2025 (Tuesday)</b><br>
-                    🕴️ <b>Formals Day</b><br>
-                    (Wear Formal Attire)
-                </li>
-
-                <li>
-                    <b>📅 17/12/2025 (Wednesday)</b><br>
-                    👖 <b>Denim Day</b><br>
-                    (Wear Denim Attire)
-                </li>
-
-                <li>
-                    <b>📅 18/12/2025 (Thursday)</b><br>
-                    ⚫⚪ <b>Black & White Day</b><br>
-                    (Wear Black & White Attire)
-                </li>
-
-                <li>
-                    <b>📅 19/12/2025 (Friday)</b><br>
-                    🧥 <b>Hoodie Day</b><br>
-                    (Wear Hoodies)
-                </li>
-
-                <li>
-                    <b>📅 20/12/2025 (Saturday)</b><br>
-                    🎨 <b>Mess & Joy Day</b><br>
-                    (Wear old clothes & get markers to write on each other)
-                </li>
+                <li><b>📅 15/12/2025 (Monday)</b><br>👗 Kurta & Saree Day</li>
+                <li><b>📅 16/12/2025 (Tuesday)</b><br>🕴️ Formals Day</li>
+                <li><b>📅 17/12/2025 (Wednesday)</b><br>👖 Denim Day</li>
+                <li><b>📅 18/12/2025 (Thursday)</b><br>⚫⚪ Black & White Day</li>
+                <li><b>📅 19/12/2025 (Friday)</b><br>🧥 Hoodie Day</li>
+                <li><b>📅 20/12/2025 (Saturday)</b><br>🎨 Mess & Joy Day</li>
             </ul>
 
             <p style="margin-top:16px; color:red; font-weight:bold;">
@@ -77,11 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 📸 Follow RR International College on Instagram
             </p>
 
-            <a href="https://www.instagram.com/r.r._international_college?igsh=MW0xYXJrbXJjaDVxaQ=="
-               target="_blank"
+            <!-- 🔥 FORCE OPEN INSTAGRAM APP -->
+            <a href="intent://www.instagram.com/r.r._international_college/#Intent;package=com.instagram.android;scheme=https;end"
                style="color:#E1306C; font-weight:bold; text-decoration:none;">
-               👉 Open Instagram Page
+               👉 Open Instagram App
             </a>
+
+            <p style="margin-top:8px; font-size:12px; color:#777;">
+                (Opens Instagram app directly)
+            </p>
 
         </div>
     `;
