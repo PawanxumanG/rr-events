@@ -1,63 +1,72 @@
-// ================================
-// RR EVENTS APP - EVENTS SCRIPT
-// ================================
+package com.rrinternational.college;
 
-document.addEventListener("DOMContentLoaded", function () {
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.webkit.WebSettings;
 
-    const container = document.getElementById("events");
+public class MainActivity extends Activity {
 
-    if (!container) {
-        console.error("Events container not found");
-        return;
+    WebView webView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        webView = findViewById(R.id.webview);
+
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+        webView.clearCache(true);
+        webView.clearHistory();
+
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString();
+
+                // 🔥 INSTAGRAM HANDLER
+                if (url.contains("instagram.com")) {
+                    openInstagram(url);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        webView.loadUrl("https://pawanxumang.github.io/rr-events/");
     }
 
-    container.innerHTML = `
-        <div class="event">
+    private void openInstagram(String url) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("instagram://user?username=r.r._international_college"));
+            intent.setPackage("com.instagram.android");
+            startActivity(intent);
+        } catch (Exception e) {
+            // Instagram not installed → open browser
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(browserIntent);
+        }
+    }
 
-            <h2>📣 ATTENTION EVERYONE!!</h2>
-
-            <p class="meta">
-                📅 15 – 20 December 2025 &nbsp; | &nbsp; ⏰ All Days
-            </p>
-
-            <p class="meta">
-                📍 RR INTERNATIONAL COLLEGE
-            </p>
-
-            <p style="margin-top:12px; font-weight:bold;">
-                AN EXCITING CULTURE WEEK IS WAITING FOR YOUR PRESENCE 🎉<br>
-                WHICH IS DEDICATED ON DIFFERENT THEMES.
-            </p>
-
-            <ul style="margin-top:14px; line-height:1.7; padding-left:18px;">
-                <li><b>📅 15/12/2025 (Monday)</b><br>👗 Kurta & Saree Day</li>
-                <li><b>📅 16/12/2025 (Tuesday)</b><br>🕴️ Formals Day</li>
-                <li><b>📅 17/12/2025 (Wednesday)</b><br>👖 Denim Day</li>
-                <li><b>📅 18/12/2025 (Thursday)</b><br>⚫⚪ Black & White Day</li>
-                <li><b>📅 19/12/2025 (Friday)</b><br>🧥 Hoodie Day</li>
-                <li><b>📅 20/12/2025 (Saturday)</b><br>🎨 Mess & Joy Day</li>
-            </ul>
-
-            <p style="margin-top:16px; color:red; font-weight:bold;">
-                ⚠️ ATTENDANCE WILL BE TAKEN FOR THE SAME
-            </p>
-
-            <hr style="margin:16px 0;">
-
-            <p style="font-weight:bold;">
-                📸 Follow RR International College on Instagram
-            </p>
-
-            <!-- 🔥 FORCE OPEN INSTAGRAM APP -->
-            <a href="intent://www.instagram.com/r.r._international_college/#Intent;package=com.instagram.android;scheme=https;end"
-               style="color:#E1306C; font-weight:bold; text-decoration:none;">
-               👉 Open Instagram App
-            </a>
-
-            <p style="margin-top:8px; font-size:12px; color:#777;">
-                (Opens Instagram app directly)
-            </p>
-
-        </div>
-    `;
-});
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+}
