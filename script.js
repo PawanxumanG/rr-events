@@ -11,10 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Clear old content
-    container.innerHTML = "";
-
-    // Events content
     container.innerHTML = `
         <div class="event">
 
@@ -74,6 +70,18 @@ document.addEventListener("DOMContentLoaded", function () {
             <p style="margin-top:16px; color:red; font-weight:bold;">
                 ⚠️ ATTENDANCE WILL BE TAKEN FOR THE SAME
             </p>
+
+            <hr style="margin:16px 0;">
+
+            <p style="font-weight:bold;">
+                📸 Follow RR International College on Instagram
+            </p>
+
+            <a href="https://www.instagram.com/r.r._international_college?igsh=MW0xYXJrbXJjaDVxaQ=="
+               target="_blank"
+               style="color:#E1306C; font-weight:bold; text-decoration:none;">
+               👉 Open Instagram Page
+            </a>
 
         </div>
     `;
