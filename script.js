@@ -1,5 +1,5 @@
 // ================================
-// RR EVENTS APP - EVENTS SCRIPT
+// RR EVENTS APP - MAINTENANCE MODE
 // ================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -11,64 +11,32 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    // Clear anything old
+    container.innerHTML = "";
+
+    // Maintenance message
     container.innerHTML = `
-        <div class="event">
-            <h2>📣 ATTENTION EVERYONE!!</h2>
+        <div class="event" style="text-align:center; padding:30px;">
+            
+            <h2 style="font-size:26px;">🚧 APP UNDER MAINTENANCE 🚧</h2>
 
-            <p class="meta">
-                📅 15 – 20 December 2025 &nbsp; | &nbsp; ⏰ All Days
+            <p style="margin-top:12px; font-size:16px;">
+                We are currently updating the RR Events App to serve you better.
             </p>
 
-            <p class="meta">
-                📍 RR INTERNATIONAL COLLEGE
+            <p style="margin-top:16px; font-weight:bold; font-size:18px;">
+                ⏰ Please come back at
             </p>
 
-            <p style="margin-top:12px; font-weight:bold;">
-                AN EXCITING CULTURE WEEK IS WAITING FOR YOUR PRESENCE 🎉<br>
-                WHICH IS DEDICATED ON DIFFERENT THEMES.
+            <p style="font-size:20px; color:#e74c3c; font-weight:bold;">
+                6:15 PM <br>
+                14 December 2025
             </p>
 
-            <ul style="margin-top:12px; line-height:1.6;">
-                <li>
-                    <b>📅 15/12/2025 (Monday)</b><br>
-                    👗 <b>Kurta & Saree Day</b><br>
-                    (Wear Kurta & Saree)
-                </li>
-
-                <li>
-                    <b>📅 16/12/2025 (Tuesday)</b><br>
-                    🕴️ <b>Formals Day</b><br>
-                    (Wear Formal Attire)
-                </li>
-
-                <li>
-                    <b>📅 17/12/2025 (Wednesday)</b><br>
-                    👖 <b>Denim Day</b><br>
-                    (Wear Denim Attire)
-                </li>
-
-                <li>
-                    <b>📅 18/12/2025 (Thursday)</b><br>
-                    ⚫⚪ <b>Black & White Day</b><br>
-                    (Wear Black & White Attire)
-                </li>
-
-                <li>
-                    <b>📅 19/12/2025 (Friday)</b><br>
-                    🧥 <b>Hoodie Day</b><br>
-                    (Wear Hoodies)
-                </li>
-
-                <li>
-                    <b>📅 20/12/2025 (Saturday)</b><br>
-                    🎨 <b>Mess & Joy Day</b><br>
-                    (Wear old clothes & get markers to write on each other)
-                </li>
-            </ul>
-
-            <p style="margin-top:14px; color:red; font-weight:bold;">
-                ⚠️ ATTENDANCE WILL BE TAKEN FOR THE SAME
+            <p style="margin-top:20px; font-size:14px; color:#555;">
+                Thank you for your patience 🙏
             </p>
+
         </div>
     `;
 });
