@@ -1,63 +1,55 @@
-/* RESET */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    background: #f2f2f2;
 }
 
-/* HEADER (ORANGE) */
 .header {
-    background-color: #F15A24; /* ORANGE */
-    color: #ffffff;
+    background: #F15A24;
+    color: white;
     text-align: center;
-    padding: 30px 15px;
+    padding: 16px;
 }
 
 .header h1 {
     margin: 0;
-    font-size: 26px;
-    letter-spacing: 1px;
+    font-size: 20px;
 }
 
 .header p {
-    margin-top: 8px;
-    font-size: 16px;
-    opacity: 0.95;
-}
-
-/* MAIN CONTAINER */
-.container {
-    padding: 15px;
-}
-
-/* EVENT CARD */
-.card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.card h2 {
-    margin-top: 0;
-}
-
-.meta {
-    color: #555;
+    margin: 4px 0 0;
     font-size: 14px;
 }
 
-.title {
-    font-weight: bold;
-    margin: 15px 0;
+.container {
+    padding: 16px;
 }
 
-/* LIST */
-ul {
-    padding-left: 20px;
+.event {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-li {
-    margin-bottom: 12px;
-    line-height: 1.4;
+.meta {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+}
+
+.nav-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.nav-btn.back {
+    background: #f44336;
 }

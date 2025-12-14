@@ -4,10 +4,10 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const container = document.getElementById("events");
-    if (!container) return;
+    const eventsContainer = document.getElementById("events");
+    if (!eventsContainer) return;
 
-    container.innerHTML = `
+    eventsContainer.innerHTML = `
         <div class="event">
 
             <h2>📣 ATTENTION EVERYONE!</h2>
@@ -42,28 +42,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 🕒 Last updated: December 2025
             </p>
 
-            <hr style="margin:18px 0;">
-
-            <button onclick="openTicTacToe()"
-                style="
-                    width:100%;
-                    padding:12px;
-                    font-size:16px;
-                    background:#2196F3;
-                    color:#fff;
-                    border:none;
-                    border-radius:6px;
-                    cursor:pointer;">
-                ❌⭕ Play Tic Tac Toe
-            </button>
-
         </div>
     `;
 });
 
 // ================================
-// Navigation Function
+// Navigation
 // ================================
-function openTicTacToe() {
-    window.location.href = "tictactoe.html";
+function openEvents() {
+    window.location.href = "events.html";
+}
+
+function goBack() {
+    window.location.href = "index.html";
 }
