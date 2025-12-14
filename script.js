@@ -1,6 +1,6 @@
-// ================================
-// RR EVENTS APP - CULTURE WEEK
-// ================================
+// =====================================
+// RR EVENTS APP - MAIN SCRIPT
+// =====================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -71,6 +71,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 🕒 Last updated: December 2025
             </p>
 
+            <hr style="margin:18px 0;">
+
+            <button onclick="openLudoGame()"
+                style="
+                    width:100%;
+                    padding:12px;
+                    font-size:16px;
+                    background:#4CAF50;
+                    color:#fff;
+                    border:none;
+                    border-radius:6px;
+                    cursor:pointer;">
+                🎮 Play Ludo Game
+            </button>
+
         </div>
     `;
 });
+
+// =====================================
+// Open Ludo Game Page
+// =====================================
+function openLudoGame() {
+    window.location.href = "ludo.html";
+}
