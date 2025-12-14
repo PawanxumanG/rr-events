@@ -1,5 +1,5 @@
 // =====================================
-// RR EVENTS APP - MAIN SCRIPT
+// RR EVENTS APP - SCRIPT
 // =====================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>📣 ATTENTION EVERYONE!</h2>
 
             <p class="meta">
-                📅 <b>15 – 20 December 2025</b> &nbsp; | &nbsp; ⏰ All Days
+                📅 <b>15 – 20 December 2025</b> | ⏰ All Days
             </p>
 
             <p class="meta">
@@ -26,73 +26,44 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
 
             <ul style="margin-top:14px; line-height:1.8; padding-left:18px;">
-                <li>
-                    <b>📅 Monday – 15/12/2025</b><br>
-                    👗 <b>Kurta & Saree Day</b><br>
-                    (Wear Kurta & Saree)
-                </li>
-
-                <li>
-                    <b>📅 Tuesday – 16/12/2025</b><br>
-                    🕴️ <b>Formals Day</b><br>
-                    (Wear Formal Attire)
-                </li>
-
-                <li>
-                    <b>📅 Wednesday – 17/12/2025</b><br>
-                    👖 <b>Denim Day</b><br>
-                    (Wear Denim Attire)
-                </li>
-
-                <li>
-                    <b>📅 Thursday – 18/12/2025</b><br>
-                    ⚫⚪ <b>Black & White Day</b><br>
-                    (Wear Black & White Attire)
-                </li>
-
-                <li>
-                    <b>📅 Friday – 19/12/2025</b><br>
-                    🧥 <b>Hoodie Day</b><br>
-                    (Wear Hoodies)
-                </li>
-
-                <li>
-                    <b>📅 Saturday – 20/12/2025</b><br>
-                    🎨 <b>Mess & Joy Day</b><br>
-                    (Wear old clothes & bring markers to write on each other)
-                </li>
+                <li><b>Monday – 15/12/2025</b><br>👗 Kurta & Saree Day</li>
+                <li><b>Tuesday – 16/12/2025</b><br>🕴️ Formals Day</li>
+                <li><b>Wednesday – 17/12/2025</b><br>👖 Denim Day</li>
+                <li><b>Thursday – 18/12/2025</b><br>⚫⚪ Black & White Day</li>
+                <li><b>Friday – 19/12/2025</b><br>🧥 Hoodie Day</li>
+                <li><b>Saturday – 20/12/2025</b><br>🎨 Mess & Joy Day</li>
             </ul>
 
-            <p style="margin-top:16px; color:red; font-weight:bold;">
+            <p style="margin-top:14px; color:red; font-weight:bold;">
                 ⚠️ Attendance will be taken for the above activities.
             </p>
 
-            <p style="margin-top:10px; font-size:13px; color:#555;">
+            <p style="margin-top:8px; font-size:13px; color:#555;">
                 🕒 Last updated: December 2025
             </p>
 
             <hr style="margin:18px 0;">
 
-            <button onclick="openLudoGame()"
+            <button onclick="openTicTacToe()"
                 style="
                     width:100%;
                     padding:12px;
                     font-size:16px;
-                    background:#4CAF50;
+                    background:#2196F3;
                     color:#fff;
                     border:none;
                     border-radius:6px;
                     cursor:pointer;">
-                🎮 Play Ludo Game
+                ❌⭕ Play Tic Tac Toe
             </button>
 
         </div>
     `;
 });
 
-// =====================================
-// Open Ludo Game Page
-// =====================================
-function openLudoGame() {
-    window.location.href = "ludo.html";
+// ================================
+// Navigation Function
+// ================================
+function openTicTacToe() {
+    window.location.href = "tictactoe.html";
 }
