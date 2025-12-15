@@ -2,176 +2,186 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Karmanya 2025 - Registration</title>
+<title>Karmanya 2025 – RR International College</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
 
-    .header {
-        background: #F36C21;
-        color: #fff;
-        text-align: center;
-        padding: 18px;
-    }
+/* Header */
+.header {
+    background: #f26522;
+    color: white;
+    padding: 16px;
+    text-align: center;
+}
+.header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+.header p {
+    margin: 4px 0 0;
+}
 
-    .header h1 {
-        margin: 0;
-        font-size: 22px;
-    }
+/* Container */
+.container {
+    padding: 16px;
+}
 
-    .container {
-        padding: 15px;
-    }
+/* Card */
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 
-    .card {
-        background: #ffffff;
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
+.card h2 {
+    margin-top: 0;
+}
 
-    .card h2 {
-        margin-top: 0;
-        color: #333;
-    }
+/* Highlight box */
+.highlight {
+    background: #fff3e0;
+    padding: 12px;
+    border-radius: 8px;
+}
 
-    .card p {
-        color: #444;
-        line-height: 1.5;
-    }
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 12px;
+}
 
-    .highlight {
-        font-weight: bold;
-        color: #d84315;
-    }
+.btn-pay {
+    background: #2ecc71;
+    color: white;
+}
 
-    .pay-box {
-        background: #fff3e0;
-        padding: 12px;
-        border-radius: 6px;
-        margin-top: 10px;
-    }
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
 
-    .btn {
-        width: 100%;
-        padding: 15px;
-        font-size: 16px;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        margin-top: 12px;
-    }
+.btn-back {
+    background: #34495e;
+    color: white;
+}
 
-    .btn-whatsapp {
-        background: #25D366;
-        color: white;
-    }
-
-    .btn-back {
-        background: #1976D2;
-        color: white;
-    }
-
-    .btn-events {
-        background: #455A64;
-        color: white;
-    }
-
-    .note {
-        font-size: 13px;
-        color: #666;
-        margin-top: 10px;
-        text-align: center;
-    }
+.warning {
+    font-size: 13px;
+    color: #555;
+    margin-top: 8px;
+    text-align: center;
+}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-    <h1>🎉 KARMANYA 2025</h1>
-    <p>Annual Function / College Fest</p>
+    <h1>RR INTERNATIONAL COLLEGE</h1>
+    <p>Karmanya 2025 – College Fest</p>
 </div>
 
 <div class="container">
 
+    <!-- Important Notice -->
     <div class="card">
         <h2>📢 Important Notice</h2>
-
         <p>
-            Participation in <span class="highlight">KARMANYA 2025</span> is
-            <span class="highlight">COMPULSORY</span> for all students.
+            Participation in <b style="color:#e74c3c;">KARMANYA 2025</b> (Annual Function / College Fest)
+            is <b style="color:#e74c3c;">COMPULSORY</b> for all students.
         </p>
-
         <p>
             📌 This event is linked with <b>internal assessment / internals</b>.
             Attendance and participation will be considered.
         </p>
     </div>
 
+    <!-- Registration & Payment -->
     <div class="card">
         <h2>💳 Registration & Payment</h2>
 
-        <div class="pay-box">
+        <div class="highlight">
             <p>💰 <b>Registration Fee:</b> ₹500</p>
-            <p>📲 <b>Payment Mode:</b> UPI (Google Pay / PhonePe / Paytm)</p>
-            <p>🔑 <b>UPI ID:</b> <b>8108810077@pthdfc</b></p>
+            <p>📱 <b>Payment Mode:</b> UPI (Google Pay / PhonePe / Paytm)</p>
+            <p>🔑 <b>UPI ID:</b> 8108810077@pthdfc</p>
         </div>
 
         <p style="margin-top:10px;">
-            After payment, send your <b>payment screenshot</b> to the committee
-            using the button below.
+            After payment, send your <b>payment screenshot</b>
+            to the committee using the button below.
+        </p>
+
+        <!-- PAY NOW -->
+        <button class="btn btn-pay" onclick="payNow()">
+            💳 Pay Now (UPI)
+        </button>
+
+        <!-- WHATSAPP -->
+        <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
+            📩 Send Details on WhatsApp
+        </button>
+
+        <p class="warning">
+            ⚠️ Submission without payment screenshot will not be accepted.
         </p>
     </div>
 
-    <!-- WhatsApp Button -->
-    <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
-        📩 Send Details on WhatsApp
-    </button>
-
     <!-- Back Buttons -->
-    <button class="btn btn-back" onclick="goNotices()">
-        🔙 Back to Notices
+    <button class="btn btn-back" onclick="goBack()">
+        🔙 Back to Notices & Events
     </button>
-
-    <button class="btn btn-events" onclick="goEvents()">
-        📅 Back to Events
-    </button>
-
-    <p class="note">
-        ⚠️ Submission without payment screenshot will not be accepted.
-    </p>
 
 </div>
 
 <script>
+/* Pay Now UPI */
+function payNow() {
+    var upi =
+        "upi://pay" +
+        "?pa=8108810077@pthdfc" +
+        "&pn=RR International College" +
+        "&am=500" +
+        "&cu=INR" +
+        "&tn=Karmanya 2025 Registration";
+
+    window.location.href = upi;
+}
+
+/* WhatsApp with pre-written message */
 function sendWhatsApp() {
-    var phone = "919867637326";
+    var phone = "9867637326";
     var message =
-        "KARMANYA 2025 Registration\n\n" +
+        "KARMANYA 2025 REGISTRATION\n\n" +
         "Name: \n" +
         "Class: \n" +
         "Roll No: \n\n" +
-        "I have completed the payment.\n" +
+        "I have completed the payment of ₹500.\n" +
         "Please find the payment screenshot attached.";
 
-    var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+    var url =
+        "https://wa.me/91" + phone + "?text=" +
+        encodeURIComponent(message);
+
     window.location.href = url;
 }
 
-function goNotices() {
-    window.location.href = "index.html";
-}
-
-function goEvents() {
-    window.location.href = "events.html";
+/* Back to notices/events */
+function goBack() {
+    window.location.href = "index.html"; 
+    // or events.html if you want
 }
 </script>
 
