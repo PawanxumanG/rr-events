@@ -11,11 +11,16 @@ body {
     background: #f2f2f2;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 16px;
 }
 
 h2 {
-    margin-top: 10px;
+    margin-top: 8px;
+}
+
+#status {
+    font-size: 18px;
+    margin: 10px 0;
 }
 
 #board {
@@ -29,19 +34,19 @@ h2 {
 .cell {
     width: 90px;
     height: 90px;
-    background: white;
+    background: #ffffff;
     font-size: 36px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 button {
-    padding: 10px 16px;
+    padding: 10px 18px;
     font-size: 15px;
     border: none;
     border-radius: 6px;
@@ -49,14 +54,21 @@ button {
     margin: 6px;
 }
 
-.reset { background: #f44336; color: white; }
-.back  { background: #4CAF50; color: white; }
+.reset {
+    background: #f44336;
+    color: white;
+}
+
+.back {
+    background: #4CAF50;
+    color: white;
+}
 </style>
 </head>
 
 <body>
 
-<h2>❌⭕ Tic Tac Toe</h2>
+<h2>❌ ⭕ Tic Tac Toe</h2>
 <p id="status">Player ❌ Turn</p>
 
 <div id="board"></div>
@@ -66,122 +78,68 @@ button {
 
 <script>
 let board = ["","","","","","","","",""];
-let current = "❌";
-let active = true;
+let currentPlayer = "❌";
+let gameActive = true;
 
 const statusText = document.getElementById("status");
 const boardDiv = document.getElementById("board");
 
-const wins = [
+const winningConditions = [
     [0,1,2],[3,4,5],[6,7,8],
     [0,3,6],[1,4,7],[2,5,8],
     [0,4,8],[2,4,6]
 ];
 
-// Create cells
+// Create board cells
 for (let i = 0; i < 9; i++) {
     const cell = document.createElement("div");
     cell.className = "cell";
-    cell.dataset.i = i;
-    cell.onclick = play;
+    cell.dataset.index = i;
+    cell.addEventListener("click", handleCellClick);
     boardDiv.appendChild(cell);
 }
 
-function play() {
-    const i = this.dataset.i;
-    if (board[i] || !active) return;
+function handleCellClick() {
+    const index = this.dataset.index;
 
-    board[i] = current;
-    this.textContent = current;
+    if (board[index] !== "" || !gameActive) return;
+
+    board[index] = currentPlayer;
+    this.textContent = currentPlayer;
 
     if (checkWin()) {
-        statusText.textContent = "🎉 Player " + current + " Wins!";
-        active = false;
+        statusText.textContent = "🎉 Player " + currentPlayer + " Wins!";
+        gameActive = false;
         return;
     }
 
     if (!board.includes("")) {
-        statusText.textContent = "😐 Draw!";
-        active = false;
+        statusText.textContent = "😐 It's a Draw!";
+        gameActive = false;
         return;
     }
 
-    current = current === "❌" ? "⭕" : "❌";
-    statusText.textContent = "Player " + current + " Turn";
+    currentPlayer = currentPlayer === "❌" ? "⭕" : "❌";
+    statusText.textContent = "Player " + currentPlayer + " Turn";
 }
 
 function checkWin() {
-    return wins.some(w => w.every(i => board[i] === current));
+    return winningConditions.some(condition =>
+        condition.every(index => board[index] === currentPlayer)
+    );
 }
 
 function resetGame() {
     board = ["","","","","","","","",""];
-    document.querySelectorAll(".cell").forEach(c => c.textContent = "");
-    current = "❌";
-    active = true;
+    document.querySelectorAll(".cell").forEach(cell => cell.textContent = "");
+    currentPlayer = "❌";
+    gameActive = true;
     statusText.textContent = "Player ❌ Turn";
 }
 
 function goBack() {
     window.history.back();
 }
-</script>
-
-</body>
-</html>    font-size: 16px;
-}
-</style>
-</head>
-
-<body>
-
-<h2>🎲 Simple Ludo (2 Player)</h2>
-
-<div id="board"></div>
-
-<p id="status"></p>
-
-<button onclick="rollDice()">Roll Dice</button>
-
-<script>
-const boardSize = 20;
-let positions = [0, 0]; // Player positions
-let currentPlayer = 0;
-let dice = 0;
-
-const board = document.getElementById("board");
-const status = document.getElementById("status");
-
-// Create board
-for (let i = 0; i < boardSize; i++) {
-    let cell = document.createElement("div");
-    cell.className = "cell";
-    cell.id = "cell" + i;
-    board.appendChild(cell);
-}
-
-function render() {
-    document.querySelectorAll(".cell").forEach(c => c.innerHTML = "");
-    document.getElementById("cell" + positions[0]).innerHTML = "🔴";
-    document.getElementById("cell" + positions[1]).innerHTML = "🟢";
-    status.innerText = "Player " + (currentPlayer + 1) + "'s turn";
-}
-
-function rollDice() {
-    dice = Math.floor(Math.random() * 6) + 1;
-    alert("Dice: " + dice);
-
-    positions[currentPlayer] += dice;
-    if (positions[currentPlayer] >= boardSize - 1) {
-        alert("🎉 Player " + (currentPlayer + 1) + " Wins!");
-        positions = [0, 0];
-    }
-
-    currentPlayer = currentPlayer === 0 ? 1 : 0;
-    render();
-}
-
-render();
 </script>
 
 </body>
