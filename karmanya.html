@@ -22,7 +22,6 @@ body {
 /* ===== HEADER ===== */
 .header {
     background: linear-gradient(90deg, #ff6a00, #ff9800);
-    color: #ffffff;
     padding: 16px 10px;
     text-align: center;
 }
@@ -30,7 +29,6 @@ body {
 .header h1 {
     margin: 0;
     font-size: 20px;
-    letter-spacing: 0.5px;
 }
 
 .header p {
@@ -64,7 +62,6 @@ body {
     padding: 14px;
     border-radius: 10px;
     margin-top: 10px;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 /* ===== BUTTONS ===== */
@@ -78,29 +75,22 @@ body {
     cursor: pointer;
     margin-top: 12px;
     color: #ffffff;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .btn:active {
     transform: scale(0.96);
 }
 
-/* Pay */
 .btn-pay {
     background: linear-gradient(90deg, #2ecc71, #27ae60);
-    box-shadow: 0 6px 14px rgba(46,204,113,0.35);
 }
 
-/* WhatsApp */
 .btn-whatsapp {
     background: linear-gradient(90deg, #25D366, #1ebd5a);
-    box-shadow: 0 6px 14px rgba(37,211,102,0.35);
 }
 
-/* Back */
 .btn-back {
     background: linear-gradient(90deg, #34495e, #2c3e50);
-    box-shadow: 0 6px 14px rgba(52,73,94,0.35);
 }
 
 /* ===== WARNING ===== */
@@ -144,13 +134,23 @@ body {
 
         <div class="highlight">
             <p>💰 <b>Registration Fee:</b> ₹500</p>
-            <p>📱 <b>Payment Mode:</b> UPI (Google Pay / PhonePe / Paytm)</p>
+            <p>📱 <b>Payment Mode:</b> UPI (All UPI Apps)</p>
             <p>🔑 <b>UPI ID:</b> 8108810077@pthdfc</p>
+            <p>👤 <b>UPI Holder Name:</b>
+                <span style="color:#ffb74d;font-weight:bold;">
+                    HARSHL SINGH RAJPUT
+                </span>
+            </p>
         </div>
 
         <p style="margin-top:12px;">
+            🍽️ <b>Snacks Preference:</b><br>
+            Please mention <b>Veg</b> or <b>Non-Veg</b> while sending details.
+        </p>
+
+        <p>
             After payment, send your
-            <b>payment screenshot</b> to the committee using the button below.
+            <b>payment screenshot</b> to the committee.
         </p>
 
         <!-- PAY NOW -->
@@ -170,13 +170,12 @@ body {
 
     <!-- BACK -->
     <button class="btn btn-back" onclick="goBack()">
-        🔙 Back to Notices & Events
+        🔙 Back to Home
     </button>
 
 </div>
 
 <script>
-/* Pay Now UPI */
 function payNow() {
     var upi =
         "upi://pay" +
@@ -185,29 +184,24 @@ function payNow() {
         "&am=500" +
         "&cu=INR" +
         "&tn=Karmanya 2025 Registration";
-
     window.location.href = upi;
 }
 
-/* WhatsApp with pre-written message */
 function sendWhatsApp() {
     var phone = "9867637326";
     var message =
         "KARMANYA 2025 REGISTRATION\n\n" +
-        "Name: \n" +
-        "Class: \n" +
-        "Roll No: \n\n" +
+        "Name:\n" +
+        "Class:\n" +
+        "Roll No:\n" +
+        "Snacks Preference: Veg / Non-Veg\n\n" +
         "I have completed the payment of ₹500.\n" +
         "Please find the payment screenshot attached.";
 
-    var url =
-        "https://wa.me/91" + phone + "?text=" +
-        encodeURIComponent(message);
-
-    window.location.href = url;
+    window.location.href =
+        "https://wa.me/91" + phone + "?text=" + encodeURIComponent(message);
 }
 
-/* Back */
 function goBack() {
     window.location.href = "index.html";
 }
