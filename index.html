@@ -10,7 +10,6 @@
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
     <p>Notices & Updates</p>
@@ -18,14 +17,12 @@
 
 <div class="container">
 
-    <!-- GENERAL NOTICE -->
     <div class="event">
         <h2>📢 IMPORTANT NOTICE</h2>
 
         <p>
             All students are informed to regularly check this app
-            for important college notices and official updates,
-            and please make sure you scroll down till the end.
+            for important college notices and official updates.
         </p>
 
         <p class="text-muted">
@@ -34,35 +31,25 @@
         </p>
     </div>
 
-    <!-- 🔥 KARMANYA POSTER (DIRECT IMAGE, NO SECTION) -->
-    <img
-        src="karmanya.jpg"
-        alt="Karmanya 2025 Poster"
-        style="
-            width: 100%;
-            border-radius: 14px;
-            margin: 16px 0;
-            box-shadow: 0 0 18px rgba(0,0,0,0.6);
-        "
-    >
+    <!-- POSTER -->
+    <img src="karmanya.png" class="poster-img" alt="Karmanya Fest Poster">
 
-    <!-- KARMANYA BUTTON -->
-    <button onclick="location.href='karmanya.html'" class="nav-btn">
+    <!-- BUTTONS -->
+    <button id="btnKarmanya" onclick="location.href='karmanya.html'" class="nav-btn">
         🎟️ KARMANYA 2025 – Details & Payment
     </button>
 
-    <!-- EVENT ALBUM BUTTON -->
-    <button onclick="location.href='event_album.html'" class="nav-btn">
+    <button id="btnAlbum" onclick="location.href='event_album.html'" class="nav-btn">
         📸 Event Album
     </button>
 
-    <!-- VIEW EVENTS -->
-    <button onclick="openEvents()" class="nav-btn">
+    <button id="btnEvents" onclick="openEvents()" class="nav-btn">
         📅 View Events
     </button>
 
 </div>
 
 <script src="script.js"></script>
+<script src="random-colors.js"></script>
 </body>
 </html>
