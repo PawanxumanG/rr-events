@@ -7,7 +7,7 @@
 
 html, body {
     width: 100%;
-    overflow-x: hidden;   /* 🔥 KILLS LEFT-RIGHT SCROLL */
+    overflow-x: hidden;   /* 🔥 Prevent horizontal scroll */
 }
 
 /* ===== BODY ===== */
@@ -65,7 +65,12 @@ body {
     margin-top: 0;
     font-size: 18px;
     color: #ffffff;
-    word-wrap: break-word;
+}
+
+.event h3 {
+    margin: 10px 0 8px;
+    font-size: 16px;
+    color: #ffcc80;
 }
 
 .event p,
@@ -74,7 +79,6 @@ body {
     color: #dcdcdc;
     font-size: 14px;
     line-height: 1.5;
-    word-wrap: break-word;
 }
 
 .event ul {
@@ -122,4 +126,31 @@ body {
 .text-warning {
     color: #ffb74d;
     font-weight: 600;
+}
+
+/* ===== POSTER SECTION (FORMAL DAY, EVENTS) ===== */
+.poster-box {
+    background: #10141c;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 14px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.poster-box img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 8px;
+    box-shadow: 0 0 16px rgba(0,0,0,0.7);
+}
+
+/* ===== IMAGE SAFETY (FUTURE PROOF) ===== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
