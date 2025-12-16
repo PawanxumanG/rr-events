@@ -4,20 +4,69 @@
 <meta charset="UTF-8">
 <title>RR International College - Events</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* ===== LOCAL PAGE STYLES (SAFE) ===== */
+.header {
+    background: linear-gradient(90deg, #ff6a00, #ff9800);
+    color: #ffffff;
+    text-align: center;
+    padding: 16px 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+.header p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.container {
+    padding: 16px;
+}
+
+/* Reuse same button style */
+.nav-btn.back {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 16px 20px;
+    background: linear-gradient(90deg, #4caf50, #43a047);
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(76,175,80,0.35);
+}
+
+.nav-btn.back:active {
+    transform: scale(0.97);
+}
+</style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
     <p>Events</p>
 </div>
 
+<!-- EVENTS (Injected by script.js) -->
 <div class="container" id="events">
-    <!-- Events load from script.js -->
+    <!-- Events load dynamically -->
 </div>
 
+<!-- BACK BUTTON -->
 <button onclick="goBack()" class="nav-btn back">
     ⬅ Back to Notices
 </button>

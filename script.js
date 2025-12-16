@@ -1,12 +1,18 @@
 // =====================================
-// RR EVENTS APP - SCRIPT
+// RR EVENTS APP - SCRIPT (CLEAN & SAFE)
 // =====================================
 
+// Wait until page is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
 
-    const eventsContainer = document.getElementById("events");
-    if (!eventsContainer) return;
+    var eventsContainer = document.getElementById("events");
 
+    // If this page doesn't have events container, exit safely
+    if (!eventsContainer) {
+        return;
+    }
+
+    // Inject Events Content
     eventsContainer.innerHTML = `
         <div class="event">
 
@@ -20,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 📍 RR INTERNATIONAL COLLEGE
             </p>
 
-            <p style="margin-top:12px; font-weight:bold;">
+            <p style="margin-top:12px; font-weight:600;">
                 An exciting <b>Culture Week</b> is waiting for your presence 🎉<br>
                 Each day is dedicated to a different theme.
             </p>
@@ -34,11 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <li><b>Saturday – 20/12/2025</b><br>🎨 Mess & Joy Day</li>
             </ul>
 
-            <p style="margin-top:14px; color:red; font-weight:bold;">
+            <p style="margin-top:14px; color:#d32f2f; font-weight:bold;">
                 ⚠️ Attendance will be taken for the above activities.
             </p>
 
-            <p style="margin-top:8px; font-size:13px; color:#555;">
+            <p style="margin-top:8px; font-size:13px; color:#666;">
                 🕒 Last updated: December 2025
             </p>
 
@@ -47,12 +53,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ================================
-// Navigation
+// Navigation (SAFE FOR WEBVIEW)
 // ================================
+
+// Open Events page
 function openEvents() {
     window.location.href = "events.html";
 }
 
+// Go back to Home
 function goBack() {
     window.location.href = "index.html";
 }
