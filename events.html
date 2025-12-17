@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ===== LOCAL PAGE STYLES (SAFE) ===== */
+/* ===== LOCAL PAGE STYLES ===== */
 .header {
     background: linear-gradient(90deg, #ff6a00, #ff9800);
     color: #ffffff;
@@ -32,9 +32,9 @@
     padding: 16px;
 }
 
-/* Reuse same button style */
+/* BACK BUTTON BASE STYLE */
 .nav-btn.back {
-    width: 100%;
+    width: calc(100% - 32px);
     padding: 14px;
     font-size: 15px;
     font-weight: 600;
@@ -42,9 +42,8 @@
     border-radius: 10px;
     cursor: pointer;
     margin: 0 16px 20px;
-    background: linear-gradient(90deg, #4caf50, #43a047);
     color: #ffffff;
-    box-shadow: 0 6px 14px rgba(76,175,80,0.35);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .nav-btn.back:active {
@@ -67,10 +66,33 @@
 </div>
 
 <!-- BACK BUTTON -->
-<button onclick="goBack()" class="nav-btn back">
+<button onclick="goBack()" class="nav-btn back" id="backBtn">
     ⬅ Back to Notices
 </button>
 
 <script src="script.js"></script>
+
+<!-- RANDOM COLOR + GLOW FOR BACK BUTTON -->
+<script>
+(function () {
+    const gradients = [
+        ["#2196f3", "#00bcd4"],
+        ["#ff6a00", "#ff9800"],
+        ["#8e24aa", "#d81b60"],
+        ["#43a047", "#66bb6a"],
+        ["#e53935", "#fb8c00"],
+        ["#3949ab", "#1e88e5"]
+    ];
+
+    const btn = document.getElementById("backBtn");
+    if (!btn) return;
+
+    const g = gradients[Math.floor(Math.random() * gradients.length)];
+
+    btn.style.background = `linear-gradient(90deg, ${g[0]}, ${g[1]})`;
+    btn.style.boxShadow = `0 0 14px ${g[1]}99`;
+})();
+</script>
+
 </body>
 </html>

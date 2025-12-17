@@ -67,22 +67,12 @@ h2 {
     transition: all 0.15s ease;
 }
 
-.cell:hover {
-    background: linear-gradient(145deg, #23283a, #191e2c);
-}
-
 .cell:active {
     transform: scale(0.96);
 }
 
-/* X / O colors */
-.cell[data-value="❌"] {
-    color: #ff9800;
-}
-
-.cell[data-value="⭕"] {
-    color: #03a9f4;
-}
+.cell[data-value="❌"] { color: #ff9800; }
+.cell[data-value="⭕"] { color: #03a9f4; }
 
 /* ===== BUTTONS ===== */
 button {
@@ -94,21 +84,11 @@ button {
     cursor: pointer;
     margin: 6px;
     color: #ffffff;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    transition: transform 0.12s ease;
 }
 
 button:active {
     transform: scale(0.95);
-}
-
-.reset {
-    background: linear-gradient(90deg, #f44336, #e53935);
-    box-shadow: 0 6px 14px rgba(244,67,54,0.4);
-}
-
-.back {
-    background: linear-gradient(90deg, #4caf50, #43a047);
-    box-shadow: 0 6px 14px rgba(76,175,80,0.4);
 }
 </style>
 </head>
@@ -120,10 +100,11 @@ button:active {
 
 <div id="board"></div>
 
-<button class="reset" onclick="resetGame()">Restart</button><br>
-<button class="back" onclick="goBack()">⬅ Back</button>
+<button id="btnRestart" onclick="resetGame()">Restart</button><br>
+<button id="btnBack" onclick="goBack()">⬅ Back</button>
 
 <script>
+/* ================= GAME LOGIC ================= */
 let board = ["","","","","","","","",""];
 let currentPlayer = "❌";
 let gameActive = true;
@@ -137,7 +118,7 @@ const winningConditions = [
     [0,4,8],[2,4,6]
 ];
 
-// Create board cells
+// Create cells
 for (let i = 0; i < 9; i++) {
     const cell = document.createElement("div");
     cell.className = "cell";
@@ -148,7 +129,6 @@ for (let i = 0; i < 9; i++) {
 
 function handleCellClick() {
     const index = this.dataset.index;
-
     if (board[index] !== "" || !gameActive) return;
 
     board[index] = currentPlayer;
@@ -156,14 +136,18 @@ function handleCellClick() {
     this.setAttribute("data-value", currentPlayer);
 
     if (checkWin()) {
-        statusText.textContent = "🎉 Player " + currentPlayer + " Wins!";
         gameActive = false;
+        setTimeout(() => {
+            alert("🎉 Player " + currentPlayer + " Wins!");
+        }, 100);
         return;
     }
 
     if (!board.includes("")) {
-        statusText.textContent = "😐 It's a Draw!";
         gameActive = false;
+        setTimeout(() => {
+            alert("😐 It's a Draw!");
+        }, 100);
         return;
     }
 
@@ -172,8 +156,8 @@ function handleCellClick() {
 }
 
 function checkWin() {
-    return winningConditions.some(condition =>
-        condition.every(index => board[index] === currentPlayer)
+    return winningConditions.some(cond =>
+        cond.every(i => board[i] === currentPlayer)
     );
 }
 
@@ -187,6 +171,22 @@ function resetGame() {
     gameActive = true;
     statusText.textContent = "Player ❌ Turn";
 }
+
+/* ================= RANDOM BUTTON COLORS ================= */
+(function randomButtonColors(){
+    const gradients = [
+        ["#2196f3","#00bcd4"],
+        ["#ff6a00","#ff9800"],
+        ["#8e24aa","#d81b60"],
+        ["#43a047","#66bb6a"],
+        ["#e53935","#fb8c00"]
+    ];
+
+    document.querySelectorAll("button").forEach(btn=>{
+        const g = gradients[Math.floor(Math.random()*gradients.length)];
+        btn.style.background = `linear-gradient(90deg,${g[0]},${g[1]})`;
+    });
+})();
 
 function goBack() {
     window.history.back();

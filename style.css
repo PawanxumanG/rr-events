@@ -104,8 +104,10 @@ body {
     box-shadow: 0 6px 16px rgba(0,0,0,0.7);
 }
 
-/* ===== BUTTONS ===== */
-.nav-btn {
+/* ===== BUTTONS (COLOR COMES FROM JS) ===== */
+.nav-btn,
+.btn,
+button {
     width: 100%;
     padding: 14px;
     font-size: 15px;
@@ -114,12 +116,21 @@ body {
     border-radius: 10px;
     cursor: pointer;
     margin: 14px 0 20px;
-    background: linear-gradient(90deg, #2196f3, #00bcd4);
     color: #ffffff;
+
+    /* DEFAULT FALLBACK (in case JS fails) */
+    background: linear-gradient(90deg, #2196f3, #00bcd4);
     box-shadow: 0 6px 14px rgba(33,150,243,0.35);
+
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background 0.2s ease;
 }
 
-.nav-btn:active {
+.nav-btn:active,
+.btn:active,
+button:active {
     transform: scale(0.97);
 }
 

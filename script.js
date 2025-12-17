@@ -2,49 +2,77 @@
 // RR EVENTS APP - SCRIPT (CLEAN & SAFE)
 // =====================================
 
-// Wait until page is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
 
     var eventsContainer = document.getElementById("events");
 
-    // If this page doesn't have events container, exit safely
-    if (!eventsContainer) {
-        return;
-    }
+    // Exit safely if page doesn't have events container
+    if (!eventsContainer) return;
 
-    // Inject Events Content
+    // Inject Events Content (TABLE FORMAT)
     eventsContainer.innerHTML = `
         <div class="event">
 
-            <h2>📣 ATTENTION EVERYONE!</h2>
+            <h2>📣 CULTURAL WEEK – SCHEDULE</h2>
 
             <p class="meta">
-                📅 <b>15 – 20 December 2025</b> | ⏰ All Days
+                📍 RR INTERNATIONAL COLLEGE <br>
+                📅 <b>15 – 20 December 2025</b>
             </p>
 
-            <p class="meta">
-                📍 RR INTERNATIONAL COLLEGE
+            <div style="overflow-x:auto; margin-top:14px;">
+                <table style="
+                    width:100%;
+                    border-collapse: collapse;
+                    font-size:14px;
+                ">
+                    <thead>
+                        <tr style="background:#1e2330; color:#ffcc80;">
+                            <th style="padding:10px; border-radius:8px 0 0 8px;">Date</th>
+                            <th style="padding:10px;">Day</th>
+                            <th style="padding:10px; border-radius:0 8px 8px 0;">Theme</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:10px;">15/12/2025</td>
+                            <td style="padding:10px;">Monday</td>
+                            <td style="padding:10px;">👗 Kurta & Saree Day</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">16/12/2025</td>
+                            <td style="padding:10px;">Tuesday</td>
+                            <td style="padding:10px;">🕴️ Formals Day</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">17/12/2025</td>
+                            <td style="padding:10px;">Wednesday</td>
+                            <td style="padding:10px;">👖 Denim Day</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">18/12/2025</td>
+                            <td style="padding:10px;">Thursday</td>
+                            <td style="padding:10px;">⚫⚪ Black & White Day</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">19/12/2025</td>
+                            <td style="padding:10px;">Friday</td>
+                            <td style="padding:10px;">🧥 Hoodie Day</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">20/12/2025</td>
+                            <td style="padding:10px;">Saturday</td>
+                            <td style="padding:10px;">🎨 Mess & Joy Day</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="margin-top:14px; color:#ff5252; font-weight:600;">
+                ⚠️ Attendance will be taken for all the above activities.
             </p>
 
-            <p style="margin-top:12px; font-weight:600;">
-                An exciting <b>Culture Week</b> is waiting for your presence 🎉<br>
-                Each day is dedicated to a different theme.
-            </p>
-
-            <ul style="margin-top:14px; line-height:1.8; padding-left:18px;">
-                <li><b>Monday – 15/12/2025</b><br>👗 Kurta & Saree Day</li>
-                <li><b>Tuesday – 16/12/2025</b><br>🕴️ Formals Day</li>
-                <li><b>Wednesday – 17/12/2025</b><br>👖 Denim Day</li>
-                <li><b>Thursday – 18/12/2025</b><br>⚫⚪ Black & White Day</li>
-                <li><b>Friday – 19/12/2025</b><br>🧥 Hoodie Day</li>
-                <li><b>Saturday – 20/12/2025</b><br>🎨 Mess & Joy Day</li>
-            </ul>
-
-            <p style="margin-top:14px; color:#d32f2f; font-weight:bold;">
-                ⚠️ Attendance will be taken for the above activities.
-            </p>
-
-            <p style="margin-top:8px; font-size:13px; color:#666;">
+            <p style="margin-top:8px; font-size:13px; color:#aaaaaa;">
                 🕒 Last updated: December 2025
             </p>
 
@@ -53,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ================================
-// Navigation (SAFE FOR WEBVIEW)
+// Navigation (WebView Safe)
 // ================================
 
 // Open Events page
@@ -61,7 +89,7 @@ function openEvents() {
     window.location.href = "events.html";
 }
 
-// Go back to Home
+// Back to Notices (COLOR WILL CHANGE AUTOMATICALLY)
 function goBack() {
     window.location.href = "index.html";
 }
