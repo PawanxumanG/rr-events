@@ -5,11 +5,27 @@
 <title>RR International College - Notices</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- STYLES -->
 <link rel="stylesheet" href="style.css">
+
+<!-- ✅ GOOGLE ANALYTICS – HOME PAGE ONLY -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9JW1V42V83', {
+    page_title: 'RR Events Home',
+    page_path: '/index.html'
+  });
+</script>
+
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
     <p>Notices & Updates</p>
@@ -17,12 +33,12 @@
 
 <div class="container">
 
-    <!-- CHAIRMAN BUTTON (TOP PRIORITY) -->
+    <!-- 👨‍🏫 CHAIRMAN (TOP PRIORITY) -->
     <button onclick="location.href='chairman.html'" class="nav-btn">
         👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
     </button>
 
-    <!-- NOTICE -->
+    <!-- 📢 NOTICE -->
     <div class="event">
         <h2>📢 IMPORTANT NOTICE</h2>
 
@@ -37,10 +53,10 @@
         </p>
     </div>
 
-    <!-- POSTER -->
+    <!-- 🖼️ POSTER -->
     <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
 
-    <!-- BUTTONS -->
+    <!-- 🎟️ BUTTONS -->
     <button id="btnKarmanya" onclick="location.href='karmanya.html'" class="nav-btn">
         🎟️ KARMANYA 2025 – Details & Payment
     </button>
@@ -55,7 +71,9 @@
 
 </div>
 
+<!-- SCRIPTS -->
 <script src="script.js"></script>
 <script src="random-colors.js"></script>
+
 </body>
 </html>
