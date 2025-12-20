@@ -5,6 +5,20 @@
 <title>Karmanya 2025 – RR International College</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ================= GOOGLE ANALYTICS (FIXED) ================= -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9JW1V42V83', {
+    page_title: 'Karmanya 2025',
+    page_path: '/karmanya.html'
+  });
+</script>
+<!-- ============================================================ -->
+
 <style>
 * {
     box-sizing: border-box;
@@ -151,7 +165,6 @@ body {
                 Amount: <b>₹500</b>
             </div>
 
-            <!-- AUTO-FILLED QR -->
             <img
               src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=8108810077@pthdfc%26pn=HARSHL%20SINGH%20RAJPUT%26am=500%26cu=INR%26tn=Karmanya%202025"
               alt="UPI QR Code">
@@ -162,8 +175,8 @@ body {
         </div>
 
         <p class="warning">
-            🍽️ <b>Snacks Preference:</b>  
-            Please mention <b>Veg</b> or <b>Non-Veg</b> while sending details.
+            🍽️ <b>Snacks Preference:</b>
+            Mention <b>Veg</b> or <b>Non-Veg</b> while sending details.
         </p>
 
         <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
@@ -179,6 +192,13 @@ body {
 
 <script>
 function sendWhatsApp() {
+
+    // 🔔 TRACK PAYMENT INTENT
+    gtag('event', 'payment_whatsapp_click', {
+        event_category: 'Karmanya',
+        event_label: 'Send Screenshot'
+    });
+
     var phone = "9867637326";
     var msg =
         "KARMANYA 2025 PAYMENT\n\n" +
@@ -191,6 +211,13 @@ function sendWhatsApp() {
 }
 
 function goBack() {
+
+    // 🔔 TRACK BACK BUTTON
+    gtag('event', 'back_to_home', {
+        event_category: 'Navigation',
+        event_label: 'Back from Karmanya'
+    });
+
     window.location.href = "index.html";
 }
 </script>

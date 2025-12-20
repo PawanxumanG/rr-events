@@ -2,195 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tic Tac Toe</title>
+<title>Tic Tac Toe – RR Events</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-/* ===== GLOBAL ===== */
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+<!-- ================= GOOGLE ANALYTICS ================= -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-9JW1V42V83', {
+    page_title: 'Tic Tac Toe',
+    page_path: '/tictactoe.html'
+  });
+
+  // Track game open
+  gtag('event', 'game_open', {
+    event_category: 'TicTacToe'
+  });
+</script>
+<!-- =================================================== -->
+
+<style>
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background: #0f1117;
+    color: #fff;
     text-align: center;
     margin: 0;
-    padding: 16px;
-    color: #ffffff;
 }
 
-/* ===== TITLE ===== */
-h2 {
-    margin: 10px 0 6px;
-    font-size: 22px;
-    font-weight: 600;
+.header {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    padding: 15px;
 }
 
-/* ===== STATUS ===== */
-#status {
-    font-size: 16px;
-    margin: 8px 0 14px;
-    opacity: 0.9;
-}
-
-/* ===== BOARD ===== */
-#board {
+.board {
     display: grid;
-    grid-template-columns: repeat(3, 92px);
-    gap: 14px;
+    grid-template-columns: repeat(3, 90px);
+    gap: 10px;
     justify-content: center;
-    margin: 18px auto 24px;
-    padding: 14px;
-    background: #161a22;
-    border-radius: 16px;
-    box-shadow: 0 0 18px rgba(0,0,0,0.6);
+    margin-top: 30px;
 }
 
-/* ===== CELL ===== */
 .cell {
-    width: 92px;
-    height: 92px;
-    background: linear-gradient(145deg, #1e2330, #141823);
-    font-size: 34px;
+    width: 90px;
+    height: 90px;
+    background: #161a22;
+    font-size: 42px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border-radius: 14px;
-    user-select: none;
-    box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,0.05),
-        0 6px 12px rgba(0,0,0,0.5);
-    transition: all 0.15s ease;
+    border-radius: 12px;
 }
 
 .cell:active {
-    transform: scale(0.96);
+    transform: scale(0.95);
 }
 
-.cell[data-value="❌"] { color: #ff9800; }
-.cell[data-value="⭕"] { color: #03a9f4; }
-
-/* ===== BUTTONS ===== */
 button {
-    padding: 12px 22px;
+    margin-top: 20px;
+    padding: 12px 20px;
     font-size: 15px;
-    font-weight: 600;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin: 6px;
-    color: #ffffff;
-    transition: transform 0.12s ease;
 }
 
-button:active {
-    transform: scale(0.95);
+.restart {
+    background: #ff9800;
+    color: #000;
+}
+
+.back {
+    background: #34495e;
+    color: #fff;
 }
 </style>
 </head>
 
 <body>
 
-<h2>❌ ⭕ Tic Tac Toe</h2>
-<p id="status">Player ❌ Turn</p>
+<div class="header">
+    <h2>🎮 Tic Tac Toe</h2>
+    <p>Play & Chill</p>
+</div>
 
-<div id="board"></div>
+<div class="board" id="board"></div>
 
-<button id="btnRestart" onclick="resetGame()">Restart</button><br>
-<button id="btnBack" onclick="goBack()">⬅ Back</button>
+<button class="restart" onclick="restartGame()">🔁 Restart Game</button><br>
+<button class="back" onclick="goHome()">⬅ Back to Home</button>
 
 <script>
-/* ================= GAME LOGIC ================= */
-let board = ["","","","","","","","",""];
-let currentPlayer = "❌";
+let currentPlayer = "X";
 let gameActive = true;
+let moves = 0;
+let board = ["", "", "", "", "", "", "", "", ""];
 
-const statusText = document.getElementById("status");
-const boardDiv = document.getElementById("board");
-
-const winningConditions = [
-    [0,1,2],[3,4,5],[6,7,8],
-    [0,3,6],[1,4,7],[2,5,8],
-    [0,4,8],[2,4,6]
+const winPatterns = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
 ];
 
-// Create cells
-for (let i = 0; i < 9; i++) {
-    const cell = document.createElement("div");
-    cell.className = "cell";
-    cell.dataset.index = i;
-    cell.addEventListener("click", handleCellClick);
-    boardDiv.appendChild(cell);
+const boardDiv = document.getElementById("board");
+
+function createBoard() {
+    boardDiv.innerHTML = "";
+    board.forEach((cell, index) => {
+        const div = document.createElement("div");
+        div.className = "cell";
+        div.innerText = cell;
+        div.onclick = () => makeMove(index);
+        boardDiv.appendChild(div);
+    });
 }
 
-function handleCellClick() {
-    const index = this.dataset.index;
-    if (board[index] !== "" || !gameActive) return;
+function makeMove(index) {
+    if (!gameActive || board[index] !== "") return;
 
     board[index] = currentPlayer;
-    this.textContent = currentPlayer;
-    this.setAttribute("data-value", currentPlayer);
+    moves++;
+
+    // Track first move
+    if (moves === 1) {
+        gtag('event', 'first_move', {
+            event_category: 'TicTacToe',
+            event_label: currentPlayer
+        });
+    }
 
     if (checkWin()) {
         gameActive = false;
-        setTimeout(() => {
-            alert("🎉 Player " + currentPlayer + " Wins!");
-        }, 100);
-        return;
-    }
-
-    if (!board.includes("")) {
+        gtag('event', 'game_win', {
+            event_category: 'TicTacToe',
+            event_label: currentPlayer
+        });
+        setTimeout(() => alert(`🎉 Player ${currentPlayer} Wins!`), 100);
+    } 
+    else if (moves === 9) {
         gameActive = false;
-        setTimeout(() => {
-            alert("😐 It's a Draw!");
-        }, 100);
-        return;
+        gtag('event', 'game_draw', {
+            event_category: 'TicTacToe'
+        });
+        setTimeout(() => alert("🤝 It's a Draw!"), 100);
+    } 
+    else {
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
     }
 
-    currentPlayer = currentPlayer === "❌" ? "⭕" : "❌";
-    statusText.textContent = "Player " + currentPlayer + " Turn";
+    createBoard();
 }
 
 function checkWin() {
-    return winningConditions.some(cond =>
-        cond.every(i => board[i] === currentPlayer)
+    return winPatterns.some(p =>
+        board[p[0]] &&
+        board[p[0]] === board[p[1]] &&
+        board[p[1]] === board[p[2]]
     );
 }
 
-function resetGame() {
-    board = ["","","","","","","","",""];
-    document.querySelectorAll(".cell").forEach(cell => {
-        cell.textContent = "";
-        cell.removeAttribute("data-value");
+function restartGame() {
+    gtag('event', 'restart_game', {
+        event_category: 'TicTacToe'
     });
-    currentPlayer = "❌";
+
+    board = ["", "", "", "", "", "", "", "", ""];
+    currentPlayer = "X";
     gameActive = true;
-    statusText.textContent = "Player ❌ Turn";
+    moves = 0;
+    createBoard();
 }
 
-/* ================= RANDOM BUTTON COLORS ================= */
-(function randomButtonColors(){
-    const gradients = [
-        ["#2196f3","#00bcd4"],
-        ["#ff6a00","#ff9800"],
-        ["#8e24aa","#d81b60"],
-        ["#43a047","#66bb6a"],
-        ["#e53935","#fb8c00"]
-    ];
-
-    document.querySelectorAll("button").forEach(btn=>{
-        const g = gradients[Math.floor(Math.random()*gradients.length)];
-        btn.style.background = `linear-gradient(90deg,${g[0]},${g[1]})`;
+function goHome() {
+    gtag('event', 'back_to_home', {
+        event_category: 'Navigation',
+        event_label: 'From TicTacToe'
     });
-})();
-
-function goBack() {
-    window.history.back();
+    location.href = "index.html";
 }
+
+createBoard();
 </script>
 
 </body>

@@ -7,6 +7,20 @@
 
 <link rel="stylesheet" href="style.css">
 
+<!-- ================= GOOGLE ANALYTICS ================= -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9JW1V42V83', {
+    page_title: 'Chairman Page',
+    page_path: '/chairman.html'
+  });
+</script>
+<!-- =================================================== -->
+
 <style>
 /* ===== CHAIRMAN PAGE EXTRA STYLES ===== */
 .chairman-box {
@@ -56,7 +70,9 @@
     <div class="event chairman-box">
 
         <!-- CHAIRMAN IMAGE -->
-        <img src="chairman.png" alt="Chairman - RR International College">
+        <img src="chairman.png"
+             alt="Chairman - RR International College"
+             onclick="trackImage()">
 
         <!-- NAME & DESIGNATION -->
         <div class="chairman-name">
@@ -98,14 +114,49 @@
 
     </div>
 
-    <!-- BACK TO HOME BUTTON (COLOR CHANGES AUTOMATICALLY) -->
-    <button onclick="location.href='index.html'" class="nav-btn">
+    <!-- BACK TO HOME BUTTON -->
+    <button onclick="goHome()" class="nav-btn">
         ⬅ Back to Home
     </button>
 
 </div>
 
-<!-- RANDOM COLOR SCRIPT (same as other pages) -->
+<!-- ================= TRACKING SCRIPTS ================= -->
+<script>
+function trackImage() {
+    gtag('event', 'chairman_image_view', {
+        event_category: 'Chairman Page',
+        event_label: 'Chairman Image'
+    });
+}
+
+function goHome() {
+    gtag('event', 'back_to_home', {
+        event_category: 'Navigation',
+        event_label: 'Back from Chairman Page'
+    });
+    location.href = 'index.html';
+}
+
+// Scroll depth tracking
+let scrollTracked = false;
+window.addEventListener('scroll', function () {
+    let scrollPercent = Math.round(
+        (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100
+    );
+
+    if (scrollPercent > 70 && !scrollTracked) {
+        scrollTracked = true;
+        gtag('event', 'chairman_scroll_70', {
+            event_category: 'Chairman Page',
+            event_label: 'Read 70%'
+        });
+    }
+});
+</script>
+<!-- =================================================== -->
+
+<!-- RANDOM COLOR SCRIPT -->
 <script src="random-colors.js"></script>
 
 </body>

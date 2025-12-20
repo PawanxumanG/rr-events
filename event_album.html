@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Event Album</title>
+<title>Event Album – RR International College</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
+
+<!-- ================= GOOGLE ANALYTICS ================= -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9JW1V42V83', {
+    page_title: 'Event Album',
+    page_path: '/event_album.html'
+  });
+</script>
+<!-- =================================================== -->
 </head>
 
 <body>
@@ -19,7 +33,7 @@
 
     <!-- FORMAL DAY -->
     <div class="event">
-        <h2>👔 Formal Day</h2>
+        <h2 onclick="trackSection('Formal Day')">👔 Formal Day</h2>
         <p>
             Students are required to follow the Formal Day Dress Code.
             Below are reference group photos.
@@ -28,32 +42,35 @@
         <!-- BOYS -->
         <div class="poster-box">
             <h3>👨 Boys Formal</h3>
-            <img src="boys_formal.jpg" alt="Boys Formal">
+            <img src="boys_formal.jpg" alt="Boys Formal"
+                 onclick="trackImage('Formal Day - Boys')">
         </div>
 
         <!-- GIRLS -->
         <div class="poster-box">
             <h3>👩 Girls Formal</h3>
-            <img src="girls_formal.jpg" alt="Girls Formal">
+            <img src="girls_formal.jpg" alt="Girls Formal"
+                 onclick="trackImage('Formal Day - Girls')">
         </div>
     </div>
 
     <!-- DENIM DAY -->
     <div class="event">
-        <h2>👖 Denim Day</h2>
+        <h2 onclick="trackSection('Denim Day')">👖 Denim Day</h2>
         <p>
             Denim Day celebration moments captured during the event.
         </p>
 
         <div class="poster-box">
             <h3>💙 Denim Day Group</h3>
-            <img src="denim.png" alt="Denim Day">
+            <img src="denim.png" alt="Denim Day"
+                 onclick="trackImage('Denim Day')">
         </div>
     </div>
 
-    <!-- FUTURE EVENTS PLACEHOLDER -->
+    <!-- FUTURE EVENTS -->
     <div class="event">
-        <h2>📅 Upcoming Event Albums</h2>
+        <h2 onclick="trackSection('Upcoming Albums')">📅 Upcoming Event Albums</h2>
         <p class="text-muted">
             Photos from upcoming events like Cultural Week, Traditional Day,
             Sports Day, etc. will be updated here.
@@ -61,11 +78,37 @@
     </div>
 
     <!-- BACK -->
-    <button onclick="history.back()" class="nav-btn">
+    <button onclick="goBack()" class="nav-btn">
         ⬅ Back to Home
     </button>
 
 </div>
+
+<!-- ================= TRACKING SCRIPTS ================= -->
+<script>
+function trackSection(sectionName) {
+    gtag('event', 'album_section_view', {
+        event_category: 'Event Album',
+        event_label: sectionName
+    });
+}
+
+function trackImage(imageName) {
+    gtag('event', 'album_image_click', {
+        event_category: 'Event Album',
+        event_label: imageName
+    });
+}
+
+function goBack() {
+    gtag('event', 'back_to_home', {
+        event_category: 'Navigation',
+        event_label: 'Back from Event Album'
+    });
+    history.back();
+}
+</script>
+<!-- =================================================== -->
 
 </body>
 </html>
