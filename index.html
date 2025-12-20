@@ -19,12 +19,29 @@ gtag('config', 'G-9JW1V42V83', {
   page_path: '/index.html'
 });
 
-/* PAGE LOAD EVENT */
 gtag('event','home_loaded');
 </script>
 
 <style>
-/* AI HELPER */
+/* ===== COMPACT DAILY STREAK ===== */
+.streak-mini{
+    background:#161a22;
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+    box-shadow:0 0 12px rgba(0,0,0,.5);
+}
+.streak-mini span{opacity:.9;}
+.streak-mini b{
+    color:#ff9800;
+    font-size:15px;
+}
+
+/* ===== AI HELPER ===== */
 .ai-box{
     background:#161a22;
     border-radius:14px;
@@ -33,13 +50,13 @@ gtag('event','home_loaded');
     box-shadow:0 0 18px rgba(0,0,0,.6);
 }
 .ai-box h2{margin-top:0;font-size:18px;}
-.ai-btns button{
+.ai-btn{
     width:100%;
     margin-top:10px;
     padding:12px;
     border:none;
     border-radius:10px;
-    background:#0f1117;
+    background:linear-gradient(90deg,#ff9800,#ff6a00);
     color:#fff;
     font-size:14px;
     cursor:pointer;
@@ -50,7 +67,7 @@ gtag('event','home_loaded');
     color:#ffcc80;
 }
 
-/* COUNTDOWN */
+/* ===== COUNTDOWN ===== */
 .countdown-box{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     border-radius:14px;
@@ -65,26 +82,7 @@ gtag('event','home_loaded');
     margin-top:8px;
 }
 
-/* STREAK */
-.streak-box{
-    background:#161a22;
-    border-radius:14px;
-    padding:16px;
-    margin-bottom:18px;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
-    text-align:center;
-}
-.streak-box h2{
-    margin-top:0;
-    font-size:18px;
-}
-.streak-count{
-    font-size:26px;
-    font-weight:700;
-    color:#ff9800;
-}
-
-/* VIDEO */
+/* ===== PROMO VIDEO ===== */
 .video-box{
     background:#161a22;
     border-radius:14px;
@@ -92,10 +90,7 @@ gtag('event','home_loaded');
     margin:24px 0;
     box-shadow:0 0 18px rgba(0,0,0,.6);
 }
-.video-box h2{
-    margin-top:0;
-    font-size:18px;
-}
+.video-box h2{margin-top:0;font-size:18px;}
 </style>
 </head>
 
@@ -134,24 +129,18 @@ gtag('event','home_loaded');
         </p>
     </div>
 
-    <!-- 🔥 DAILY STREAK -->
-    <div class="streak-box">
-        <h2>🔥 Daily Streak</h2>
-        <p>You have opened this app</p>
-        <div class="streak-count">
-            🔥 <span id="streakCount">1</span> Days in a Row
-        </div>
-        <p class="text-muted">
-            Don’t break your streak — open the app every day!
-        </p>
+    <!-- 🔥 DAILY STREAK (COMPACT) -->
+    <div class="streak-mini">
+        🔥 <span>Daily Streak</span>
+        <b><span id="streakCount">1</span> Day</b>
     </div>
 
     <!-- 🤖 AI STUDENT HELPER -->
     <div class="ai-box">
         <h2>🤖 Student Helper</h2>
-        <div class="ai-btns">
-            <button onclick="aiReply()">How to pay for Karmanya?</button>
-        </div>
+        <button class="ai-btn" onclick="aiReply()">
+            How to pay for Karmanya?
+        </button>
         <div class="ai-answer" id="aiAnswer"></div>
     </div>
 
@@ -198,43 +187,32 @@ gtag('event','home_loaded');
 <script src="random-colors.js"></script>
 
 <script>
-/* 🔥 DAILY STREAK LOGIC */
-function updateDailyStreak(){
-    const today = new Date().toISOString().split("T")[0];
-    let lastVisit = localStorage.getItem("lastVisitDate");
-    let streak = parseInt(localStorage.getItem("dailyStreak") || "0");
+/* ===== DAILY STREAK LOGIC ===== */
+let today = new Date().toDateString();
+let lastDate = localStorage.getItem("lastOpenDate");
+let streak = parseInt(localStorage.getItem("dailyStreak") || "0");
 
-    if(!lastVisit){
-        streak = 1;
+if(lastDate !== today){
+    if(new Date(lastDate).getTime() + 86400000 >= new Date(today).getTime()){
+        streak++;
     } else {
-        const last = new Date(lastVisit);
-        const now = new Date(today);
-        const diffDays = Math.floor((now - last) / (1000*60*60*24));
-
-        if(diffDays === 1){
-            streak++;
-        } else if(diffDays > 1){
-            streak = 1;
-        }
+        streak = 1;
     }
-
-    localStorage.setItem("lastVisitDate", today);
     localStorage.setItem("dailyStreak", streak);
-
-    document.getElementById("streakCount").innerText = streak;
-
-    gtag('event','daily_streak_update',{days:streak});
+    localStorage.setItem("lastOpenDate", today);
 }
-updateDailyStreak();
 
-/* AI HELPER */
+document.getElementById("streakCount").innerText = streak;
+gtag('event','daily_streak',{days:streak});
+
+/* ===== AI HELPER ===== */
 function aiReply(){
     document.getElementById("aiAnswer").innerText =
         "💳 Open Karmanya → Scan QR → Pay ₹500 → Send screenshot on WhatsApp with Name, Class, Roll No & Veg/Non-Veg.";
     gtag('event','ai_helper_used',{question:'karmanya_payment'});
 }
 
-/* BUTTON TRACKING */
+/* ===== BUTTON TRACKING ===== */
 function trackAndGo(type){
     gtag('event','home_click',{button:type});
     if(type==='karmanya') location.href='karmanya.html';
@@ -243,28 +221,13 @@ function trackAndGo(type){
     if(type==='chairman') location.href='chairman.html';
 }
 
-/* SCROLL DEPTH */
-let scroll50=false, scroll90=false;
-window.addEventListener('scroll',()=>{
-    const scrolled=(window.scrollY+window.innerHeight)/document.body.scrollHeight*100;
-    if(scrolled>50 && !scroll50){
-        scroll50=true;
-        gtag('event','scroll_50');
-    }
-    if(scrolled>90 && !scroll90){
-        scroll90=true;
-        gtag('event','scroll_90');
-    }
-});
-
-/* COUNTDOWN */
-const eventDate=new Date("2025-12-30T23:59:59").getTime();
+/* ===== COUNTDOWN ===== */
+const eventDate = new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
-    const now=new Date().getTime();
-    const diff=eventDate-now;
-    if(diff<=0){
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+    if(diff <= 0){
         document.getElementById("countdown").innerText="🎉 Countdown Ended!";
-        gtag('event','countdown_finished');
         return;
     }
     const d=Math.floor(diff/(1000*60*60*24));
