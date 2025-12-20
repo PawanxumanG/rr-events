@@ -64,14 +64,20 @@ body {
     width: 220px;
     max-width: 100%;
     border-radius: 12px;
-    margin-top: 10px;
+    margin-top: 12px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.6);
 }
 
-.qr-info {
-    margin-top: 10px;
+.qr-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffcc80;
+}
+
+.qr-sub {
     font-size: 14px;
     color: #dcdcdc;
+    margin-top: 4px;
 }
 
 .btn {
@@ -118,7 +124,7 @@ body {
 
 <div class="container">
 
-    <!-- NOTICE -->
+    <!-- IMPORTANT NOTICE -->
     <div class="card">
         <h2>📢 Important Notice</h2>
         <p>
@@ -135,22 +141,29 @@ body {
         <h2>💳 Scan & Pay (₹500)</h2>
 
         <div class="qr-box">
-            <p><b>UPI ID:</b> 8108810077@pthdfc</p>
-            <p><b>Amount:</b> ₹500</p>
+            <div class="qr-title">UPI Holder Name</div>
+            <div class="qr-sub"><b>HARSHL SINGH RAJPUT</b></div>
 
-            <!-- AUTO-FILLED UPI QR -->
+            <div class="qr-sub" style="margin-top:6px;">
+                UPI ID: <b>8108810077@pthdfc</b>
+            </div>
+            <div class="qr-sub">
+                Amount: <b>₹500</b>
+            </div>
+
+            <!-- AUTO-FILLED QR -->
             <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=8108810077@pthdfc%26pn=RR%20International%20College%26am=500%26cu=INR%26tn=Karmanya%202025"
+              src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=8108810077@pthdfc%26pn=HARSHL%20SINGH%20RAJPUT%26am=500%26cu=INR%26tn=Karmanya%202025"
               alt="UPI QR Code">
 
-            <div class="qr-info">
-                Scan using <b>GPay / PhonePe / Paytm</b><br>
-                Amount is auto-filled as ₹500
+            <div class="qr-sub" style="margin-top:10px;">
+                Scan using <b>GPay / PhonePe / Paytm</b>
             </div>
         </div>
 
         <p class="warning">
-            ⚠️ After payment, send screenshot on WhatsApp
+            🍽️ <b>Snacks Preference:</b>  
+            Please mention <b>Veg</b> or <b>Non-Veg</b> while sending details.
         </p>
 
         <button class="btn btn-whatsapp" onclick="sendWhatsApp()">
@@ -169,7 +182,8 @@ function sendWhatsApp() {
     var phone = "9867637326";
     var msg =
         "KARMANYA 2025 PAYMENT\n\n" +
-        "Name:\nClass:\nRoll No:\n\n" +
+        "Name:\nClass:\nRoll No:\n" +
+        "Snacks Preference (Veg / Non-Veg):\n\n" +
         "I have paid ₹500 via UPI.\nPlease find the screenshot attached.";
 
     window.location.href =
