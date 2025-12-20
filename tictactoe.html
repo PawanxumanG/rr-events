@@ -5,7 +5,7 @@
 <title>Tic Tac Toe – RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ✅ GOOGLE ANALYTICS -->
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -24,21 +24,14 @@ body{
     text-align:center;
 }
 
-/* GAME HEADER */
+/* HEADER */
 .game-header{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     padding:26px 12px;
 }
-.game-header h1{
-    margin:0;
-    font-size:28px;
-}
-.game-header p{
-    margin:6px 0 14px;
-    opacity:.9;
-}
+.game-header h1{margin:0;font-size:28px;}
+.game-header p{margin:6px 0 14px;opacity:.9;}
 
-/* MODE SWITCH BUTTON */
 .mode-btn{
     background:rgba(0,0,0,.35);
     border:none;
@@ -52,12 +45,22 @@ body{
     gap:8px;
 }
 
-/* STATUS */
-.status{
-    margin:20px 0;
-    font-size:18px;
-    font-weight:600;
+/* SCOREBOARD */
+.scoreboard{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin:16px 0;
+    font-size:14px;
 }
+.score{
+    background:#161a22;
+    padding:10px 14px;
+    border-radius:10px;
+}
+
+/* STATUS */
+.status{margin:16px 0;font-size:18px;font-weight:600;}
 
 /* BOARD */
 .board{
@@ -80,6 +83,10 @@ body{
 }
 .cell.X{color:#4fc3f7;}
 .cell.O{color:#ffb74d;}
+.cell.win{
+    background:linear-gradient(135deg,#43cea2,#185a9d);
+    box-shadow:0 0 20px rgba(67,206,162,.9);
+}
 
 /* BUTTONS */
 .btn{
@@ -93,14 +100,8 @@ body{
     cursor:pointer;
     margin-top:16px;
 }
-.btn-restart{
-    background:linear-gradient(90deg,#ff9800,#ff6a00);
-    color:#fff;
-}
-.btn-back{
-    background:#34495e;
-    color:#fff;
-}
+.btn-restart{background:linear-gradient(90deg,#ff9800,#ff6a00);color:#fff;}
+.btn-back{background:#34495e;color:#fff;}
 </style>
 </head>
 
@@ -110,11 +111,16 @@ body{
     <h1>🎮 Tic Tac Toe</h1>
     <p>Play & Chill</p>
 
-    <!-- SMART MODE BUTTON -->
     <button class="mode-btn" onclick="toggleMode()">
         <span id="modeIcon">👥</span>
         <span id="modeText">Friend</span>
     </button>
+</div>
+
+<div class="scoreboard">
+    <div class="score">❌ X: <span id="xScore">0</span></div>
+    <div class="score">⭕ O: <span id="oScore">0</span></div>
+    <div class="score">🤝 Draw: <span id="drawScore">0</span></div>
 </div>
 
 <div class="status" id="status">Player X Turn</div>
@@ -125,13 +131,22 @@ body{
 <button class="btn btn-back" onclick="location.href='index.html'">⬅ Back to Home</button>
 
 <script>
-const boardEl = document.getElementById("board");
-const statusEl = document.getElementById("status");
-const modeIcon = document.getElementById("modeIcon");
-const modeText = document.getElementById("modeText");
+const boardEl=document.getElementById("board");
+const statusEl=document.getElementById("status");
+const modeIcon=document.getElementById("modeIcon");
+const modeText=document.getElementById("modeText");
 
-let board, currentPlayer, gameOver;
-let vsAI = true; // DEFAULT AI MODE
+let board,currentPlayer,gameOver,vsAI=true;
+
+let scores={
+    X:localStorage.getItem("xScore")||0,
+    O:localStorage.getItem("oScore")||0,
+    D:localStorage.getItem("drawScore")||0
+};
+
+document.getElementById("xScore").innerText=scores.X;
+document.getElementById("oScore").innerText=scores.O;
+document.getElementById("drawScore").innerText=scores.D;
 
 const wins=[
 [0,1,2],[3,4,5],[6,7,8],
@@ -159,14 +174,22 @@ function move(i){
     board[i]=currentPlayer;
     render();
 
-    if(checkWin()){
+    const winLine=getWinLine();
+    if(winLine){
+        winLine.forEach(i=>boardEl.children[i].classList.add("win"));
         statusEl.innerText=`🎉 Player ${currentPlayer} Wins!`;
+        scores[currentPlayer]++;
+        localStorage.setItem(currentPlayer==="X"?"xScore":"oScore",scores[currentPlayer]);
+        updateScore();
         gtag('event','game_win',{winner:currentPlayer,mode:vsAI?'AI':'Friend'});
         gameOver=true;return;
     }
 
     if(board.every(v=>v)){
         statusEl.innerText="🤝 Match Draw";
+        scores.D++;
+        localStorage.setItem("drawScore",scores.D);
+        updateScore();
         gtag('event','game_draw',{mode:vsAI?'AI':'Friend'});
         gameOver=true;return;
     }
@@ -174,19 +197,39 @@ function move(i){
     currentPlayer=currentPlayer==="X"?"O":"X";
     statusEl.innerText=`Player ${currentPlayer} Turn`;
 
-    if(vsAI && currentPlayer==="O"){
-        setTimeout(aiMove,500);
-    }
+    if(vsAI && currentPlayer==="O")setTimeout(aiMove,400);
 }
 
 function aiMove(){
+    let move=findBestMove();
+    move!==null && move>=0 ? moveCell(move) : randomMove();
+}
+function moveCell(i){move(i);}
+function randomMove(){
     let empty=board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
-    let pick=empty[Math.floor(Math.random()*empty.length)];
-    move(pick);
+    moveCell(empty[Math.floor(Math.random()*empty.length)]);
 }
 
-function checkWin(){
-    return wins.some(w=>w.every(i=>board[i]===currentPlayer));
+function findBestMove(){
+    for(let i=0;i<9;i++){
+        if(board[i]===""){
+            board[i]="O";
+            if(getWinLine()){board[i]="";return i;}
+            board[i]="";
+        }
+    }
+    for(let i=0;i<9;i++){
+        if(board[i]===""){
+            board[i]="X";
+            if(getWinLine()){board[i]="";return i;}
+            board[i]="";
+        }
+    }
+    return board[4]===""?4:null;
+}
+
+function getWinLine(){
+    return wins.find(w=>w.every(i=>board[i]===currentPlayer));
 }
 
 function render(){
@@ -202,18 +245,17 @@ function restartGame(){
 }
 
 function toggleMode(){
-    vsAI = !vsAI;
-
-    if(vsAI){
-        modeIcon.innerText="👥";
-        modeText.innerText="Friend";
-    }else{
-        modeIcon.innerText="🤖";
-        modeText.innerText="R.R. Ai";
-    }
-
+    vsAI=!vsAI;
+    modeIcon.innerText=vsAI?"👥":"🤖";
+    modeText.innerText=vsAI?"Friend":"AI";
     gtag('event','mode_switch',{mode:vsAI?'AI':'Friend'});
     restartGame();
+}
+
+function updateScore(){
+    document.getElementById("xScore").innerText=scores.X;
+    document.getElementById("oScore").innerText=scores.O;
+    document.getElementById("drawScore").innerText=scores.D;
 }
 </script>
 
