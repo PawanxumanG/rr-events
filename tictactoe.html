@@ -5,75 +5,96 @@
 <title>Tic Tac Toe – RR Events</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ================= GOOGLE ANALYTICS ================= -->
+<!-- ============ GOOGLE ANALYTICS ============ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-9JW1V42V83', {
     page_title: 'Tic Tac Toe',
     page_path: '/tictactoe.html'
   });
 
-  // Track game open
-  gtag('event', 'game_open', {
-    event_category: 'TicTacToe'
-  });
+  gtag('event', 'game_open', { event_category: 'TicTacToe' });
 </script>
-<!-- =================================================== -->
+<!-- ======================================== -->
 
 <style>
 body {
-    font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
     background: #0f1117;
     color: #fff;
     text-align: center;
-    margin: 0;
 }
 
 .header {
+    padding: 18px;
     background: linear-gradient(90deg, #6a11cb, #2575fc);
-    padding: 15px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.status {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    min-height: 24px;
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 90px);
-    gap: 10px;
+    grid-template-columns: repeat(3, 95px);
+    gap: 12px;
     justify-content: center;
-    margin-top: 30px;
+    margin: 30px auto;
 }
 
 .cell {
-    width: 90px;
-    height: 90px;
+    width: 95px;
+    height: 95px;
     background: #161a22;
-    font-size: 42px;
+    border-radius: 16px;
+    font-size: 46px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    border-radius: 12px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
+}
+
+.cell.x {
+    color: #4fc3ff;
+    text-shadow: 0 0 14px rgba(79,195,255,0.8);
+}
+
+.cell.o {
+    color: #ff9800;
+    text-shadow: 0 0 14px rgba(255,152,0,0.8);
 }
 
 .cell:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
 button {
-    margin-top: 20px;
-    padding: 12px 20px;
-    font-size: 15px;
+    width: 80%;
+    max-width: 260px;
+    padding: 14px;
+    border-radius: 14px;
     border: none;
-    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    margin-top: 14px;
 }
 
 .restart {
-    background: #ff9800;
+    background: linear-gradient(90deg, #ff9800, #ff6a00);
     color: #000;
 }
 
@@ -91,16 +112,21 @@ button {
     <p>Play & Chill</p>
 </div>
 
+<div class="status" id="status">Player <span style="color:#4fc3ff">X</span>'s Turn</div>
+
 <div class="board" id="board"></div>
 
-<button class="restart" onclick="restartGame()">🔁 Restart Game</button><br>
+<button class="restart" onclick="restartGame()">🔁 Restart Game</button>
 <button class="back" onclick="goHome()">⬅ Back to Home</button>
 
 <script>
 let currentPlayer = "X";
+let board = ["","","","","","","","",""];
 let gameActive = true;
 let moves = 0;
-let board = ["", "", "", "", "", "", "", "", ""];
+
+const statusDiv = document.getElementById("status");
+const boardDiv = document.getElementById("board");
 
 const winPatterns = [
   [0,1,2],[3,4,5],[6,7,8],
@@ -108,26 +134,25 @@ const winPatterns = [
   [0,4,8],[2,4,6]
 ];
 
-const boardDiv = document.getElementById("board");
-
-function createBoard() {
+function drawBoard() {
     boardDiv.innerHTML = "";
-    board.forEach((cell, index) => {
-        const div = document.createElement("div");
-        div.className = "cell";
-        div.innerText = cell;
-        div.onclick = () => makeMove(index);
-        boardDiv.appendChild(div);
+    board.forEach((val, i) => {
+        const c = document.createElement("div");
+        c.className = "cell";
+        if (val === "X") c.classList.add("x");
+        if (val === "O") c.classList.add("o");
+        c.innerText = val;
+        c.onclick = () => makeMove(i);
+        boardDiv.appendChild(c);
     });
 }
 
-function makeMove(index) {
-    if (!gameActive || board[index] !== "") return;
+function makeMove(i) {
+    if (!gameActive || board[i]) return;
 
-    board[index] = currentPlayer;
+    board[i] = currentPlayer;
     moves++;
 
-    // Track first move
     if (moves === 1) {
         gtag('event', 'first_move', {
             event_category: 'TicTacToe',
@@ -137,24 +162,28 @@ function makeMove(index) {
 
     if (checkWin()) {
         gameActive = false;
+        statusDiv.innerHTML = `🎉 Player <span style="color:${currentPlayer==='X'?'#4fc3ff':'#ff9800'}">${currentPlayer}</span> Wins!`;
+
         gtag('event', 'game_win', {
             event_category: 'TicTacToe',
             event_label: currentPlayer
         });
-        setTimeout(() => alert(`🎉 Player ${currentPlayer} Wins!`), 100);
     } 
     else if (moves === 9) {
         gameActive = false;
+        statusDiv.innerText = "🤝 Match Draw";
+
         gtag('event', 'game_draw', {
             event_category: 'TicTacToe'
         });
-        setTimeout(() => alert("🤝 It's a Draw!"), 100);
     } 
     else {
         currentPlayer = currentPlayer === "X" ? "O" : "X";
+        statusDiv.innerHTML =
+          `Player <span style="color:${currentPlayer==='X'?'#4fc3ff':'#ff9800'}">${currentPlayer}</span>'s Turn`;
     }
 
-    createBoard();
+    drawBoard();
 }
 
 function checkWin() {
@@ -166,15 +195,14 @@ function checkWin() {
 }
 
 function restartGame() {
-    gtag('event', 'restart_game', {
-        event_category: 'TicTacToe'
-    });
+    gtag('event', 'restart_game', { event_category: 'TicTacToe' });
 
-    board = ["", "", "", "", "", "", "", "", ""];
+    board = ["","","","","","","","",""];
     currentPlayer = "X";
     gameActive = true;
     moves = 0;
-    createBoard();
+    statusDiv.innerHTML = "Player <span style='color:#4fc3ff'>X</span>'s Turn";
+    drawBoard();
 }
 
 function goHome() {
@@ -185,7 +213,7 @@ function goHome() {
     location.href = "index.html";
 }
 
-createBoard();
+drawBoard();
 </script>
 
 </body>
