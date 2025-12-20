@@ -5,20 +5,18 @@
 <title>Tic Tac Toe – RR Events</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ============ GOOGLE ANALYTICS ============ -->
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-9JW1V42V83', {
-    page_title: 'Tic Tac Toe',
-    page_path: '/tictactoe.html'
-  });
-
-  gtag('event', 'game_open', { event_category: 'TicTacToe' });
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9JW1V42V83', {
+  page_title: 'Tic Tac Toe',
+  page_path: '/tictactoe.html'
+});
+gtag('event', 'game_open', {event_category:'TicTacToe'});
 </script>
-<!-- ======================================== -->
 
 <style>
 body {
@@ -30,19 +28,28 @@ body {
 }
 
 .header {
-    padding: 18px;
+    padding: 16px;
     background: linear-gradient(90deg, #6a11cb, #2575fc);
+    position: relative;
 }
 
-.header h2 {
-    margin: 0;
+.ai-toggle {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
 }
 
 .status {
     margin-top: 12px;
     font-size: 18px;
     font-weight: 600;
-    min-height: 24px;
 }
 
 .board {
@@ -64,7 +71,6 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
 }
 
 .cell.x {
@@ -75,10 +81,6 @@ body {
 .cell.o {
     color: #ff9800;
     text-shadow: 0 0 14px rgba(255,152,0,0.8);
-}
-
-.cell:active {
-    transform: scale(0.94);
 }
 
 button {
@@ -95,7 +97,6 @@ button {
 
 .restart {
     background: linear-gradient(90deg, #ff9800, #ff6a00);
-    color: #000;
 }
 
 .back {
@@ -110,109 +111,138 @@ button {
 <div class="header">
     <h2>🎮 Tic Tac Toe</h2>
     <p>Play & Chill</p>
+
+    <button class="ai-toggle" onclick="toggleAI()">
+        🤖 <span id="aiText">Play with AI</span>
+    </button>
 </div>
 
-<div class="status" id="status">Player <span style="color:#4fc3ff">X</span>'s Turn</div>
+<div class="status" id="status">Player X's Turn</div>
 
 <div class="board" id="board"></div>
 
 <button class="restart" onclick="restartGame()">🔁 Restart Game</button>
-<button class="back" onclick="goHome()">⬅ Back to Home</button>
+<button class="back" onclick="location.href='index.html'">⬅ Back to Home</button>
 
 <script>
-let currentPlayer = "X";
 let board = ["","","","","","","","",""];
+let currentPlayer = "X";
 let gameActive = true;
-let moves = 0;
+let vsAI = false;
 
 const statusDiv = document.getElementById("status");
 const boardDiv = document.getElementById("board");
+const aiText = document.getElementById("aiText");
 
 const winPatterns = [
-  [0,1,2],[3,4,5],[6,7,8],
-  [0,3,6],[1,4,7],[2,5,8],
-  [0,4,8],[2,4,6]
+ [0,1,2],[3,4,5],[6,7,8],
+ [0,3,6],[1,4,7],[2,5,8],
+ [0,4,8],[2,4,6]
 ];
+
+function toggleAI() {
+    vsAI = !vsAI;
+    aiText.innerText = vsAI ? "Play with Friend" : "Play with AI";
+    gtag('event','ai_mode_toggle',{enabled:vsAI});
+    restartGame();
+}
 
 function drawBoard() {
     boardDiv.innerHTML = "";
-    board.forEach((val, i) => {
-        const c = document.createElement("div");
-        c.className = "cell";
-        if (val === "X") c.classList.add("x");
-        if (val === "O") c.classList.add("o");
-        c.innerText = val;
-        c.onclick = () => makeMove(i);
+    board.forEach((v,i)=>{
+        const c=document.createElement("div");
+        c.className="cell";
+        if(v==="X") c.classList.add("x");
+        if(v==="O") c.classList.add("o");
+        c.innerText=v;
+        c.onclick=()=>makeMove(i);
         boardDiv.appendChild(c);
     });
 }
 
 function makeMove(i) {
-    if (!gameActive || board[i]) return;
+    if(!gameActive||board[i]) return;
+    board[i]=currentPlayer;
+    if(checkWin()) return endGame(currentPlayer);
+    if(board.every(v=>v)) return endDraw();
+    currentPlayer = currentPlayer==="X"?"O":"X";
+    updateStatus();
 
-    board[i] = currentPlayer;
-    moves++;
-
-    if (moves === 1) {
-        gtag('event', 'first_move', {
-            event_category: 'TicTacToe',
-            event_label: currentPlayer
-        });
+    if(vsAI && currentPlayer==="O"){
+        setTimeout(aiMove,400);
     }
+}
 
-    if (checkWin()) {
-        gameActive = false;
-        statusDiv.innerHTML = `🎉 Player <span style="color:${currentPlayer==='X'?'#4fc3ff':'#ff9800'}">${currentPlayer}</span> Wins!`;
-
-        gtag('event', 'game_win', {
-            event_category: 'TicTacToe',
-            event_label: currentPlayer
-        });
-    } 
-    else if (moves === 9) {
-        gameActive = false;
-        statusDiv.innerText = "🤝 Match Draw";
-
-        gtag('event', 'game_draw', {
-            event_category: 'TicTacToe'
-        });
-    } 
-    else {
-        currentPlayer = currentPlayer === "X" ? "O" : "X";
-        statusDiv.innerHTML =
-          `Player <span style="color:${currentPlayer==='X'?'#4fc3ff':'#ff9800'}">${currentPlayer}</span>'s Turn`;
-    }
-
+function aiMove(){
+    let move = findBestMove();
+    board[move]="O";
+    gtag('event','ai_move',{cell:move});
+    if(checkWin()) return endGame("O",true);
+    if(board.every(v=>v)) return endDraw();
+    currentPlayer="X";
+    updateStatus();
     drawBoard();
 }
 
-function checkWin() {
+function findBestMove(){
+    for(let i=0;i<9;i++){
+        if(!board[i]){
+            board[i]="O";
+            if(checkWin()){board[i]="";return i;}
+            board[i]="";
+        }
+    }
+    for(let i=0;i<9;i++){
+        if(!board[i]){
+            board[i]="X";
+            if(checkWin()){board[i]="";return i;}
+            board[i]="";
+        }
+    }
+    return board.findIndex(v=>v==="");
+}
+
+function checkWin(){
     return winPatterns.some(p =>
-        board[p[0]] &&
-        board[p[0]] === board[p[1]] &&
-        board[p[1]] === board[p[2]]
+      board[p[0]] &&
+      board[p[0]]===board[p[1]] &&
+      board[p[1]]===board[p[2]]
     );
 }
 
-function restartGame() {
-    gtag('event', 'restart_game', { event_category: 'TicTacToe' });
+function endGame(player, ai=false){
+    gameActive=false;
+    statusDiv.innerHTML = ai && player==="O"
+      ? "🤖 AI Wins!"
+      : `🎉 Player ${player} Wins!`;
 
-    board = ["","","","","","","","",""];
-    currentPlayer = "X";
-    gameActive = true;
-    moves = 0;
-    statusDiv.innerHTML = "Player <span style='color:#4fc3ff'>X</span>'s Turn";
+    gtag('event','game_win',{
+      winner: ai?"AI":"Human",
+      symbol: player
+    });
     drawBoard();
 }
 
-function goHome() {
-    gtag('event', 'back_to_home', {
-        event_category: 'Navigation',
-        event_label: 'From TicTacToe'
-    });
-    location.href = "index.html";
+function endDraw(){
+    gameActive=false;
+    statusDiv.innerText="🤝 Match Draw";
+    gtag('event','game_draw');
 }
 
+function updateStatus(){
+    statusDiv.innerText =
+      vsAI && currentPlayer==="O"
+      ? "🤖 AI Thinking..."
+      : `Player ${currentPlayer}'s Turn`;
+    drawBoard();
+}
+
+function restartGame(){
+    board=["","","","","","","","",""];
+    currentPlayer="X";
+    gameActive=true;
+    updateStatus();
+}
 drawBoard();
 </script>
 
