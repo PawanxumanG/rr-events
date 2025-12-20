@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- ✅ GOOGLE ANALYTICS -->
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -20,7 +20,7 @@ gtag('config', 'G-9JW1V42V83', {
 </script>
 
 <style>
-/* DOWNLOAD BUTTON */
+.poster-box{margin-top:16px;}
 .download-btn{
     width:100%;
     margin-top:10px;
@@ -34,18 +34,12 @@ gtag('config', 'G-9JW1V42V83', {
     cursor:pointer;
     box-shadow:0 6px 14px rgba(76,175,80,.35);
 }
-.download-btn:active{
-    transform:scale(0.97);
-}
-.poster-box{
-    margin-top:14px;
-}
+.download-btn:active{transform:scale(0.97);}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <h1>EVENT ALBUM</h1>
     <p>College Events & Memories</p>
@@ -53,25 +47,22 @@ gtag('config', 'G-9JW1V42V83', {
 
 <div class="container">
 
-    <!-- 👔 FORMAL DAY -->
+    <!-- FORMAL DAY -->
     <div class="event">
-        <h2 onclick="trackSection('Formal Day')">👔 Formal Day</h2>
-        <p>Students are required to follow the Formal Day Dress Code.</p>
+        <h2>👔 Formal Day</h2>
 
-        <!-- BOYS -->
         <div class="poster-box">
             <h3>👨 Boys Formal</h3>
-            <img src="boys_formal.jpg" alt="Boys Formal">
+            <img src="boys_formal.jpg">
             <button class="download-btn"
                 onclick="downloadImage('boys_formal.jpg','Formal_Day_Boys.jpg')">
                 ⬇ Download Photo
             </button>
         </div>
 
-        <!-- GIRLS -->
         <div class="poster-box">
             <h3>👩 Girls Formal</h3>
-            <img src="girls_formal.jpg" alt="Girls Formal">
+            <img src="girls_formal.jpg">
             <button class="download-btn"
                 onclick="downloadImage('girls_formal.jpg','Formal_Day_Girls.jpg')">
                 ⬇ Download Photo
@@ -79,14 +70,13 @@ gtag('config', 'G-9JW1V42V83', {
         </div>
     </div>
 
-    <!-- 👖 DENIM DAY -->
+    <!-- DENIM DAY -->
     <div class="event">
-        <h2 onclick="trackSection('Denim Day')">👖 Denim Day</h2>
-        <p>Denim Day celebration moments captured during the event.</p>
+        <h2>👖 Denim Day</h2>
 
         <div class="poster-box">
             <h3>💙 Denim Day Group</h3>
-            <img src="denim.png" alt="Denim Day">
+            <img src="denim.png">
             <button class="download-btn"
                 onclick="downloadImage('denim.png','Denim_Day.jpg')">
                 ⬇ Download Photo
@@ -94,50 +84,31 @@ gtag('config', 'G-9JW1V42V83', {
         </div>
     </div>
 
-    <!-- UPCOMING -->
-    <div class="event">
-        <h2 onclick="trackSection('Upcoming Albums')">📅 Upcoming Event Albums</h2>
-        <p class="text-muted">
-            Cultural Week, Traditional Day, Sports Day photos will be updated.
-        </p>
-    </div>
-
-    <!-- BACK -->
-    <button onclick="goBack()" class="nav-btn">
+    <button onclick="history.back()" class="nav-btn">
         ⬅ Back to Home
     </button>
 
 </div>
 
-<!-- ================= SCRIPTS ================= -->
 <script>
-function trackSection(name){
-    gtag('event','album_section_view',{
-        event_category:'Event Album',
-        event_label:name
-    });
-}
-
 function downloadImage(url, filename){
-    gtag('event','album_image_download',{
-        event_category:'Event Album',
-        event_label:filename
-    });
+    gtag('event','album_image_download',{image:filename});
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
-
-function goBack(){
-    gtag('event','back_to_home',{
-        event_category:'Navigation',
-        event_label:'Event Album'
-    });
-    history.back();
+    fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = blobUrl;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(blobUrl);
+        })
+        .catch(() => {
+            alert("Download failed. Please check internet connection.");
+        });
 }
 </script>
 
