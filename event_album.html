@@ -7,19 +7,40 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- ================= GOOGLE ANALYTICS ================= -->
+<!-- ✅ GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9JW1V42V83', {
-    page_title: 'Event Album',
-    page_path: '/event_album.html'
-  });
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9JW1V42V83', {
+  page_title: 'Event Album',
+  page_path: '/event_album.html'
+});
 </script>
-<!-- =================================================== -->
+
+<style>
+/* DOWNLOAD BUTTON */
+.download-btn{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#4caf50,#2ecc71);
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 6px 14px rgba(76,175,80,.35);
+}
+.download-btn:active{
+    transform:scale(0.97);
+}
+.poster-box{
+    margin-top:14px;
+}
+</style>
 </head>
 
 <body>
@@ -32,68 +53,52 @@
 
 <div class="container">
 
-    <!-- ================= FORMAL DAY ================= -->
+    <!-- 👔 FORMAL DAY -->
     <div class="event">
         <h2 onclick="trackSection('Formal Day')">👔 Formal Day</h2>
-        <p>
-            Students are required to follow the Formal Day Dress Code.
-            Below are reference group photos.
-        </p>
+        <p>Students are required to follow the Formal Day Dress Code.</p>
 
         <!-- BOYS -->
         <div class="poster-box">
             <h3>👨 Boys Formal</h3>
-
-            <img src="boys_formal.jpg" alt="Boys Formal"
-                 onclick="trackImage('Formal Day - Boys')">
-
-            <a href="boys_formal.jpg" download="Formal_Day_Boys.jpg"
-               class="download-btn"
-               onclick="trackDownload('Formal Day - Boys')">
+            <img src="boys_formal.jpg" alt="Boys Formal">
+            <button class="download-btn"
+                onclick="downloadImage('boys_formal.jpg','Formal_Day_Boys.jpg')">
                 ⬇ Download Photo
-            </a>
+            </button>
         </div>
 
         <!-- GIRLS -->
         <div class="poster-box">
             <h3>👩 Girls Formal</h3>
-
-            <img src="girls_formal.jpg" alt="Girls Formal"
-                 onclick="trackImage('Formal Day - Girls')">
-
-            <a href="girls_formal.jpg" download="Formal_Day_Girls.jpg"
-               class="download-btn"
-               onclick="trackDownload('Formal Day - Girls')">
+            <img src="girls_formal.jpg" alt="Girls Formal">
+            <button class="download-btn"
+                onclick="downloadImage('girls_formal.jpg','Formal_Day_Girls.jpg')">
                 ⬇ Download Photo
-            </a>
+            </button>
         </div>
     </div>
 
-    <!-- ================= DENIM DAY ================= -->
+    <!-- 👖 DENIM DAY -->
     <div class="event">
         <h2 onclick="trackSection('Denim Day')">👖 Denim Day</h2>
         <p>Denim Day celebration moments captured during the event.</p>
 
         <div class="poster-box">
             <h3>💙 Denim Day Group</h3>
-
-            <img src="denim.png" alt="Denim Day"
-                 onclick="trackImage('Denim Day')">
-
-            <a href="denim.png" download="Denim_Day.jpg"
-               class="download-btn"
-               onclick="trackDownload('Denim Day')">
+            <img src="denim.png" alt="Denim Day">
+            <button class="download-btn"
+                onclick="downloadImage('denim.png','Denim_Day.jpg')">
                 ⬇ Download Photo
-            </a>
+            </button>
         </div>
     </div>
 
-    <!-- ================= UPCOMING ================= -->
+    <!-- UPCOMING -->
     <div class="event">
         <h2 onclick="trackSection('Upcoming Albums')">📅 Upcoming Event Albums</h2>
         <p class="text-muted">
-            Photos from Cultural Week, Traditional Day,
-            Sports Day, etc. will be updated here.
+            Cultural Week, Traditional Day, Sports Day photos will be updated.
         </p>
     </div>
 
@@ -104,38 +109,37 @@
 
 </div>
 
-<!-- ================= TRACKING ================= -->
+<!-- ================= SCRIPTS ================= -->
 <script>
-function trackSection(sectionName) {
-    gtag('event', 'album_section_view', {
-        event_category: 'Event Album',
-        event_label: sectionName
+function trackSection(name){
+    gtag('event','album_section_view',{
+        event_category:'Event Album',
+        event_label:name
     });
 }
 
-function trackImage(imageName) {
-    gtag('event', 'album_image_click', {
-        event_category: 'Event Album',
-        event_label: imageName
+function downloadImage(url, filename){
+    gtag('event','album_image_download',{
+        event_category:'Event Album',
+        event_label:filename
     });
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
-function trackDownload(imageName) {
-    gtag('event', 'album_image_download', {
-        event_category: 'Event Album',
-        event_label: imageName
+function goBack(){
+    gtag('event','back_to_home',{
+        event_category:'Navigation',
+        event_label:'Event Album'
     });
-}
-
-function goBack() {
-    gtag('event', 'back_to_home', {
-        event_category: 'Navigation',
-        event_label: 'Back from Event Album'
-    });
-    location.href = "index.html";
+    history.back();
 }
 </script>
-<!-- =================================================== -->
 
 </body>
 </html>
