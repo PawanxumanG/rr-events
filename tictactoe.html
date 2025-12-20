@@ -24,15 +24,7 @@ body{
     text-align:center;
 }
 
-/* TOP BAR */
-.top-bar{
-    background:linear-gradient(90deg,#ff6a00,#ff9800);
-    padding:14px;
-    font-size:18px;
-    font-weight:600;
-}
-
-/* HEADER */
+/* GAME HEADER */
 .game-header{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     padding:26px 12px;
@@ -114,13 +106,11 @@ body{
 
 <body>
 
-<div class="top-bar">RR EVENTS APP</div>
-
 <div class="game-header">
     <h1>🎮 Tic Tac Toe</h1>
     <p>Play & Chill</p>
 
-    <!-- SINGLE SMART MODE BUTTON -->
+    <!-- SMART MODE BUTTON -->
     <button class="mode-btn" onclick="toggleMode()">
         <span id="modeIcon">👥</span>
         <span id="modeText">Friend</span>
@@ -215,13 +205,11 @@ function toggleMode(){
     vsAI = !vsAI;
 
     if(vsAI){
-        // NOW PLAYING WITH AI → SHOW FRIEND BUTTON
         modeIcon.innerText="👥";
         modeText.innerText="Friend";
     }else{
-        // NOW PLAYING WITH FRIEND → SHOW AI BUTTON
         modeIcon.innerText="🤖";
-        modeText.innerText="AI";
+        modeText.innerText="R.R. Ai";
     }
 
     gtag('event','mode_switch',{mode:vsAI?'AI':'Friend'});
