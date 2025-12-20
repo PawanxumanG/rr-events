@@ -21,6 +21,7 @@ gtag('config', 'G-9JW1V42V83', {
 
 <style>
 .poster-box{margin-top:16px;}
+
 .download-btn{
     width:100%;
     margin-top:10px;
@@ -55,7 +56,7 @@ gtag('config', 'G-9JW1V42V83', {
             <h3>👨 Boys Formal</h3>
             <img src="boys_formal.jpg">
             <button class="download-btn"
-                onclick="downloadImage('boys_formal.jpg','Formal_Day_Boys.jpg')">
+                onclick="openImage('boys_formal.jpg')">
                 ⬇ Download Photo
             </button>
         </div>
@@ -64,7 +65,7 @@ gtag('config', 'G-9JW1V42V83', {
             <h3>👩 Girls Formal</h3>
             <img src="girls_formal.jpg">
             <button class="download-btn"
-                onclick="downloadImage('girls_formal.jpg','Formal_Day_Girls.jpg')">
+                onclick="openImage('girls_formal.jpg')">
                 ⬇ Download Photo
             </button>
         </div>
@@ -78,7 +79,7 @@ gtag('config', 'G-9JW1V42V83', {
             <h3>💙 Denim Day Group</h3>
             <img src="denim.png">
             <button class="download-btn"
-                onclick="downloadImage('denim.png','Denim_Day.jpg')">
+                onclick="openImage('denim.png')">
                 ⬇ Download Photo
             </button>
         </div>
@@ -91,24 +92,9 @@ gtag('config', 'G-9JW1V42V83', {
 </div>
 
 <script>
-function downloadImage(url, filename){
-    gtag('event','album_image_download',{image:filename});
-
-    fetch(url)
-        .then(res => res.blob())
-        .then(blob => {
-            const blobUrl = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = blobUrl;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(blobUrl);
-        })
-        .catch(() => {
-            alert("Download failed. Please check internet connection.");
-        });
+function openImage(img){
+    gtag('event','album_image_download',{image:img});
+    window.open(img,'_blank');
 }
 </script>
 
