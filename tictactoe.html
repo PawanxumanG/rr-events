@@ -247,7 +247,7 @@ function restartGame(){
 function toggleMode(){
     vsAI=!vsAI;
     modeIcon.innerText=vsAI?"👥":"🤖";
-    modeText.innerText=vsAI?"Friend":"AI";
+    modeText.innerText=vsAI?"Friend":"RR Ai Bot";
     gtag('event','mode_switch',{mode:vsAI?'AI':'Friend'});
     restartGame();
 }
