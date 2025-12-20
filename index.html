@@ -19,11 +19,12 @@ gtag('config', 'G-9JW1V42V83', {
   page_path: '/index.html'
 });
 
-/* 🔥 PAGE LOADED EVENT */
+/* PAGE LOAD EVENT */
 gtag('event','home_loaded');
 </script>
 
 <style>
+/* AI HELPER */
 .ai-box{
     background:#161a22;
     border-radius:14px;
@@ -49,6 +50,7 @@ gtag('event','home_loaded');
     color:#ffcc80;
 }
 
+/* COUNTDOWN */
 .countdown-box{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     border-radius:14px;
@@ -63,7 +65,26 @@ gtag('event','home_loaded');
     margin-top:8px;
 }
 
-/* PROMO VIDEO */
+/* STREAK */
+.streak-box{
+    background:#161a22;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:18px;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+    text-align:center;
+}
+.streak-box h2{
+    margin-top:0;
+    font-size:18px;
+}
+.streak-count{
+    font-size:26px;
+    font-weight:700;
+    color:#ff9800;
+}
+
+/* VIDEO */
 .video-box{
     background:#161a22;
     border-radius:14px;
@@ -80,6 +101,7 @@ gtag('event','home_loaded');
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
     <p>Notices & Updates</p>
@@ -103,12 +125,24 @@ gtag('event','home_loaded');
 
         <p>
             🎮 <b>Tic Tac Toe Challenge:</b><br>
-            Test your skills in <b>Hard Mode</b> and try to defeat the
-            <b>RR AI Bot</b>. Can you stay undefeated? 🔥
+            Play in <b>Hard Mode</b> and try to defeat the <b>RR AI Bot</b>.
+            Can you stay undefeated? 🔥
         </p>
 
         <p class="text-muted">
-            📌 Attendance, events, and activities will be updated here regularly.
+            📌 All college updates will be published only in this app.
+        </p>
+    </div>
+
+    <!-- 🔥 DAILY STREAK -->
+    <div class="streak-box">
+        <h2>🔥 Daily Streak</h2>
+        <p>You have opened this app</p>
+        <div class="streak-count">
+            🔥 <span id="streakCount">1</span> Days in a Row
+        </div>
+        <p class="text-muted">
+            Don’t break your streak — open the app every day!
         </p>
     </div>
 
@@ -143,10 +177,10 @@ gtag('event','home_loaded');
         📅 View Events
     </button>
 
-    <!-- 🎬 PROMO VIDEO (END OF PAGE) -->
+    <!-- 🎬 PROMO VIDEO -->
     <div class="video-box">
         <h2>🎬 KARMANYA 2025 – Official Promo</h2>
-        <p class="text-muted">Watch the excitement of our Annual College Fest</p>
+        <p class="text-muted">Feel the vibe of our Annual College Fest</p>
 
         <video
             src="karmanya_promo.mp4"
@@ -164,6 +198,35 @@ gtag('event','home_loaded');
 <script src="random-colors.js"></script>
 
 <script>
+/* 🔥 DAILY STREAK LOGIC */
+function updateDailyStreak(){
+    const today = new Date().toISOString().split("T")[0];
+    let lastVisit = localStorage.getItem("lastVisitDate");
+    let streak = parseInt(localStorage.getItem("dailyStreak") || "0");
+
+    if(!lastVisit){
+        streak = 1;
+    } else {
+        const last = new Date(lastVisit);
+        const now = new Date(today);
+        const diffDays = Math.floor((now - last) / (1000*60*60*24));
+
+        if(diffDays === 1){
+            streak++;
+        } else if(diffDays > 1){
+            streak = 1;
+        }
+    }
+
+    localStorage.setItem("lastVisitDate", today);
+    localStorage.setItem("dailyStreak", streak);
+
+    document.getElementById("streakCount").innerText = streak;
+
+    gtag('event','daily_streak_update',{days:streak});
+}
+updateDailyStreak();
+
 /* AI HELPER */
 function aiReply(){
     document.getElementById("aiAnswer").innerText =
@@ -180,7 +243,7 @@ function trackAndGo(type){
     if(type==='chairman') location.href='chairman.html';
 }
 
-/* SCROLL TRACKING */
+/* SCROLL DEPTH */
 let scroll50=false, scroll90=false;
 window.addEventListener('scroll',()=>{
     const scrolled=(window.scrollY+window.innerHeight)/document.body.scrollHeight*100;
