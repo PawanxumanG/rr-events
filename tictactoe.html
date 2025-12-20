@@ -5,7 +5,7 @@
 <title>Tic Tac Toe – RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 🔴 GOOGLE ANALYTICS -->
+<!-- ✅ GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -15,20 +15,27 @@ gtag('config', 'G-9JW1V42V83');
 </script>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 body{
     margin:0;
     font-family:'Segoe UI',Arial,sans-serif;
     background:#0f1117;
-    color:#fff;
+    color:#ffffff;
     text-align:center;
 }
-.header{
+
+/* TOP HEADER */
+.top-bar{
     background:linear-gradient(90deg,#ff6a00,#ff9800);
     padding:14px;
     font-size:18px;
     font-weight:600;
 }
+
+/* GAME HEADER */
 .game-header{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     padding:22px 12px;
@@ -38,17 +45,16 @@ body{
     font-size:26px;
 }
 .game-header p{
-    margin:6px 0 10px;
+    margin:6px 0 12px;
     opacity:.9;
 }
 
-/* AI TOGGLE */
-.ai-toggle{
-    margin-top:8px;
+/* AI BUTTON */
+.ai-btn{
     background:rgba(0,0,0,.35);
     border:none;
-    border-radius:20px;
-    padding:8px 16px;
+    border-radius:22px;
+    padding:8px 18px;
     color:#fff;
     font-size:14px;
     cursor:pointer;
@@ -59,7 +65,7 @@ body{
 
 /* STATUS */
 .status{
-    margin:16px 0;
+    margin:18px 0;
     font-size:18px;
     font-weight:600;
 }
@@ -83,8 +89,8 @@ body{
     cursor:pointer;
     box-shadow:0 6px 18px rgba(0,0,0,.6);
 }
-.cell.X{color:#4fc3f7}
-.cell.O{color:#ffb74d}
+.cell.X{color:#4fc3f7;}
+.cell.O{color:#ffb74d;}
 
 /* BUTTONS */
 .btn{
@@ -96,7 +102,7 @@ body{
     border:none;
     border-radius:12px;
     cursor:pointer;
-    margin-top:14px;
+    margin-top:16px;
 }
 .btn-restart{
     background:linear-gradient(90deg,#ff9800,#ff6a00);
@@ -106,33 +112,18 @@ body{
     background:#34495e;
     color:#fff;
 }
-
-.footer{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    display:flex;
-}
-.footer div{
-    flex:1;
-    padding:14px;
-    font-weight:600;
-}
-.footer .contact{background:#ff6a00}
-.footer .fun{background:#2196f3}
 </style>
 </head>
 
 <body>
 
-<div class="header">RR EVENTS APP</div>
+<div class="top-bar">RR EVENTS APP</div>
 
 <div class="game-header">
     <h1>🎮 Tic Tac Toe</h1>
     <p>Play & Chill</p>
 
-    <!-- AI TOGGLE -->
-    <button class="ai-toggle" onclick="toggleAI()">
+    <button class="ai-btn" onclick="toggleAI()">
         <span id="aiIcon">🤖</span>
         <span id="aiText">AI</span>
     </button>
@@ -145,62 +136,58 @@ body{
 <button class="btn btn-restart" onclick="restartGame()">🔁 Restart Game</button>
 <button class="btn btn-back" onclick="location.href='index.html'">⬅ Back to Home</button>
 
-<div class="footer">
-    <div class="contact">Contact Committee</div>
-    <div class="fun">Fun 🎮</div>
-</div>
-
 <script>
 const boardEl = document.getElementById("board");
 const statusEl = document.getElementById("status");
 
 let board, currentPlayer, gameOver, vsAI = true;
 
-const wins=[
-[0,1,2],[3,4,5],[6,7,8],
-[0,3,6],[1,4,7],[2,5,8],
-[0,4,8],[2,4,6]
+const wins = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
 ];
 
 function init(){
     board = Array(9).fill("");
-    currentPlayer="X";
-    gameOver=false;
-    statusEl.innerText="Player X Turn";
-    boardEl.innerHTML="";
+    currentPlayer = "X";
+    gameOver = false;
+    statusEl.innerText = "Player X Turn";
+    boardEl.innerHTML = "";
+
     board.forEach((_,i)=>{
-        const cell=document.createElement("div");
-        cell.className="cell";
-        cell.onclick=()=>move(i);
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.onclick = ()=>move(i);
         boardEl.appendChild(cell);
     });
 }
 init();
 
 function move(i){
-    if(board[i]||gameOver) return;
+    if(board[i] || gameOver) return;
 
-    board[i]=currentPlayer;
+    board[i] = currentPlayer;
     render();
 
     if(checkWin()){
-        statusEl.innerText=`🎉 Player ${currentPlayer} Wins!`;
+        statusEl.innerText = `🎉 Player ${currentPlayer} Wins!`;
         gtag('event','game_win',{winner:currentPlayer,mode:vsAI?'AI':'Friend'});
-        gameOver=true;
+        gameOver = true;
         return;
     }
 
     if(board.every(c=>c)){
-        statusEl.innerText="🤝 Match Draw";
+        statusEl.innerText = "🤝 Match Draw";
         gtag('event','game_draw',{mode:vsAI?'AI':'Friend'});
-        gameOver=true;
+        gameOver = true;
         return;
     }
 
-    currentPlayer=currentPlayer==="X"?"O":"X";
-    statusEl.innerText=`Player ${currentPlayer} Turn`;
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    statusEl.innerText = `Player ${currentPlayer} Turn`;
 
-    if(vsAI && currentPlayer==="O"){
+    if(vsAI && currentPlayer === "O"){
         setTimeout(aiMove,500);
     }
 }
@@ -212,13 +199,13 @@ function aiMove(){
 }
 
 function checkWin(){
-    return wins.some(w=>w.every(i=>board[i]===currentPlayer));
+    return wins.some(w => w.every(i => board[i] === currentPlayer));
 }
 
 function render(){
     [...boardEl.children].forEach((c,i)=>{
-        c.innerText=board[i];
-        c.className="cell "+board[i];
+        c.innerText = board[i];
+        c.className = "cell " + board[i];
     });
 }
 
@@ -228,9 +215,9 @@ function restartGame(){
 }
 
 function toggleAI(){
-    vsAI=!vsAI;
-    document.getElementById("aiIcon").innerText=vsAI?"👥":"🤖";
-    document.getElementById("aiText").innerText=vsAI?"Friend":"AI";
+    vsAI = !vsAI;
+    document.getElementById("aiIcon").innerText = vsAI ? "🤖" : "👥";
+    document.getElementById("aiText").innerText = vsAI ? "AI" : "Friend";
     gtag('event','ai_toggle',{enabled:vsAI});
     restartGame();
 }
