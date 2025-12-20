@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Event Album – RR International College</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 
 <!-- ================= GOOGLE ANALYTICS ================= -->
@@ -31,7 +32,7 @@
 
 <div class="container">
 
-    <!-- FORMAL DAY -->
+    <!-- ================= FORMAL DAY ================= -->
     <div class="event">
         <h2 onclick="trackSection('Formal Day')">👔 Formal Day</h2>
         <p>
@@ -42,37 +43,56 @@
         <!-- BOYS -->
         <div class="poster-box">
             <h3>👨 Boys Formal</h3>
+
             <img src="boys_formal.jpg" alt="Boys Formal"
                  onclick="trackImage('Formal Day - Boys')">
+
+            <a href="boys_formal.jpg" download="Formal_Day_Boys.jpg"
+               class="download-btn"
+               onclick="trackDownload('Formal Day - Boys')">
+                ⬇ Download Photo
+            </a>
         </div>
 
         <!-- GIRLS -->
         <div class="poster-box">
             <h3>👩 Girls Formal</h3>
+
             <img src="girls_formal.jpg" alt="Girls Formal"
                  onclick="trackImage('Formal Day - Girls')">
+
+            <a href="girls_formal.jpg" download="Formal_Day_Girls.jpg"
+               class="download-btn"
+               onclick="trackDownload('Formal Day - Girls')">
+                ⬇ Download Photo
+            </a>
         </div>
     </div>
 
-    <!-- DENIM DAY -->
+    <!-- ================= DENIM DAY ================= -->
     <div class="event">
         <h2 onclick="trackSection('Denim Day')">👖 Denim Day</h2>
-        <p>
-            Denim Day celebration moments captured during the event.
-        </p>
+        <p>Denim Day celebration moments captured during the event.</p>
 
         <div class="poster-box">
             <h3>💙 Denim Day Group</h3>
+
             <img src="denim.png" alt="Denim Day"
                  onclick="trackImage('Denim Day')">
+
+            <a href="denim.png" download="Denim_Day.jpg"
+               class="download-btn"
+               onclick="trackDownload('Denim Day')">
+                ⬇ Download Photo
+            </a>
         </div>
     </div>
 
-    <!-- FUTURE EVENTS -->
+    <!-- ================= UPCOMING ================= -->
     <div class="event">
         <h2 onclick="trackSection('Upcoming Albums')">📅 Upcoming Event Albums</h2>
         <p class="text-muted">
-            Photos from upcoming events like Cultural Week, Traditional Day,
+            Photos from Cultural Week, Traditional Day,
             Sports Day, etc. will be updated here.
         </p>
     </div>
@@ -84,7 +104,7 @@
 
 </div>
 
-<!-- ================= TRACKING SCRIPTS ================= -->
+<!-- ================= TRACKING ================= -->
 <script>
 function trackSection(sectionName) {
     gtag('event', 'album_section_view', {
@@ -100,12 +120,19 @@ function trackImage(imageName) {
     });
 }
 
+function trackDownload(imageName) {
+    gtag('event', 'album_image_download', {
+        event_category: 'Event Album',
+        event_label: imageName
+    });
+}
+
 function goBack() {
     gtag('event', 'back_to_home', {
         event_category: 'Navigation',
         event_label: 'Back from Event Album'
     });
-    history.back();
+    location.href = "index.html";
 }
 </script>
 <!-- =================================================== -->
