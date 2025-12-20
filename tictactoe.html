@@ -2,248 +2,238 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tic Tac Toe – RR Events</title>
+<title>Tic Tac Toe – RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- GOOGLE ANALYTICS -->
+<!-- 🔴 GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-9JW1V42V83', {
-  page_title: 'Tic Tac Toe',
-  page_path: '/tictactoe.html'
-});
-gtag('event', 'game_open', {event_category:'TicTacToe'});
+gtag('config', 'G-9JW1V42V83');
 </script>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #0f1117;
-    color: #fff;
-    text-align: center;
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+    margin:0;
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:#0f1117;
+    color:#fff;
+    text-align:center;
+}
+.header{
+    background:linear-gradient(90deg,#ff6a00,#ff9800);
+    padding:14px;
+    font-size:18px;
+    font-weight:600;
+}
+.game-header{
+    background:linear-gradient(90deg,#6a11cb,#2575fc);
+    padding:22px 12px;
+}
+.game-header h1{
+    margin:0;
+    font-size:26px;
+}
+.game-header p{
+    margin:6px 0 10px;
+    opacity:.9;
 }
 
-.header {
-    padding: 16px;
-    background: linear-gradient(90deg, #6a11cb, #2575fc);
-    position: relative;
+/* AI TOGGLE */
+.ai-toggle{
+    margin-top:8px;
+    background:rgba(0,0,0,.35);
+    border:none;
+    border-radius:20px;
+    padding:8px 16px;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
 }
 
-.ai-toggle {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    background: rgba(0,0,0,0.3);
-    border: none;
-    border-radius: 20px;
-    padding: 6px 12px;
-    color: #fff;
-    font-size: 13px;
-    cursor: pointer;
+/* STATUS */
+.status{
+    margin:16px 0;
+    font-size:18px;
+    font-weight:600;
 }
 
-.status {
-    margin-top: 12px;
-    font-size: 18px;
-    font-weight: 600;
+/* BOARD */
+.board{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    max-width:320px;
+    margin:0 auto;
+}
+.cell{
+    background:#161a22;
+    border-radius:16px;
+    height:90px;
+    font-size:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(0,0,0,.6);
+}
+.cell.X{color:#4fc3f7}
+.cell.O{color:#ffb74d}
+
+/* BUTTONS */
+.btn{
+    width:80%;
+    max-width:280px;
+    padding:14px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin-top:14px;
+}
+.btn-restart{
+    background:linear-gradient(90deg,#ff9800,#ff6a00);
+    color:#fff;
+}
+.btn-back{
+    background:#34495e;
+    color:#fff;
 }
 
-.board {
-    display: grid;
-    grid-template-columns: repeat(3, 95px);
-    gap: 12px;
-    justify-content: center;
-    margin: 30px auto;
+.footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    display:flex;
 }
-
-.cell {
-    width: 95px;
-    height: 95px;
-    background: #161a22;
-    border-radius: 16px;
-    font-size: 46px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.footer div{
+    flex:1;
+    padding:14px;
+    font-weight:600;
 }
-
-.cell.x {
-    color: #4fc3ff;
-    text-shadow: 0 0 14px rgba(79,195,255,0.8);
-}
-
-.cell.o {
-    color: #ff9800;
-    text-shadow: 0 0 14px rgba(255,152,0,0.8);
-}
-
-button {
-    width: 80%;
-    max-width: 260px;
-    padding: 14px;
-    border-radius: 14px;
-    border: none;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 14px;
-}
-
-.restart {
-    background: linear-gradient(90deg, #ff9800, #ff6a00);
-}
-
-.back {
-    background: #34495e;
-    color: #fff;
-}
+.footer .contact{background:#ff6a00}
+.footer .fun{background:#2196f3}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h2>🎮 Tic Tac Toe</h2>
+<div class="header">RR EVENTS APP</div>
+
+<div class="game-header">
+    <h1>🎮 Tic Tac Toe</h1>
     <p>Play & Chill</p>
 
+    <!-- AI TOGGLE -->
     <button class="ai-toggle" onclick="toggleAI()">
-        🤖 <span id="aiText">Play with AI</span>
+        <span id="aiIcon">🤖</span>
+        <span id="aiText">AI</span>
     </button>
 </div>
 
-<div class="status" id="status">Player X's Turn</div>
+<div class="status" id="status">Player X Turn</div>
 
 <div class="board" id="board"></div>
 
-<button class="restart" onclick="restartGame()">🔁 Restart Game</button>
-<button class="back" onclick="location.href='index.html'">⬅ Back to Home</button>
+<button class="btn btn-restart" onclick="restartGame()">🔁 Restart Game</button>
+<button class="btn btn-back" onclick="location.href='index.html'">⬅ Back to Home</button>
+
+<div class="footer">
+    <div class="contact">Contact Committee</div>
+    <div class="fun">Fun 🎮</div>
+</div>
 
 <script>
-let board = ["","","","","","","","",""];
-let currentPlayer = "X";
-let gameActive = true;
-let vsAI = false;
+const boardEl = document.getElementById("board");
+const statusEl = document.getElementById("status");
 
-const statusDiv = document.getElementById("status");
-const boardDiv = document.getElementById("board");
-const aiText = document.getElementById("aiText");
+let board, currentPlayer, gameOver, vsAI = true;
 
-const winPatterns = [
- [0,1,2],[3,4,5],[6,7,8],
- [0,3,6],[1,4,7],[2,5,8],
- [0,4,8],[2,4,6]
+const wins=[
+[0,1,2],[3,4,5],[6,7,8],
+[0,3,6],[1,4,7],[2,5,8],
+[0,4,8],[2,4,6]
 ];
 
-function toggleAI() {
-    vsAI = !vsAI;
-    aiText.innerText = vsAI ? "Play with Friend" : "Play with AI";
-    gtag('event','ai_mode_toggle',{enabled:vsAI});
-    restartGame();
-}
-
-function drawBoard() {
-    boardDiv.innerHTML = "";
-    board.forEach((v,i)=>{
-        const c=document.createElement("div");
-        c.className="cell";
-        if(v==="X") c.classList.add("x");
-        if(v==="O") c.classList.add("o");
-        c.innerText=v;
-        c.onclick=()=>makeMove(i);
-        boardDiv.appendChild(c);
+function init(){
+    board = Array(9).fill("");
+    currentPlayer="X";
+    gameOver=false;
+    statusEl.innerText="Player X Turn";
+    boardEl.innerHTML="";
+    board.forEach((_,i)=>{
+        const cell=document.createElement("div");
+        cell.className="cell";
+        cell.onclick=()=>move(i);
+        boardEl.appendChild(cell);
     });
 }
+init();
 
-function makeMove(i) {
-    if(!gameActive||board[i]) return;
+function move(i){
+    if(board[i]||gameOver) return;
+
     board[i]=currentPlayer;
-    if(checkWin()) return endGame(currentPlayer);
-    if(board.every(v=>v)) return endDraw();
-    currentPlayer = currentPlayer==="X"?"O":"X";
-    updateStatus();
+    render();
+
+    if(checkWin()){
+        statusEl.innerText=`🎉 Player ${currentPlayer} Wins!`;
+        gtag('event','game_win',{winner:currentPlayer,mode:vsAI?'AI':'Friend'});
+        gameOver=true;
+        return;
+    }
+
+    if(board.every(c=>c)){
+        statusEl.innerText="🤝 Match Draw";
+        gtag('event','game_draw',{mode:vsAI?'AI':'Friend'});
+        gameOver=true;
+        return;
+    }
+
+    currentPlayer=currentPlayer==="X"?"O":"X";
+    statusEl.innerText=`Player ${currentPlayer} Turn`;
 
     if(vsAI && currentPlayer==="O"){
-        setTimeout(aiMove,400);
+        setTimeout(aiMove,500);
     }
 }
 
 function aiMove(){
-    let move = findBestMove();
-    board[move]="O";
-    gtag('event','ai_move',{cell:move});
-    if(checkWin()) return endGame("O",true);
-    if(board.every(v=>v)) return endDraw();
-    currentPlayer="X";
-    updateStatus();
-    drawBoard();
-}
-
-function findBestMove(){
-    for(let i=0;i<9;i++){
-        if(!board[i]){
-            board[i]="O";
-            if(checkWin()){board[i]="";return i;}
-            board[i]="";
-        }
-    }
-    for(let i=0;i<9;i++){
-        if(!board[i]){
-            board[i]="X";
-            if(checkWin()){board[i]="";return i;}
-            board[i]="";
-        }
-    }
-    return board.findIndex(v=>v==="");
+    let empty = board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
+    let pick = empty[Math.floor(Math.random()*empty.length)];
+    move(pick);
 }
 
 function checkWin(){
-    return winPatterns.some(p =>
-      board[p[0]] &&
-      board[p[0]]===board[p[1]] &&
-      board[p[1]]===board[p[2]]
-    );
+    return wins.some(w=>w.every(i=>board[i]===currentPlayer));
 }
 
-function endGame(player, ai=false){
-    gameActive=false;
-    statusDiv.innerHTML = ai && player==="O"
-      ? "🤖 AI Wins!"
-      : `🎉 Player ${player} Wins!`;
-
-    gtag('event','game_win',{
-      winner: ai?"AI":"Human",
-      symbol: player
+function render(){
+    [...boardEl.children].forEach((c,i)=>{
+        c.innerText=board[i];
+        c.className="cell "+board[i];
     });
-    drawBoard();
-}
-
-function endDraw(){
-    gameActive=false;
-    statusDiv.innerText="🤝 Match Draw";
-    gtag('event','game_draw');
-}
-
-function updateStatus(){
-    statusDiv.innerText =
-      vsAI && currentPlayer==="O"
-      ? "🤖 AI Thinking..."
-      : `Player ${currentPlayer}'s Turn`;
-    drawBoard();
 }
 
 function restartGame(){
-    board=["","","","","","","","",""];
-    currentPlayer="X";
-    gameActive=true;
-    updateStatus();
+    gtag('event','game_restart',{mode:vsAI?'AI':'Friend'});
+    init();
 }
-drawBoard();
+
+function toggleAI(){
+    vsAI=!vsAI;
+    document.getElementById("aiIcon").innerText=vsAI?"👥":"🤖";
+    document.getElementById("aiText").innerText=vsAI?"Friend":"AI";
+    gtag('event','ai_toggle',{enabled:vsAI});
+    restartGame();
+}
 </script>
 
 </body>
