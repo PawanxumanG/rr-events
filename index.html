@@ -62,6 +62,19 @@ gtag('event','home_loaded');
     font-weight:700;
     margin-top:8px;
 }
+
+/* PROMO VIDEO */
+.video-box{
+    background:#161a22;
+    border-radius:14px;
+    padding:14px;
+    margin:24px 0;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+}
+.video-box h2{
+    margin-top:0;
+    font-size:18px;
+}
 </style>
 </head>
 
@@ -74,19 +87,32 @@ gtag('event','home_loaded');
 
 <div class="container">
 
-    <!-- CHAIRMAN -->
+    <!-- 👨‍🏫 CHAIRMAN -->
     <button onclick="trackAndGo('chairman')" class="nav-btn">
         👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
     </button>
 
-    <!-- NOTICE -->
+    <!-- 📢 IMPORTANT NOTICE -->
     <div class="event">
         <h2>📢 IMPORTANT NOTICE</h2>
-        <p>All students are informed to regularly check this app for important notices.</p>
-        <p class="text-muted">📌 All event details are available below.</p>
+
+        <p>
+            All students are instructed to <b>open this app daily</b>
+            for official notices, event updates, and important announcements.
+        </p>
+
+        <p>
+            🎮 <b>Tic Tac Toe Challenge:</b><br>
+            Test your skills in <b>Hard Mode</b> and try to defeat the
+            <b>RR AI Bot</b>. Can you stay undefeated? 🔥
+        </p>
+
+        <p class="text-muted">
+            📌 Attendance, events, and activities will be updated here regularly.
+        </p>
     </div>
 
-    <!-- AI HELPER -->
+    <!-- 🤖 AI STUDENT HELPER -->
     <div class="ai-box">
         <h2>🤖 Student Helper</h2>
         <div class="ai-btns">
@@ -95,16 +121,16 @@ gtag('event','home_loaded');
         <div class="ai-answer" id="aiAnswer"></div>
     </div>
 
-    <!-- COUNTDOWN -->
+    <!-- ⏳ COUNTDOWN -->
     <div class="countdown-box">
         <div>⏳ KARMANYA 2025 COUNTDOWN</div>
         <div class="countdown-time" id="countdown"></div>
     </div>
 
-    <!-- POSTER -->
+    <!-- 🖼️ POSTER -->
     <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
 
-    <!-- BUTTONS -->
+    <!-- 🎟️ BUTTONS -->
     <button onclick="trackAndGo('karmanya')" class="nav-btn">
         🎟️ KARMANYA 2025 – Details & Payment
     </button>
@@ -117,16 +143,31 @@ gtag('event','home_loaded');
         📅 View Events
     </button>
 
+    <!-- 🎬 PROMO VIDEO (END OF PAGE) -->
+    <div class="video-box">
+        <h2>🎬 KARMANYA 2025 – Official Promo</h2>
+        <p class="text-muted">Watch the excitement of our Annual College Fest</p>
+
+        <video
+            src="karmanya_promo.mp4"
+            controls
+            playsinline
+            preload="metadata"
+            style="width:100%;border-radius:12px;max-height:260px;background:#000;">
+            Your device does not support video playback.
+        </video>
+    </div>
+
 </div>
 
 <script src="script.js"></script>
 <script src="random-colors.js"></script>
 
 <script>
-/* AI HELPER TRACKING */
+/* AI HELPER */
 function aiReply(){
     document.getElementById("aiAnswer").innerText =
-        "💳 Open Karmanya → Scan QR → Pay ₹500 → Send screenshot on WhatsApp.";
+        "💳 Open Karmanya → Scan QR → Pay ₹500 → Send screenshot on WhatsApp with Name, Class, Roll No & Veg/Non-Veg.";
     gtag('event','ai_helper_used',{question:'karmanya_payment'});
 }
 
@@ -139,25 +180,25 @@ function trackAndGo(type){
     if(type==='chairman') location.href='chairman.html';
 }
 
-/* SCROLL DEPTH TRACKING */
+/* SCROLL TRACKING */
 let scroll50=false, scroll90=false;
 window.addEventListener('scroll',()=>{
-    const scrolled = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
-    if(scrolled > 50 && !scroll50){
+    const scrolled=(window.scrollY+window.innerHeight)/document.body.scrollHeight*100;
+    if(scrolled>50 && !scroll50){
         scroll50=true;
         gtag('event','scroll_50');
     }
-    if(scrolled > 90 && !scroll90){
+    if(scrolled>90 && !scroll90){
         scroll90=true;
         gtag('event','scroll_90');
     }
 });
 
 /* COUNTDOWN */
-const eventDate = new Date("2025-12-30T23:59:59").getTime();
+const eventDate=new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
-    const now = new Date().getTime();
-    const diff = eventDate - now;
+    const now=new Date().getTime();
+    const diff=eventDate-now;
     if(diff<=0){
         document.getElementById("countdown").innerText="🎉 Countdown Ended!";
         gtag('event','countdown_finished');
