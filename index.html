@@ -77,12 +77,12 @@ gtag('config', 'G-9JW1V42V83', {
 
 <div class="container">
 
-    <!-- CHAIRMAN -->
+    <!-- 👨‍🏫 CHAIRMAN -->
     <button onclick="location.href='chairman.html'" class="nav-btn">
         👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
     </button>
 
-    <!-- NOTICE -->
+    <!-- 📢 NOTICE -->
     <div class="event">
         <h2>📢 IMPORTANT NOTICE</h2>
         <p>
@@ -95,15 +95,13 @@ gtag('config', 'G-9JW1V42V83', {
         </p>
     </div>
 
-    <!-- 🤖 AI STUDENT HELPER -->
+    <!-- 🤖 AI STUDENT HELPER (LITE) -->
     <div class="ai-box">
         <h2>🤖 Student Helper</h2>
-        <p class="text-muted">Tap a question to get instant help</p>
+        <p class="text-muted">Tap below for quick help</p>
 
         <div class="ai-btns">
-            <button onclick="aiReply(1)">How to pay Karmanya fee?</button>
-            <button onclick="aiReply(2)">Who to contact for events?</button>
-            <button onclick="aiReply(3)">Where will notices be updated?</button>
+            <button onclick="aiReply()">How to pay for Karmanya?</button>
         </div>
 
         <div class="ai-answer" id="aiAnswer"></div>
@@ -111,14 +109,14 @@ gtag('config', 'G-9JW1V42V83', {
 
     <!-- ⏳ COUNTDOWN -->
     <div class="countdown-box">
-        <div>⏳ KARMANYA 2025 STARTS IN</div>
+        <div>⏳ KARMANYA 2025 COUNTDOWN</div>
         <div class="countdown-time" id="countdown"></div>
     </div>
 
-    <!-- POSTER -->
+    <!-- 🖼️ POSTER -->
     <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
 
-    <!-- BUTTONS -->
+    <!-- 🎟️ BUTTONS -->
     <button onclick="location.href='karmanya.html'" class="nav-btn">
         🎟️ KARMANYA 2025 – Details & Payment
     </button>
@@ -137,36 +135,33 @@ gtag('config', 'G-9JW1V42V83', {
 <script src="random-colors.js"></script>
 
 <script>
-/* AI HELPER LOGIC */
-function aiReply(q){
-    const ans=document.getElementById("aiAnswer");
-    if(q===1){
-        ans.innerText="💳 Open Karmanya page → Scan QR → Pay ₹500 → Send screenshot on WhatsApp with Name, Class & Veg/Non-Veg preference.";
-    }
-    if(q===2){
-        ans.innerText="📞 Use the Contact Committee button in the app to directly message the event coordinators.";
-    }
-    if(q===3){
-        ans.innerText="📢 All official notices will always appear on the Home page of this app.";
-    }
-    gtag('event','ai_helper_used',{question:q});
+/* AI HELPER */
+function aiReply(){
+    document.getElementById("aiAnswer").innerText =
+        "💳 Open the Karmanya page → Scan the QR code → Pay ₹500 → " +
+        "Send the payment screenshot on WhatsApp with your Name, Class, " +
+        "Roll No, and Veg / Non-Veg preference.";
+    gtag('event','ai_helper_used',{question:'karmanya_payment'});
 }
 
-/* COUNTDOWN LOGIC */
-const eventDate=new Date("2025-01-15T10:00:00").getTime(); // CHANGE DATE IF NEEDED
+/* COUNTDOWN – TILL 30 DECEMBER 2025 */
+const eventDate = new Date("2025-12-30T23:59:59").getTime();
 
 setInterval(()=>{
-    const now=new Date().getTime();
-    const diff=eventDate-now;
-    if(diff<=0){
-        document.getElementById("countdown").innerText="🎉 Event Started!";
+    const now = new Date().getTime();
+    const diff = eventDate - now;
+
+    if(diff <= 0){
+        document.getElementById("countdown").innerText = "🎉 Countdown Ended!";
         return;
     }
-    const d=Math.floor(diff/(1000*60*60*24));
-    const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const m=Math.floor((diff%(1000*60*60))/(1000*60));
-    const s=Math.floor((diff%(1000*60))/1000);
-    document.getElementById("countdown").innerText=
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerText =
         `${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
 </script>
