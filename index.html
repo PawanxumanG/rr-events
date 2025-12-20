@@ -7,20 +7,23 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- GOOGLE ANALYTICS – HOME PAGE -->
+<!-- ✅ GOOGLE ANALYTICS – HOME PAGE (DEEP TRACKING) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+
 gtag('js', new Date());
 gtag('config', 'G-9JW1V42V83', {
   page_title: 'RR Events Home',
   page_path: '/index.html'
 });
+
+/* 🔥 PAGE LOADED EVENT */
+gtag('event','home_loaded');
 </script>
 
 <style>
-/* AI HELPER */
 .ai-box{
     background:#161a22;
     border-radius:14px;
@@ -28,10 +31,7 @@ gtag('config', 'G-9JW1V42V83', {
     margin-bottom:18px;
     box-shadow:0 0 18px rgba(0,0,0,.6);
 }
-.ai-box h2{
-    margin-top:0;
-    font-size:18px;
-}
+.ai-box h2{margin-top:0;font-size:18px;}
 .ai-btns button{
     width:100%;
     margin-top:10px;
@@ -49,7 +49,6 @@ gtag('config', 'G-9JW1V42V83', {
     color:#ffcc80;
 }
 
-/* COUNTDOWN */
 .countdown-box{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     border-radius:14px;
@@ -64,12 +63,10 @@ gtag('config', 'G-9JW1V42V83', {
     margin-top:8px;
 }
 </style>
-
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
     <p>Notices & Updates</p>
@@ -77,55 +74,46 @@ gtag('config', 'G-9JW1V42V83', {
 
 <div class="container">
 
-    <!-- 👨‍🏫 CHAIRMAN -->
-    <button onclick="location.href='chairman.html'" class="nav-btn">
+    <!-- CHAIRMAN -->
+    <button onclick="trackAndGo('chairman')" class="nav-btn">
         👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
     </button>
 
-    <!-- 📢 NOTICE -->
+    <!-- NOTICE -->
     <div class="event">
         <h2>📢 IMPORTANT NOTICE</h2>
-        <p>
-            All students are informed to regularly check this app
-            for important college notices and official updates.
-        </p>
-        <p class="text-muted">
-            📌 All event details, payments and instructions
-            are available on their respective pages.
-        </p>
+        <p>All students are informed to regularly check this app for important notices.</p>
+        <p class="text-muted">📌 All event details are available below.</p>
     </div>
 
-    <!-- 🤖 AI STUDENT HELPER (LITE) -->
+    <!-- AI HELPER -->
     <div class="ai-box">
         <h2>🤖 Student Helper</h2>
-        <p class="text-muted">Tap below for quick help</p>
-
         <div class="ai-btns">
             <button onclick="aiReply()">How to pay for Karmanya?</button>
         </div>
-
         <div class="ai-answer" id="aiAnswer"></div>
     </div>
 
-    <!-- ⏳ COUNTDOWN -->
+    <!-- COUNTDOWN -->
     <div class="countdown-box">
         <div>⏳ KARMANYA 2025 COUNTDOWN</div>
         <div class="countdown-time" id="countdown"></div>
     </div>
 
-    <!-- 🖼️ POSTER -->
+    <!-- POSTER -->
     <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
 
-    <!-- 🎟️ BUTTONS -->
-    <button onclick="location.href='karmanya.html'" class="nav-btn">
+    <!-- BUTTONS -->
+    <button onclick="trackAndGo('karmanya')" class="nav-btn">
         🎟️ KARMANYA 2025 – Details & Payment
     </button>
 
-    <button onclick="location.href='event_album.html'" class="nav-btn">
+    <button onclick="trackAndGo('album')" class="nav-btn">
         📸 Event Album
     </button>
 
-    <button onclick="openEvents()" class="nav-btn">
+    <button onclick="trackAndGo('events')" class="nav-btn">
         📅 View Events
     </button>
 
@@ -135,34 +123,51 @@ gtag('config', 'G-9JW1V42V83', {
 <script src="random-colors.js"></script>
 
 <script>
-/* AI HELPER */
+/* AI HELPER TRACKING */
 function aiReply(){
     document.getElementById("aiAnswer").innerText =
-        "💳 Open the Karmanya page → Scan the QR code → Pay ₹500 → " +
-        "Send the payment screenshot on WhatsApp with your Name, Class, " +
-        "Roll No, and Veg / Non-Veg preference.";
+        "💳 Open Karmanya → Scan QR → Pay ₹500 → Send screenshot on WhatsApp.";
     gtag('event','ai_helper_used',{question:'karmanya_payment'});
 }
 
-/* COUNTDOWN – TILL 30 DECEMBER 2025 */
-const eventDate = new Date("2025-12-30T23:59:59").getTime();
+/* BUTTON TRACKING */
+function trackAndGo(type){
+    gtag('event','home_click',{button:type});
+    if(type==='karmanya') location.href='karmanya.html';
+    if(type==='album') location.href='event_album.html';
+    if(type==='events') openEvents();
+    if(type==='chairman') location.href='chairman.html';
+}
 
+/* SCROLL DEPTH TRACKING */
+let scroll50=false, scroll90=false;
+window.addEventListener('scroll',()=>{
+    const scrolled = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+    if(scrolled > 50 && !scroll50){
+        scroll50=true;
+        gtag('event','scroll_50');
+    }
+    if(scrolled > 90 && !scroll90){
+        scroll90=true;
+        gtag('event','scroll_90');
+    }
+});
+
+/* COUNTDOWN */
+const eventDate = new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
     const now = new Date().getTime();
     const diff = eventDate - now;
-
-    if(diff <= 0){
-        document.getElementById("countdown").innerText = "🎉 Countdown Ended!";
+    if(diff<=0){
+        document.getElementById("countdown").innerText="🎉 Countdown Ended!";
+        gtag('event','countdown_finished');
         return;
     }
-
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById("countdown").innerText =
-        `${d}d : ${h}h : ${m}m : ${s}s`;
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m=Math.floor((diff%(1000*60*60))/(1000*60));
+    const s=Math.floor((diff%(1000*60))/1000);
+    document.getElementById("countdown").innerText=`${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
 </script>
 
