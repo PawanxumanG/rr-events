@@ -5,21 +5,65 @@
 <title>RR International College - Notices</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- STYLES -->
 <link rel="stylesheet" href="style.css">
 
-<!-- ✅ GOOGLE ANALYTICS – HOME PAGE ONLY -->
+<!-- GOOGLE ANALYTICS – HOME PAGE -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9JW1V42V83', {
-    page_title: 'RR Events Home',
-    page_path: '/index.html'
-  });
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9JW1V42V83', {
+  page_title: 'RR Events Home',
+  page_path: '/index.html'
+});
 </script>
+
+<style>
+/* AI HELPER */
+.ai-box{
+    background:#161a22;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:18px;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+}
+.ai-box h2{
+    margin-top:0;
+    font-size:18px;
+}
+.ai-btns button{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#0f1117;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
+}
+.ai-answer{
+    margin-top:12px;
+    font-size:14px;
+    color:#ffcc80;
+}
+
+/* COUNTDOWN */
+.countdown-box{
+    background:linear-gradient(90deg,#6a11cb,#2575fc);
+    border-radius:14px;
+    padding:16px;
+    margin:18px 0;
+    color:#fff;
+    text-align:center;
+}
+.countdown-time{
+    font-size:20px;
+    font-weight:700;
+    margin-top:8px;
+}
+</style>
 
 </head>
 
@@ -28,58 +72,104 @@
 <!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
-    <p>Notices & Official Updates</p>
+    <p>Notices & Updates</p>
 </div>
 
 <div class="container">
 
-    <!-- 👨‍🏫 CHAIRMAN (TOP PRIORITY) -->
+    <!-- CHAIRMAN -->
     <button onclick="location.href='chairman.html'" class="nav-btn">
         👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
     </button>
 
-    <!-- 📢 IMPORTANT NOTICE (UX FORMAT) -->
+    <!-- NOTICE -->
     <div class="event">
         <h2>📢 IMPORTANT NOTICE</h2>
-
         <p>
-            👉 All students are instructed to <b>regularly check this app</b>
-            for official college notices and updates.
+            All students are informed to regularly check this app
+            for important college notices and official updates.
         </p>
-
-        <p>
-            👉 Information related to <b>events, payments, schedules</b>
-            and instructions will be updated here first.
-        </p>
-
         <p class="text-muted">
-            🕒 Last Updated: Today
+            📌 All event details, payments and instructions
+            are available on their respective pages.
         </p>
     </div>
 
-    <!-- 🖼️ LATEST EVENT POSTER -->
-    <div class="poster-box">
-        <img src="karmanya.jpg" alt="Karmanya 2025 Poster">
+    <!-- 🤖 AI STUDENT HELPER -->
+    <div class="ai-box">
+        <h2>🤖 Student Helper</h2>
+        <p class="text-muted">Tap a question to get instant help</p>
+
+        <div class="ai-btns">
+            <button onclick="aiReply(1)">How to pay Karmanya fee?</button>
+            <button onclick="aiReply(2)">Who to contact for events?</button>
+            <button onclick="aiReply(3)">Where will notices be updated?</button>
+        </div>
+
+        <div class="ai-answer" id="aiAnswer"></div>
     </div>
 
-    <!-- 🎟️ ACTION BUTTONS -->
-    <button id="btnKarmanya" onclick="location.href='karmanya.html'" class="nav-btn">
+    <!-- ⏳ COUNTDOWN -->
+    <div class="countdown-box">
+        <div>⏳ KARMANYA 2025 STARTS IN</div>
+        <div class="countdown-time" id="countdown"></div>
+    </div>
+
+    <!-- POSTER -->
+    <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
+
+    <!-- BUTTONS -->
+    <button onclick="location.href='karmanya.html'" class="nav-btn">
         🎟️ KARMANYA 2025 – Details & Payment
     </button>
 
-    <button id="btnAlbum" onclick="location.href='event_album.html'" class="nav-btn">
+    <button onclick="location.href='event_album.html'" class="nav-btn">
         📸 Event Album
     </button>
 
-    <button id="btnEvents" onclick="openEvents()" class="nav-btn">
+    <button onclick="openEvents()" class="nav-btn">
         📅 View Events
     </button>
 
 </div>
 
-<!-- SCRIPTS -->
 <script src="script.js"></script>
 <script src="random-colors.js"></script>
+
+<script>
+/* AI HELPER LOGIC */
+function aiReply(q){
+    const ans=document.getElementById("aiAnswer");
+    if(q===1){
+        ans.innerText="💳 Open Karmanya page → Scan QR → Pay ₹500 → Send screenshot on WhatsApp with Name, Class & Veg/Non-Veg preference.";
+    }
+    if(q===2){
+        ans.innerText="📞 Use the Contact Committee button in the app to directly message the event coordinators.";
+    }
+    if(q===3){
+        ans.innerText="📢 All official notices will always appear on the Home page of this app.";
+    }
+    gtag('event','ai_helper_used',{question:q});
+}
+
+/* COUNTDOWN LOGIC */
+const eventDate=new Date("2025-01-15T10:00:00").getTime(); // CHANGE DATE IF NEEDED
+
+setInterval(()=>{
+    const now=new Date().getTime();
+    const diff=eventDate-now;
+    if(diff<=0){
+        document.getElementById("countdown").innerText="🎉 Event Started!";
+        return;
+    }
+    const d=Math.floor(diff/(1000*60*60*24));
+    const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m=Math.floor((diff%(1000*60*60))/(1000*60));
+    const s=Math.floor((diff%(1000*60))/1000);
+    document.getElementById("countdown").innerText=
+        `${d}d : ${h}h : ${m}m : ${s}s`;
+},1000);
+</script>
 
 </body>
 </html>
