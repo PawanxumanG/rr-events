@@ -23,15 +23,12 @@ body{
     color:#fff;
     text-align:center;
 }
-
-/* HEADER */
 .game-header{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     padding:26px 12px;
 }
 .game-header h1{margin:0;font-size:28px;}
 .game-header p{margin:6px 0 14px;opacity:.9;}
-
 .mode-btn{
     background:rgba(0,0,0,.35);
     border:none;
@@ -44,8 +41,6 @@ body{
     align-items:center;
     gap:8px;
 }
-
-/* SCOREBOARD */
 .scoreboard{
     display:flex;
     justify-content:center;
@@ -58,11 +53,7 @@ body{
     padding:10px 14px;
     border-radius:10px;
 }
-
-/* STATUS */
 .status{margin:16px 0;font-size:18px;font-weight:600;}
-
-/* BOARD */
 .board{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -84,11 +75,9 @@ body{
 .cell.X{color:#4fc3f7;}
 .cell.O{color:#ffb74d;}
 .cell.win{
-    background:linear-gradient(135deg,#43cea2,#185a9d);
-    box-shadow:0 0 20px rgba(67,206,162,.9);
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+    box-shadow:0 0 22px rgba(255,81,47,.9);
 }
-
-/* BUTTONS */
 .btn{
     width:80%;
     max-width:280px;
@@ -110,7 +99,6 @@ body{
 <div class="game-header">
     <h1>🎮 Tic Tac Toe</h1>
     <p>Play & Chill</p>
-
     <button class="mode-btn" onclick="toggleMode()">
         <span id="modeIcon">👥</span>
         <span id="modeText">Friend</span>
@@ -124,7 +112,6 @@ body{
 </div>
 
 <div class="status" id="status">Player X Turn</div>
-
 <div class="board" id="board"></div>
 
 <button class="btn btn-restart" onclick="restartGame()">🔁 Restart Game</button>
@@ -144,9 +131,12 @@ let scores={
     D:localStorage.getItem("drawScore")||0
 };
 
-document.getElementById("xScore").innerText=scores.X;
-document.getElementById("oScore").innerText=scores.O;
-document.getElementById("drawScore").innerText=scores.D;
+function updateScore(){
+    xScore.innerText=scores.X;
+    oScore.innerText=scores.O;
+    drawScore.innerText=scores.D;
+}
+updateScore();
 
 const wins=[
 [0,1,2],[3,4,5],[6,7,8],
@@ -174,14 +164,13 @@ function move(i){
     board[i]=currentPlayer;
     render();
 
-    const winLine=getWinLine();
+    let winLine=getWinLine(currentPlayer);
     if(winLine){
         winLine.forEach(i=>boardEl.children[i].classList.add("win"));
         statusEl.innerText=`🎉 Player ${currentPlayer} Wins!`;
         scores[currentPlayer]++;
         localStorage.setItem(currentPlayer==="X"?"xScore":"oScore",scores[currentPlayer]);
         updateScore();
-        gtag('event','game_win',{winner:currentPlayer,mode:vsAI?'AI':'Friend'});
         gameOver=true;return;
     }
 
@@ -190,46 +179,76 @@ function move(i){
         scores.D++;
         localStorage.setItem("drawScore",scores.D);
         updateScore();
-        gtag('event','game_draw',{mode:vsAI?'AI':'Friend'});
         gameOver=true;return;
     }
 
     currentPlayer=currentPlayer==="X"?"O":"X";
     statusEl.innerText=`Player ${currentPlayer} Turn`;
 
-    if(vsAI && currentPlayer==="O")setTimeout(aiMove,400);
+    if(vsAI && currentPlayer==="O"){
+        setTimeout(()=>move(bestMove()),300);
+    }
 }
 
-function aiMove(){
-    let move=findBestMove();
-    move!==null && move>=0 ? moveCell(move) : randomMove();
-}
-function moveCell(i){move(i);}
-function randomMove(){
-    let empty=board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
-    moveCell(empty[Math.floor(Math.random()*empty.length)]);
-}
-
-function findBestMove(){
-    for(let i=0;i<9;i++){
-        if(board[i]===""){
+/* 🧠 UNBEATABLE MINIMAX AI */
+function bestMove(){
+    let bestScore=-Infinity;
+    let move;
+    board.forEach((cell,i)=>{
+        if(cell===""){
             board[i]="O";
-            if(getWinLine()){board[i]="";return i;}
+            let score=minimax(board,0,false);
             board[i]="";
+            if(score>bestScore){
+                bestScore=score;
+                move=i;
+            }
         }
-    }
-    for(let i=0;i<9;i++){
-        if(board[i]===""){
-            board[i]="X";
-            if(getWinLine()){board[i]="";return i;}
-            board[i]="";
-        }
-    }
-    return board[4]===""?4:null;
+    });
+    return move;
 }
 
-function getWinLine(){
-    return wins.find(w=>w.every(i=>board[i]===currentPlayer));
+function minimax(b,depth,isMax){
+    let result=checkResult();
+    if(result!==null){
+        return result==="O"?10-depth:
+               result==="X"?depth-10:0;
+    }
+
+    if(isMax){
+        let best=-Infinity;
+        b.forEach((v,i)=>{
+            if(v===""){
+                b[i]="O";
+                best=Math.max(best,minimax(b,depth+1,false));
+                b[i]="";
+            }
+        });
+        return best;
+    }else{
+        let best=Infinity;
+        b.forEach((v,i)=>{
+            if(v===""){
+                b[i]="X";
+                best=Math.min(best,minimax(b,depth+1,true));
+                b[i]="";
+            }
+        });
+        return best;
+    }
+}
+
+function checkResult(){
+    for(let w of wins){
+        let [a,b,c]=w;
+        if(board[a]&&board[a]===board[b]&&board[a]===board[c])
+            return board[a];
+    }
+    return board.includes("")?null:"draw";
+}
+
+function getWinLine(p){
+    return wins.find(w=>w.every(i=>board[i]===p));
 }
 
 function render(){
@@ -239,23 +258,13 @@ function render(){
     });
 }
 
-function restartGame(){
-    gtag('event','game_restart',{mode:vsAI?'AI':'Friend'});
-    init();
-}
+function restartGame(){init();}
 
 function toggleMode(){
     vsAI=!vsAI;
     modeIcon.innerText=vsAI?"👥":"🤖";
     modeText.innerText=vsAI?"Friend":"RR Ai Bot";
-    gtag('event','mode_switch',{mode:vsAI?'AI':'Friend'});
     restartGame();
-}
-
-function updateScore(){
-    document.getElementById("xScore").innerText=scores.X;
-    document.getElementById("oScore").innerText=scores.O;
-    document.getElementById("drawScore").innerText=scores.D;
 }
 </script>
 
