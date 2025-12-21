@@ -2,92 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Games Zone – RR Events App</title>
+<title>Game Zone – RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- GOOGLE ANALYTICS -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-9JW1V42V83', {
-  page_title: 'Games Zone',
-  page_path: '/tictactoe.html'
-});
-</script>
+<link rel="stylesheet" href="style.css">
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{
-    margin:0;
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:#0f1117;
-    color:#fff;
-    text-align:center;
-}
-
-/* HEADER */
-.game-header{
-    background:linear-gradient(90deg,#6a11cb,#2575fc);
-    padding:26px 12px;
-}
-.game-header h1{
-    margin:0;
-    font-size:28px;
-}
-.game-header p{
-    margin-top:6px;
-    opacity:.9;
-}
-
-/* GAME CARD */
 .game-card{
     background:#161a22;
-    border-radius:16px;
-    padding:18px;
-    margin:18px auto;
-    max-width:360px;
-    box-shadow:0 8px 22px rgba(0,0,0,.6);
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:16px;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+    text-align:left;
 }
 .game-card h2{
-    margin-top:0;
+    margin:0 0 6px;
+    font-size:18px;
 }
 .game-card p{
-    opacity:.85;
     font-size:14px;
+    color:#ccc;
 }
-
 .play-btn{
+    margin-top:12px;
     width:100%;
-    margin-top:14px;
-    padding:14px;
-    font-size:16px;
-    font-weight:600;
+    padding:12px;
     border:none;
-    border-radius:12px;
-    cursor:pointer;
-    color:#fff;
-}
-.btn-ttt{
+    border-radius:10px;
     background:linear-gradient(90deg,#ff9800,#ff6a00);
-}
-.btn-2048{
-    background:linear-gradient(90deg,#00c6ff,#0072ff);
-}
-
-/* BACK BUTTON */
-.back-btn{
-    width:80%;
-    max-width:280px;
-    margin:26px auto 90px; /* space above apk bar */
-    padding:14px;
-    font-size:16px;
-    font-weight:600;
-    border:none;
-    border-radius:12px;
-    background:#34495e;
     color:#fff;
+    font-size:15px;
+    font-weight:600;
     cursor:pointer;
 }
 </style>
@@ -95,47 +41,46 @@ body{
 
 <body>
 
-<div class="game-header">
-    <h1>🎮 Games Zone</h1>
+<div class="header">
+    <h1>🎮 GAME ZONE</h1>
     <p>Play • Chill • Compete</p>
 </div>
 
-<!-- TIC TAC TOE -->
-<div class="game-card">
-    <h2>❌⭕ Tic Tac Toe</h2>
-    <p>
-        Play with friends or challenge the
-        <b>RR AI Bot (Hard Mode)</b>.
-    </p>
-    <button class="play-btn btn-ttt"
-        onclick="gtag('event','play_tictactoe'); location.href='tictactoe_game.html'">
-        ▶ Play Tic Tac Toe
+<div class="container">
+
+    <!-- TIC TAC TOE -->
+    <div class="game-card">
+        <h2>❌⭕ Tic Tac Toe</h2>
+        <p>Play with friend or challenge RR AI Bot 🤖</p>
+        <button class="play-btn" onclick="location.href='tictactoe.html'">
+            ▶ Play Now
+        </button>
+    </div>
+
+    <!-- 2048 -->
+    <div class="game-card">
+        <h2>🔢 2048</h2>
+        <p>Swipe & merge numbers. Reach 2048!</p>
+        <button class="play-btn" onclick="location.href='game_2048.html'">
+            ▶ Play Now
+        </button>
+    </div>
+
+    <!-- COMING SOON -->
+    <div class="game-card">
+        <h2>🧠 Memory Game</h2>
+        <p>Test your memory & focus</p>
+        <button class="play-btn" disabled>
+            ⏳ Coming Soon
+        </button>
+    </div>
+
+    <!-- BACK -->
+    <button onclick="location.href='index.html'" class="nav-btn">
+        ⬅ Back to Notices
     </button>
+
 </div>
-
-<!-- 2048 -->
-<div class="game-card">
-    <h2>🧩 2048</h2>
-    <p>
-        Test your brain power.
-        Can you reach <b>2048</b>?
-    </p>
-    <button class="play-btn btn-2048"
-        onclick="gtag('event','play_2048'); location.href='2048.html'">
-        ▶ Play 2048
-    </button>
-</div>
-
-<p style="opacity:.6;margin-top:10px;">
-    🔥 More games coming soon<br>
-    Open daily & challenge your friends!
-</p>
-
-<!-- ⬅ BACK TO NOTICES -->
-<button class="back-btn"
-    onclick="gtag('event','back_to_notices'); location.href='index.html'">
-    ⬅ Back to Notices
-</button>
 
 </body>
 </html>
