@@ -58,6 +58,7 @@ body{
     font-size:14px;
 }
 
+/* PLAY BUTTONS */
 .play-btn{
     width:100%;
     margin-top:14px;
@@ -75,12 +76,15 @@ body{
 .btn-2048{
     background:linear-gradient(90deg,#00c6ff,#0072ff);
 }
+.btn-reaction{
+    background:linear-gradient(90deg,#2ecc71,#27ae60);
+}
 
 /* BACK BUTTON */
 .back-btn{
     width:80%;
     max-width:280px;
-    margin:26px auto 90px; /* space above apk bar */
+    margin:26px auto 90px;
     padding:14px;
     font-size:16px;
     font-weight:600;
@@ -123,6 +127,19 @@ body{
     <button class="play-btn btn-2048"
         onclick="gtag('event','play_2048'); location.href='2048.html'">
         ▶ Play 2048
+    </button>
+</div>
+
+<!-- REACTION TIME -->
+<div class="game-card">
+    <h2>⚡ Reaction Time Challenge</h2>
+    <p>
+        Test your reflexes.
+        How fast can you tap when it turns green?
+    </p>
+    <button class="play-btn btn-reaction"
+        onclick="gtag('event','play_reaction_time'); location.href='reaction.html'">
+        ▶ Play Reaction Time
     </button>
 </div>
 

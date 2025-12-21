@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reaction Time – RR Events App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9JW1V42V83', {
+  page_title: 'Reaction Time Game',
+  page_path: '/reaction.html'
+});
+</script>
+
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{
+    margin:0;
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:#0f1117;
+    color:#fff;
+    text-align:center;
+}
+
+.header{
+    background:linear-gradient(90deg,#ff6a00,#ff9800);
+    padding:22px 12px;
+}
+.header h1{margin:0;font-size:26px;}
+.header p{margin-top:6px;opacity:.85;}
+
+.game-box{
+    margin:30px auto;
+    width:90%;
+    max-width:320px;
+    height:220px;
+    background:#161a22;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+    transition:.2s;
+}
+
+.game-box.ready{
+    background:#e74c3c;
+}
+.game-box.go{
+    background:#2ecc71;
+    color:#000;
+}
+
+.result{
+    margin-top:20px;
+    font-size:20px;
+    font-weight:700;
+}
+
+.best{
+    margin-top:6px;
+    font-size:14px;
+    color:#ffcc80;
+}
+
+.btn{
+    width:80%;
+    max-width:280px;
+    padding:14px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin-top:18px;
+    color:#fff;
+}
+.btn-restart{
+    background:linear-gradient(90deg,#6a11cb,#2575fc);
+}
+.btn-back{
+    background:#34495e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>⚡ Reaction Time</h1>
+    <p>Tap as fast as you can</p>
+</div>
+
+<div class="game-box" id="box">
+    Tap to Start
+</div>
+
+<div class="result" id="result"></div>
+<div class="best" id="best"></div>
+
+<button class="btn btn-restart" onclick="resetGame()">🔁 Try Again</button>
+<button class="btn btn-back" onclick="location.href='tictactoe.html'">⬅ Back to Games</button>
+
+<script>
+let box = document.getElementById("box");
+let result = document.getElementById("result");
+let best = document.getElementById("best");
+
+let startTime = 0;
+let timeout;
+let state = "idle";
+
+let bestScore = localStorage.getItem("bestReaction") || null;
+updateBest();
+
+box.addEventListener("click", ()=>{
+    if(state === "idle"){
+        start();
+    }else if(state === "ready"){
+        tooSoon();
+    }else if(state === "go"){
+        record();
+    }
+});
+
+function start(){
+    result.innerText="";
+    box.innerText="Wait for Green...";
+    box.className="game-box ready";
+    state="ready";
+
+    timeout = setTimeout(()=>{
+        box.className="game-box go";
+        box.innerText="TAP!";
+        startTime = Date.now();
+        state="go";
+        gtag('event','reaction_go');
+    }, Math.random()*3000 + 2000);
+}
+
+function tooSoon(){
+    clearTimeout(timeout);
+    box.className="game-box";
+    box.innerText="Too Soon 😅";
+    result.innerText="Try again!";
+    state="idle";
+    gtag('event','reaction_fail');
+}
+
+function record(){
+    let time = Date.now() - startTime;
+    box.className="game-box";
+    box.innerText="Tap to Start";
+    result.innerText=`⚡ ${time} ms`;
+    state="idle";
+
+    gtag('event','reaction_result',{time_ms:time});
+
+    if(!bestScore || time < bestScore){
+        bestScore = time;
+        localStorage.setItem("bestReaction", time);
+        gtag('event','reaction_new_best',{time_ms:time});
+    }
+    updateBest();
+}
+
+function updateBest(){
+    if(bestScore){
+        best.innerText = `🔥 Best: ${bestScore} ms`;
+    }
+}
+
+function resetGame(){
+    result.innerText="";
+    box.className="game-box";
+    box.innerText="Tap to Start";
+    state="idle";
+    gtag('event','reaction_restart');
+}
+</script>
+
+</body>
+</html>
