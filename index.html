@@ -96,7 +96,6 @@ gtag('event','home_loaded');
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
     <p>Notices & Updates</p>
@@ -109,33 +108,32 @@ gtag('event','home_loaded');
         👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
     </button>
 
- <div class="event">
-    <h2>📢 IMPORTANT NOTICE</h2>
+    <div class="event">
+        <h2>📢 IMPORTANT NOTICE</h2>
 
-    <p>
-        All students are instructed to <b>open this app daily</b>
-        for official notices, event updates, and important announcements.
-    </p>
+        <p>
+            All students are instructed to <b>open this app daily</b>
+            for official notices, event updates, and important announcements.
+        </p>
 
-    <p>
-        🎮 <b>Tic Tac Toe Challenge:</b><br>
-        Play in <b>Hard Mode</b> and try to defeat the
-        <b>RR AI Bot</b>. Can you stay undefeated? 🔥
-    </p>
+        <p>
+            🎮 <b>Tic Tac Toe Challenge:</b><br>
+            Play in <b>Hard Mode</b> and try to defeat the
+            <b>RR AI Bot</b>. Can you stay undefeated? 🔥
+        </p>
 
-    <p>
-        🆕 <b>New Update:</b><br>
-        The <b>Games Zone</b> has been updated and a
-        <b>new game has been added</b> 🎉  
-        Check it out now and challenge your friends!
-    </p>
+        <p>
+            🆕 <b>New Update:</b><br>
+            The <b>Games Zone</b> has been updated and a
+            <b>new game has been added</b> 🎉
+        </p>
 
-    <p class="text-muted">
-        📌 All college updates will be published only in this app.
-    </p>
-</div>
+        <p class="text-muted">
+            📌 All college updates will be published only in this app.
+        </p>
+    </div>
 
-    <!-- 🔥 DAILY STREAK (COMPACT) -->
+    <!-- 🔥 DAILY STREAK -->
     <div class="streak-mini">
         🔥 <span>Daily Streak</span>
         <b><span id="streakCount">1</span> Day</b>
@@ -144,9 +142,15 @@ gtag('event','home_loaded');
     <!-- 🤖 AI STUDENT HELPER -->
     <div class="ai-box">
         <h2>🤖 Student Helper</h2>
-        <button class="ai-btn" onclick="aiReply()">
-            How to pay for Karmanya?
+
+        <button class="ai-btn" onclick="aiReply('payment')">
+            💳 How to pay for Karmanya?
         </button>
+
+        <button class="ai-btn" onclick="aiReply('ai_game')">
+            🎮 How to play with RR AI Bot?
+        </button>
+
         <div class="ai-answer" id="aiAnswer"></div>
     </div>
 
@@ -177,13 +181,8 @@ gtag('event','home_loaded');
         <h2>🎬 KARMANYA 2025 – Official Promo</h2>
         <p class="text-muted">Feel the vibe of our Annual College Fest</p>
 
-        <video
-            src="karmanya_promo.mp4"
-            controls
-            playsinline
-            preload="metadata"
-            style="width:100%;border-radius:12px;max-height:260px;background:#000;">
-            Your device does not support video playback.
+        <video src="karmanya_promo.mp4" controls playsinline preload="metadata"
+               style="width:100%;border-radius:12px;max-height:260px;background:#000;">
         </video>
     </div>
 
@@ -193,29 +192,45 @@ gtag('event','home_loaded');
 <script src="random-colors.js"></script>
 
 <script>
-/* ===== DAILY STREAK LOGIC ===== */
-let today = new Date().toDateString();
-let lastDate = localStorage.getItem("lastOpenDate");
-let streak = parseInt(localStorage.getItem("dailyStreak") || "0");
+/* ===== DAILY STREAK ===== */
+let today=new Date().toDateString();
+let lastDate=localStorage.getItem("lastOpenDate");
+let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
 
-if(lastDate !== today){
-    if(new Date(lastDate).getTime() + 86400000 >= new Date(today).getTime()){
+if(lastDate!==today){
+    if(new Date(lastDate).getTime()+86400000>=new Date(today).getTime()){
         streak++;
-    } else {
-        streak = 1;
+    }else{
+        streak=1;
     }
-    localStorage.setItem("dailyStreak", streak);
-    localStorage.setItem("lastOpenDate", today);
+    localStorage.setItem("dailyStreak",streak);
+    localStorage.setItem("lastOpenDate",today);
 }
-
-document.getElementById("streakCount").innerText = streak;
+document.getElementById("streakCount").innerText=streak;
 gtag('event','daily_streak',{days:streak});
 
 /* ===== AI HELPER ===== */
-function aiReply(){
-    document.getElementById("aiAnswer").innerText =
-        "💳 Open Karmanya → Scan QR → Pay ₹500 → Send screenshot on WhatsApp with Name, Class, Roll No & Veg/Non-Veg.";
-    gtag('event','ai_helper_used',{question:'karmanya_payment'});
+function aiReply(type){
+    const box=document.getElementById("aiAnswer");
+
+    if(type==="payment"){
+        box.innerText =
+        "💳 Open Karmanya → Scan QR → Pay ₹500 → " +
+        "Send screenshot on WhatsApp with Name, Class, Roll No & Veg/Non-Veg.";
+        gtag('event','ai_helper_used',{question:'karmanya_payment'});
+    }
+
+    if(type==="ai_game"){
+        box.innerText =
+        "🎮 How to play with RR AI Bot:\n\n" +
+        "1️⃣ Open Games Zone\n" +
+        "2️⃣ Select Tic Tac Toe\n" +
+        "3️⃣ Game starts in Friend mode\n" +
+        "4️⃣ Tap 👥 to switch to 🤖 AI Bot\n" +
+        "5️⃣ Choose Medium or Hard mode\n" +
+        "6️⃣ Try to defeat the RR AI Bot 🔥";
+        gtag('event','ai_helper_used',{question:'rr_ai_bot_play'});
+    }
 }
 
 /* ===== BUTTON TRACKING ===== */
@@ -228,11 +243,11 @@ function trackAndGo(type){
 }
 
 /* ===== COUNTDOWN ===== */
-const eventDate = new Date("2025-12-30T23:59:59").getTime();
+const eventDate=new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
-    const now = new Date().getTime();
-    const diff = eventDate - now;
-    if(diff <= 0){
+    const now=new Date().getTime();
+    const diff=eventDate-now;
+    if(diff<=0){
         document.getElementById("countdown").innerText="🎉 Countdown Ended!";
         return;
     }
