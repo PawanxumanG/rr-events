@@ -27,6 +27,7 @@ body{
     text-align:center;
 }
 
+/* HEADER */
 .header{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     padding:22px 12px;
@@ -45,6 +46,14 @@ body{
     margin-top:12px;
 }
 
+/* MODE INFO */
+.mode-info{
+    margin-top:10px;
+    font-size:14px;
+    opacity:.9;
+}
+
+/* AI LEVELS */
 .ai-levels{
     display:none;
     justify-content:center;
@@ -62,12 +71,37 @@ body{
 .medium{background:#f39c12;}
 .hard{background:#e74c3c;}
 
-.status{
+/* SCOREBOARD */
+.scoreboard{
+    display:flex;
+    justify-content:center;
+    gap:14px;
     margin:16px 0;
+    font-size:14px;
+}
+.score{
+    background:#161a22;
+    padding:10px 14px;
+    border-radius:10px;
+}
+
+/* STATUS */
+.status{
+    margin:14px 0;
     font-size:18px;
     font-weight:600;
 }
+.thinking{
+    color:#ffcc80;
+    animation:pulse 1s infinite;
+}
+@keyframes pulse{
+    0%{opacity:.4}
+    50%{opacity:1}
+    100%{opacity:.4}
+}
 
+/* BOARD */
 .board{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -85,6 +119,7 @@ body{
     justify-content:center;
     cursor:pointer;
     box-shadow:0 6px 18px rgba(0,0,0,.6);
+    transition:.2s;
 }
 .cell.X{color:#4fc3f7;}
 .cell.O{color:#ffb74d;}
@@ -93,6 +128,7 @@ body{
     box-shadow:0 0 22px rgba(255,81,47,.9);
 }
 
+/* BUTTONS */
 .btn{
     width:80%;
     max-width:280px;
@@ -117,9 +153,13 @@ body{
     <p>Play • Chill • Compete</p>
 
     <button class="mode-btn" onclick="toggleMode()">
-        <span id="modeIcon">👥</span>
-        <span id="modeText">Friend</span>
+        <span id="modeIcon">🤖</span>
+        <span id="modeText">AI Bot</span>
     </button>
+
+    <div class="mode-info" id="modeInfo">
+        Mode: AI Bot | Difficulty: <b id="difficultyText">Hard</b>
+    </div>
 
     <div class="ai-levels" id="aiLevels">
         <button class="medium" onclick="setLevel('medium')">Medium</button>
@@ -127,11 +167,17 @@ body{
     </div>
 </div>
 
+<div class="scoreboard">
+    <div class="score">🏆 Wins: <span id="wins">0</span></div>
+    <div class="score">💀 Losses: <span id="losses">0</span></div>
+    <div class="score">🤝 Draws: <span id="draws">0</span></div>
+</div>
+
 <div class="status" id="status">Player X Turn</div>
 <div class="board" id="board"></div>
 
 <button class="btn btn-restart" onclick="restartGame()">🔁 Restart Game</button>
-<button class="btn btn-back" onclick="location.href='tictactoe.html'">⬅ Back to Games</button>
+<button class="btn btn-back" onclick="location.href='games.html'">⬅ Back to Games</button>
 
 <script>
 const boardEl=document.getElementById("board");
@@ -139,12 +185,22 @@ const statusEl=document.getElementById("status");
 const modeIcon=document.getElementById("modeIcon");
 const modeText=document.getElementById("modeText");
 const aiLevels=document.getElementById("aiLevels");
+const difficultyText=document.getElementById("difficultyText");
 
 let board,currentPlayer,gameOver;
 let vsAI=true;
 let aiLevel="hard";
 
-const wins=[
+/* SCORES */
+let scores={
+    wins:+localStorage.getItem("ttt_wins")||0,
+    losses:+localStorage.getItem("ttt_losses")||0,
+    draws:+localStorage.getItem("ttt_draws")||0
+};
+updateScores();
+
+/* WIN LINES */
+const winsArr=[
 [0,1,2],[3,4,5],[6,7,8],
 [0,3,6],[1,4,7],[2,5,8],
 [0,4,8],[2,4,6]
@@ -154,6 +210,7 @@ function init(){
     board=Array(9).fill("");
     currentPlayer="X";
     gameOver=false;
+    statusEl.classList.remove("thinking");
     statusEl.innerText="Player X Turn";
     boardEl.innerHTML="";
     board.forEach((_,i)=>{
@@ -162,7 +219,6 @@ function init(){
         c.onclick=()=>move(i);
         boardEl.appendChild(c);
     });
-    gtag('event','game_start',{mode:vsAI?'AI':'Friend',level:aiLevel});
 }
 init();
 
@@ -171,17 +227,21 @@ function move(i){
     board[i]=currentPlayer;
     render();
 
-    let win=getWinLine(currentPlayer);
-    if(win){
-        win.forEach(i=>boardEl.children[i].classList.add("win"));
-        statusEl.innerText=`🎉 Player ${currentPlayer} Wins!`;
-        gtag('event','game_win',{winner:currentPlayer,mode:vsAI?'AI':'Friend'});
+    let winLine=getWinLine(currentPlayer);
+    if(winLine){
+        winLine.forEach(i=>boardEl.children[i].classList.add("win"));
+        statusEl.innerText=`🎉 ${currentPlayer==="X"?"You":"AI"} Wins!`;
+        if(vsAI){
+            currentPlayer==="X"?scores.wins++:scores.losses++;
+        }
+        saveScores();
         gameOver=true;return;
     }
 
     if(board.every(v=>v)){
         statusEl.innerText="🤝 Match Draw";
-        gtag('event','game_draw',{mode:vsAI?'AI':'Friend'});
+        scores.draws++;
+        saveScores();
         gameOver=true;return;
     }
 
@@ -189,11 +249,33 @@ function move(i){
     statusEl.innerText=`Player ${currentPlayer} Turn`;
 
     if(vsAI && currentPlayer==="O"){
-        setTimeout(()=>move(bestMove()),400);
+        statusEl.innerHTML="🤖 AI is thinking<span id='dots'>.</span>";
+        statusEl.classList.add("thinking");
+        animateDots();
+        setTimeout(()=>{
+            statusEl.classList.remove("thinking");
+            move(aiLevel==="hard"?bestMove():mediumMove());
+        },600);
     }
 }
 
-/* UNBEATABLE AI */
+function animateDots(){
+    let dots=document.getElementById("dots");
+    let count=1;
+    let interval=setInterval(()=>{
+        if(!dots) return clearInterval(interval);
+        dots.innerText=".".repeat(count);
+        count=count%3+1;
+    },300);
+}
+
+/* AI */
+function mediumMove(){
+    let empty=board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
+    if(Math.random()<0.4)return empty[Math.floor(Math.random()*empty.length)];
+    return bestMove();
+}
+
 function bestMove(){
     let bestScore=-Infinity,move;
     board.forEach((c,i)=>{
@@ -209,21 +291,21 @@ function bestMove(){
 
 function minimax(b,d,isMax){
     let r=checkResult();
-    if(r!==null) return r==="O"?10-d:r==="X"?d-10:0;
+    if(r!==null)return r==="O"?10-d:r==="X"?d-10:0;
     let best=isMax?-Infinity:Infinity;
     b.forEach((v,i)=>{
         if(v===""){
             b[i]=isMax?"O":"X";
-            let s=minimax(b,d+1,!isMax);
+            best=isMax?Math.max(best,minimax(b,d+1,false))
+                        :Math.min(best,minimax(b,d+1,true));
             b[i]="";
-            best=isMax?Math.max(best,s):Math.min(best,s);
         }
     });
     return best;
 }
 
 function checkResult(){
-    for(let w of wins){
+    for(let w of winsArr){
         let[a,b,c]=w;
         if(board[a]&&board[a]===board[b]&&board[a]===board[c])return board[a];
     }
@@ -231,7 +313,7 @@ function checkResult(){
 }
 
 function getWinLine(p){
-    return wins.find(w=>w.every(i=>board[i]===p));
+    return winsArr.find(w=>w.every(i=>board[i]===p));
 }
 
 function render(){
@@ -241,22 +323,37 @@ function render(){
     });
 }
 
-function restartGame(){init();}
-
+/* MODE */
 function toggleMode(){
     vsAI=!vsAI;
-    modeIcon.innerText=vsAI?"👥":"🤖";
-    modeText.innerText=vsAI?"Friend":"AI Bot";
+    modeIcon.innerText=vsAI?"🤖":"👥";
+    modeText.innerText=vsAI?"AI Bot":"Friend";
     aiLevels.style.display=vsAI?"flex":"none";
-    gtag('event','mode_switch',{mode:vsAI?'AI':'Friend'});
+    document.getElementById("modeInfo").innerText=
+        vsAI?`Mode: AI Bot | Difficulty: ${aiLevel}`:"Mode: Friend vs Friend";
     restartGame();
 }
 
 function setLevel(lvl){
     aiLevel=lvl;
-    gtag('event','difficulty_change',{level:lvl});
+    difficultyText.innerText=lvl.charAt(0).toUpperCase()+lvl.slice(1);
     restartGame();
 }
+
+/* SCORES */
+function updateScores(){
+    wins.innerText=scores.wins;
+    losses.innerText=scores.losses;
+    draws.innerText=scores.draws;
+}
+function saveScores(){
+    localStorage.setItem("ttt_wins",scores.wins);
+    localStorage.setItem("ttt_losses",scores.losses);
+    localStorage.setItem("ttt_draws",scores.draws);
+    updateScores();
+}
+
+function restartGame(){init();}
 </script>
 
 </body>
