@@ -5,14 +5,14 @@
 <title>Games Zone – RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ✅ GOOGLE ANALYTICS -->
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-9JW1V42V83', {
-  page_title: 'Games Hub',
+  page_title: 'Games Zone',
   page_path: '/tictactoe.html'
 });
 </script>
@@ -28,47 +28,40 @@ body{
 }
 
 /* HEADER */
-.header{
+.game-header{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
-    padding:24px 12px;
+    padding:26px 12px;
 }
-.header h1{
+.game-header h1{
     margin:0;
-    font-size:26px;
+    font-size:28px;
 }
-.header p{
+.game-header p{
     margin-top:6px;
-    font-size:14px;
     opacity:.9;
-}
-
-/* CONTAINER */
-.container{
-    padding:20px;
 }
 
 /* GAME CARD */
 .game-card{
     background:#161a22;
     border-radius:16px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
+    padding:18px;
+    margin:18px auto;
+    max-width:360px;
+    box-shadow:0 8px 22px rgba(0,0,0,.6);
 }
 .game-card h2{
-    margin:0 0 8px;
-    font-size:20px;
+    margin-top:0;
 }
 .game-card p{
-    font-size:14px;
     opacity:.85;
+    font-size:14px;
 }
 
-/* BUTTON */
 .play-btn{
+    width:100%;
     margin-top:14px;
     padding:14px;
-    width:100%;
     font-size:16px;
     font-weight:600;
     border:none;
@@ -76,76 +69,73 @@ body{
     cursor:pointer;
     color:#fff;
 }
-.tic{
+.btn-ttt{
     background:linear-gradient(90deg,#ff9800,#ff6a00);
 }
-.game2048{
+.btn-2048{
     background:linear-gradient(90deg,#00c6ff,#0072ff);
 }
 
-/* FOOTER NOTE */
-.note{
-    margin-top:24px;
-    font-size:13px;
-    opacity:.7;
+/* BACK BUTTON */
+.back-btn{
+    width:80%;
+    max-width:280px;
+    margin:26px auto 90px; /* space above apk bar */
+    padding:14px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:12px;
+    background:#34495e;
+    color:#fff;
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<div class="game-header">
     <h1>🎮 Games Zone</h1>
     <p>Play • Chill • Compete</p>
 </div>
 
-<div class="container">
-
-    <!-- TIC TAC TOE -->
-    <div class="game-card">
-        <h2>❌⭕ Tic Tac Toe</h2>
-        <p>
-            Play with friends or challenge the
-            <b>RR AI Bot (Hard Mode)</b>.
-        </p>
-        <button class="play-btn tic" onclick="openGame('tic')">
-            ▶ Play Tic Tac Toe
-        </button>
-    </div>
-
-    <!-- 2048 -->
-    <div class="game-card">
-        <h2>🧩 2048</h2>
-        <p>
-            Test your brain power.
-            Can you reach <b>2048</b>?
-        </p>
-        <button class="play-btn game2048" onclick="openGame('2048')">
-            ▶ Play 2048
-        </button>
-    </div>
-
-    <div class="note">
-        🔥 More games coming soon.<br>
-        Open daily & challenge your friends!
-    </div>
-
+<!-- TIC TAC TOE -->
+<div class="game-card">
+    <h2>❌⭕ Tic Tac Toe</h2>
+    <p>
+        Play with friends or challenge the
+        <b>RR AI Bot (Hard Mode)</b>.
+    </p>
+    <button class="play-btn btn-ttt"
+        onclick="gtag('event','play_tictactoe'); location.href='tictactoe_game.html'">
+        ▶ Play Tic Tac Toe
+    </button>
 </div>
 
-<script>
-function openGame(game){
-    gtag('event','game_opened',{
-        game_name: game
-    });
+<!-- 2048 -->
+<div class="game-card">
+    <h2>🧩 2048</h2>
+    <p>
+        Test your brain power.
+        Can you reach <b>2048</b>?
+    </p>
+    <button class="play-btn btn-2048"
+        onclick="gtag('event','play_2048'); location.href='2048.html'">
+        ▶ Play 2048
+    </button>
+</div>
 
-    if(game === 'tic'){
-        location.href = 'tictactoe_game.html';
-    }
-    if(game === '2048'){
-        location.href = '2048.html';
-    }
-}
-</script>
+<p style="opacity:.6;margin-top:10px;">
+    🔥 More games coming soon<br>
+    Open daily & challenge your friends!
+</p>
+
+<!-- ⬅ BACK TO NOTICES -->
+<button class="back-btn"
+    onclick="gtag('event','back_to_notices'); location.href='index.html'">
+    ⬅ Back to Notices
+</button>
 
 </body>
 </html>
