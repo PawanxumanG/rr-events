@@ -33,14 +33,8 @@ body{
     background:linear-gradient(90deg,#ff512f,#dd2476);
     padding:18px;
 }
-.header h1{
-    margin:0;
-    font-size:26px;
-}
-.header p{
-    margin-top:6px;
-    opacity:.9;
-}
+.header h1{margin:0;font-size:26px;}
+.header p{margin-top:6px;opacity:.9;}
 
 /* SCORE BAR */
 .score-bar{
@@ -55,12 +49,22 @@ body{
 #gameBox{
     width:100%;
     max-width:380px;
+    height:300px;               /* 🔥 FIX */
     margin:16px auto;
     background:linear-gradient(180deg,#1b1f2a,#0f1117);
     border-radius:16px;
     box-shadow:0 0 25px rgba(0,0,0,.7);
     position:relative;
     overflow:hidden;
+}
+
+/* GROUND */
+#ground{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:18px;
+    background:#222;
 }
 
 /* PLAYER */
@@ -70,7 +74,7 @@ body{
     background:linear-gradient(135deg,#00c6ff,#0072ff);
     border-radius:8px;
     position:absolute;
-    bottom:16px;
+    bottom:18px;                /* ON GROUND */
     left:40px;
 }
 
@@ -81,7 +85,7 @@ body{
     background:linear-gradient(135deg,#ff9800,#ff5722);
     border-radius:6px;
     position:absolute;
-    bottom:16px;
+    bottom:18px;
 }
 
 /* GAME OVER */
@@ -94,7 +98,6 @@ body{
     justify-content:center;
     flex-direction:column;
 }
-#gameOver h2{margin:0;}
 #gameOver button{
     margin-top:12px;
     padding:12px 20px;
@@ -107,7 +110,7 @@ body{
     cursor:pointer;
 }
 
-/* BACK BUTTON */
+/* BACK */
 .back-btn{
     width:80%;
     max-width:260px;
@@ -138,10 +141,10 @@ body{
 
 <div id="gameBox">
     <div id="player"></div>
+    <div id="ground"></div>
 
     <div id="gameOver">
         <h2>💥 Game Over</h2>
-        <p>Tap restart to try again</p>
         <button onclick="restartGame()">🔁 Restart</button>
     </div>
 </div>
@@ -157,37 +160,36 @@ const scoreEl = document.getElementById("score");
 const bestEl = document.getElementById("best");
 const gameOverEl = document.getElementById("gameOver");
 
-let gravity = 0.9;
-let jumpPower = -14;
 let velocity = 0;
+let gravity = 0.9;
+let jumpPower = -13;
 let isJumping = false;
 let score = 0;
-let speed = 3;
-let gameRunning = true;
+let speed = 4;
+let running = true;
 
-let bestScore = localStorage.getItem("rr_runner_best") || 0;
-bestEl.innerText = bestScore;
+let best = localStorage.getItem("rr_runner_best") || 0;
+bestEl.innerText = best;
 
 /* TAP ANYWHERE TO JUMP */
-gameBox.addEventListener("click", jump);
-document.body.addEventListener("click", jump);
+document.addEventListener("click", jump);
 
 function jump(){
-    if(!isJumping && gameRunning){
+    if(!isJumping && running){
         velocity = jumpPower;
         isJumping = true;
     }
 }
 
 function spawnObstacle(){
-    if(!gameRunning) return;
+    if(!running) return;
     const obs = document.createElement("div");
     obs.className = "obstacle";
     obs.style.left = gameBox.clientWidth + "px";
     gameBox.appendChild(obs);
 
     let move = setInterval(()=>{
-        if(!gameRunning){
+        if(!running){
             clearInterval(move);
             obs.remove();
             return;
@@ -196,14 +198,13 @@ function spawnObstacle(){
         let x = parseInt(obs.style.left);
         obs.style.left = (x - speed) + "px";
 
-        // Collision
-        const pRect = player.getBoundingClientRect();
-        const oRect = obs.getBoundingClientRect();
+        let p = player.getBoundingClientRect();
+        let o = obs.getBoundingClientRect();
 
         if(
-            pRect.left < oRect.right &&
-            pRect.right > oRect.left &&
-            pRect.bottom > oRect.top
+            p.left < o.right &&
+            p.right > o.left &&
+            p.bottom > o.top
         ){
             endGame();
             clearInterval(move);
@@ -218,16 +219,16 @@ function spawnObstacle(){
 }
 
 function gameLoop(){
-    if(!gameRunning) return;
+    if(!running) return;
 
     velocity += gravity;
-    let bottom = parseInt(player.style.bottom || 16);
+    let bottom = parseInt(player.style.bottom);
     bottom -= velocity;
 
-    if(bottom <= 16){
-        bottom = 16;
-        isJumping = false;
+    if(bottom <= 18){
+        bottom = 18;
         velocity = 0;
+        isJumping = false;
     }
 
     player.style.bottom = bottom + "px";
@@ -235,19 +236,18 @@ function gameLoop(){
     score++;
     scoreEl.innerText = score;
 
-    if(score > bestScore){
-        bestScore = score;
-        bestEl.innerText = bestScore;
-        localStorage.setItem("rr_runner_best", bestScore);
+    if(score > best){
+        best = score;
+        bestEl.innerText = best;
+        localStorage.setItem("rr_runner_best", best);
     }
 
     requestAnimationFrame(gameLoop);
 }
 
 function endGame(){
-    gameRunning = false;
+    running = false;
     gameOverEl.style.display = "flex";
-    gtag('event','rr_runner_game_over',{score:score});
 }
 
 function restartGame(){
@@ -255,9 +255,8 @@ function restartGame(){
 }
 
 /* START */
-setInterval(spawnObstacle,1500);
+setInterval(spawnObstacle,1400);
 gameLoop();
-gtag('event','rr_runner_start');
 </script>
 
 </body>
