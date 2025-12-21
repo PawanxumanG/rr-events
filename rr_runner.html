@@ -11,20 +11,21 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-9JW1V42V83', {
-  page_title: 'RR Runner',
-  page_path: '/rr_runner.html'
+gtag('config','G-9JW1V42V83',{
+  page_title:'RR Runner',
+  page_path:'/rr_runner.html'
 });
 </script>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+*{box-sizing:border-box;}
 body{
     margin:0;
-    font-family:'Segoe UI',Arial,sans-serif;
     background:#0f1117;
     color:#fff;
+    font-family:'Segoe UI',Arial,sans-serif;
     text-align:center;
+    user-select:none;
 }
 
 /* HEADER */
@@ -32,83 +33,94 @@ body{
     background:linear-gradient(90deg,#ff512f,#dd2476);
     padding:18px;
 }
-.header h1{margin:0;font-size:26px;}
-.header p{margin-top:6px;opacity:.85}
+.header h1{
+    margin:0;
+    font-size:26px;
+}
+.header p{
+    margin-top:6px;
+    opacity:.9;
+}
+
+/* SCORE BAR */
+.score-bar{
+    display:flex;
+    justify-content:space-around;
+    padding:12px;
+    font-size:15px;
+    background:#161a22;
+}
 
 /* GAME AREA */
-#game{
-    position:relative;
+#gameBox{
     width:100%;
-    max-width:360px;
-    height:420px;
-    margin:18px auto;
-    background:#161a22;
+    max-width:380px;
+    margin:16px auto;
+    background:linear-gradient(180deg,#1b1f2a,#0f1117);
     border-radius:16px;
+    box-shadow:0 0 25px rgba(0,0,0,.7);
+    position:relative;
     overflow:hidden;
-    box-shadow:0 0 22px rgba(0,0,0,.7);
 }
 
 /* PLAYER */
 #player{
-    position:absolute;
-    bottom:20px;
-    left:40px;
     width:36px;
     height:36px;
-    background:#4fc3f7;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
     border-radius:8px;
+    position:absolute;
+    bottom:16px;
+    left:40px;
 }
 
 /* OBSTACLE */
 .obstacle{
-    position:absolute;
-    bottom:20px;
-    width:32px;
-    height:32px;
-    background:#ff5252;
+    width:30px;
+    height:30px;
+    background:linear-gradient(135deg,#ff9800,#ff5722);
     border-radius:6px;
-}
-
-/* HUD */
-.hud{
-    display:flex;
-    justify-content:space-around;
-    margin-top:10px;
-    font-size:14px;
-}
-.hud span b{color:#ff9800}
-
-/* BUTTONS */
-.btn{
-    width:80%;
-    max-width:280px;
-    padding:14px;
-    font-size:16px;
-    font-weight:600;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:14px;
-    color:#fff;
-}
-.btn-restart{
-    background:linear-gradient(90deg,#ff9800,#ff6a00);
-}
-.btn-back{
-    background:#34495e;
+    position:absolute;
+    bottom:16px;
 }
 
 /* GAME OVER */
 #gameOver{
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,.8);
+    background:rgba(0,0,0,.85);
     display:none;
-    flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
+    flex-direction:column;
 }
-#gameOver h2{margin-bottom:10px}
+#gameOver h2{margin:0;}
+#gameOver button{
+    margin-top:12px;
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:600;
+    background:linear-gradient(90deg,#ff9800,#ff6a00);
+    color:#fff;
+    cursor:pointer;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    width:80%;
+    max-width:260px;
+    margin:18px auto 90px;
+    padding:14px;
+    font-size:16px;
+    font-weight:600;
+    border:none;
+    border-radius:12px;
+    background:#34495e;
+    color:#fff;
+    cursor:pointer;
+}
 </style>
 </head>
 
@@ -119,135 +131,133 @@ body{
     <p>Run • Jump • Survive</p>
 </div>
 
-<div class="hud">
-    <span>📏 Score: <b id="score">0</b> m</span>
-    <span>🏆 Best: <b id="best">0</b> m</span>
+<div class="score-bar">
+    <div>📏 Score: <span id="score">0</span> m</div>
+    <div>🏆 Best: <span id="best">0</span> m</div>
 </div>
 
-<div id="game">
+<div id="gameBox">
     <div id="player"></div>
 
     <div id="gameOver">
         <h2>💥 Game Over</h2>
-        <p>Your Score: <b id="finalScore"></b> m</p>
-        <button class="btn btn-restart" onclick="restart()">🔁 Play Again</button>
+        <p>Tap restart to try again</p>
+        <button onclick="restartGame()">🔁 Restart</button>
     </div>
 </div>
 
-<button class="btn btn-back" onclick="location.href='tictactoe.html'">
-⬅ Back to Games
+<button class="back-btn" onclick="location.href='tictactoe.html'">
+    ⬅ Back to Games
 </button>
 
 <script>
-const game = document.getElementById("game");
+const gameBox = document.getElementById("gameBox");
 const player = document.getElementById("player");
 const scoreEl = document.getElementById("score");
 const bestEl = document.getElementById("best");
-const gameOverBox = document.getElementById("gameOver");
-const finalScoreEl = document.getElementById("finalScore");
+const gameOverEl = document.getElementById("gameOver");
 
-let jumping=false;
-let gravity=0;
-let score=0;
-let speed=3;
-let gameRunning=true;
+let gravity = 0.9;
+let jumpPower = -14;
+let velocity = 0;
+let isJumping = false;
+let score = 0;
+let speed = 3;
+let gameRunning = true;
 
-let bestScore = localStorage.getItem("rr_best") || 0;
+let bestScore = localStorage.getItem("rr_runner_best") || 0;
 bestEl.innerText = bestScore;
 
-/* JUMP */
+/* TAP ANYWHERE TO JUMP */
+gameBox.addEventListener("click", jump);
+document.body.addEventListener("click", jump);
+
 function jump(){
-    if(jumping) return;
-    jumping=true;
-    gravity=12;
-    gtag('event','rr_jump');
+    if(!isJumping && gameRunning){
+        velocity = jumpPower;
+        isJumping = true;
+    }
 }
 
-/* TOUCH / TAP */
-game.addEventListener("click", jump);
+function spawnObstacle(){
+    if(!gameRunning) return;
+    const obs = document.createElement("div");
+    obs.className = "obstacle";
+    obs.style.left = gameBox.clientWidth + "px";
+    gameBox.appendChild(obs);
 
-/* CREATE OBSTACLE */
-function createObstacle(){
-    const obs=document.createElement("div");
-    obs.className="obstacle";
-    obs.style.left="360px";
-    game.appendChild(obs);
-
-    let move=setInterval(()=>{
+    let move = setInterval(()=>{
         if(!gameRunning){
             clearInterval(move);
             obs.remove();
             return;
         }
 
-        let left=parseInt(obs.style.left);
-        obs.style.left=(left-speed)+"px";
+        let x = parseInt(obs.style.left);
+        obs.style.left = (x - speed) + "px";
 
-        /* COLLISION */
-        const pRect=player.getBoundingClientRect();
-        const oRect=obs.getBoundingClientRect();
+        // Collision
+        const pRect = player.getBoundingClientRect();
+        const oRect = obs.getBoundingClientRect();
 
         if(
-            oRect.left < pRect.right &&
-            oRect.right > pRect.left &&
-            oRect.bottom > pRect.top
+            pRect.left < oRect.right &&
+            pRect.right > oRect.left &&
+            pRect.bottom > oRect.top
         ){
             endGame();
-        }
-
-        if(left < -40){
             clearInterval(move);
             obs.remove();
-            score+=10;
-            scoreEl.innerText=score;
+        }
+
+        if(x < -40){
+            clearInterval(move);
+            obs.remove();
         }
     },20);
 }
 
-/* GAME LOOP */
-let obstacleTimer=setInterval(()=>{
-    if(gameRunning) createObstacle();
-},1500);
-
-function loop(){
+function gameLoop(){
     if(!gameRunning) return;
 
-    if(jumping){
-        gravity--;
-        let bottom=parseInt(player.style.bottom||"20");
-        player.style.bottom=(bottom+gravity)+"px";
-        if(bottom<=20){
-            jumping=false;
-            gravity=0;
-            player.style.bottom="20px";
-        }
+    velocity += gravity;
+    let bottom = parseInt(player.style.bottom || 16);
+    bottom -= velocity;
+
+    if(bottom <= 16){
+        bottom = 16;
+        isJumping = false;
+        velocity = 0;
     }
 
-    requestAnimationFrame(loop);
-}
-loop();
+    player.style.bottom = bottom + "px";
 
-/* END GAME */
+    score++;
+    scoreEl.innerText = score;
+
+    if(score > bestScore){
+        bestScore = score;
+        bestEl.innerText = bestScore;
+        localStorage.setItem("rr_runner_best", bestScore);
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
 function endGame(){
-    gameRunning=false;
-    clearInterval(obstacleTimer);
-    finalScoreEl.innerText=score;
-    gameOverBox.style.display="flex";
-
-    if(score>bestScore){
-        bestScore=score;
-        localStorage.setItem("rr_best",bestScore);
-        bestEl.innerText=bestScore;
-        gtag('event','rr_new_highscore',{score:score});
-    }
-
-    gtag('event','rr_game_over',{score:score});
+    gameRunning = false;
+    gameOverEl.style.display = "flex";
+    gtag('event','rr_runner_game_over',{score:score});
 }
 
-/* RESTART */
-function restart(){
+function restartGame(){
     location.reload();
 }
+
+/* START */
+setInterval(spawnObstacle,1500);
+gameLoop();
+gtag('event','rr_runner_start');
 </script>
 
 </body>
