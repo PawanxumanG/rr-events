@@ -7,23 +7,20 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- ✅ GOOGLE ANALYTICS – HOME PAGE (DEEP TRACKING) -->
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
-
 gtag('js', new Date());
 gtag('config', 'G-9JW1V42V83', {
   page_title: 'RR Events Home',
   page_path: '/index.html'
 });
-
 gtag('event','home_loaded');
 </script>
 
 <style>
-/* ===== COMPACT DAILY STREAK ===== */
 .streak-mini{
     background:#161a22;
     border-radius:12px;
@@ -33,23 +30,16 @@ gtag('event','home_loaded');
     justify-content:space-between;
     align-items:center;
     font-size:14px;
-    box-shadow:0 0 12px rgba(0,0,0,.5);
 }
-.streak-mini span{opacity:.9;}
-.streak-mini b{
-    color:#ff9800;
-    font-size:15px;
-}
+.streak-mini b{color:#ff9800;}
 
-/* ===== AI HELPER ===== */
 .ai-box{
     background:#161a22;
     border-radius:14px;
     padding:16px;
     margin-bottom:18px;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
 }
-.ai-box h2{margin-top:0;font-size:18px;}
+.ai-box h2{margin-top:0;}
 .ai-btn{
     width:100%;
     margin-top:10px;
@@ -59,15 +49,14 @@ gtag('event','home_loaded');
     background:linear-gradient(90deg,#ff9800,#ff6a00);
     color:#fff;
     font-size:14px;
-    cursor:pointer;
 }
 .ai-answer{
     margin-top:12px;
     font-size:14px;
     color:#ffcc80;
+    white-space:pre-wrap;
 }
 
-/* ===== COUNTDOWN ===== */
 .countdown-box{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     border-radius:14px;
@@ -79,18 +68,7 @@ gtag('event','home_loaded');
 .countdown-time{
     font-size:20px;
     font-weight:700;
-    margin-top:8px;
 }
-
-/* ===== PROMO VIDEO ===== */
-.video-box{
-    background:#161a22;
-    border-radius:14px;
-    padding:14px;
-    margin:24px 0;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
-}
-.video-box h2{margin-top:0;font-size:18px;}
 </style>
 </head>
 
@@ -103,158 +81,102 @@ gtag('event','home_loaded');
 
 <div class="container">
 
-    <!-- 👨‍🏫 CHAIRMAN -->
-    <button onclick="trackAndGo('chairman')" class="nav-btn">
-        👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
-    </button>
+<button onclick="trackAndGo('chairman')" class="nav-btn">
+👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
+</button>
 
-    <div class="event">
-        <h2>📢 IMPORTANT NOTICE</h2>
-
-        <p>
-            All students are instructed to <b>open this app daily</b>
-            for official notices, event updates, and important announcements.
-        </p>
-
-        <p>
-            🎮 <b>Tic Tac Toe Challenge:</b><br>
-            Play in <b>Hard Mode</b> and try to defeat the
-            <b>RR AI Bot</b>. Can you stay undefeated? 🔥
-        </p>
-
-        <p>
-            🆕 <b>New Update:</b><br>
-            The <b>Games Zone</b> has been updated and a
-            <b>new game has been added</b> 🎉
-        </p>
-
-        <p class="text-muted">
-            📌 All college updates will be published only in this app.
-        </p>
-    </div>
-
-    <!-- 🔥 DAILY STREAK -->
-    <div class="streak-mini">
-        🔥 <span>Daily Streak</span>
-        <b><span id="streakCount">1</span> Day</b>
-    </div>
-
-    <!-- 🤖 AI STUDENT HELPER -->
-    <div class="ai-box">
-        <h2>🤖 Student Helper</h2>
-
-        <button class="ai-btn" onclick="aiReply('payment')">
-            💳 How to pay for Karmanya?
-        </button>
-
-        <button class="ai-btn" onclick="aiReply('ai_game')">
-            🎮 How to play with RR AI Bot?
-        </button>
-
-        <div class="ai-answer" id="aiAnswer"></div>
-    </div>
-
-    <!-- ⏳ COUNTDOWN -->
-    <div class="countdown-box">
-        <div>⏳ KARMANYA 2025 COUNTDOWN</div>
-        <div class="countdown-time" id="countdown"></div>
-    </div>
-
-    <!-- 🖼️ POSTER -->
-    <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
-
-    <!-- 🎟️ BUTTONS -->
-    <button onclick="trackAndGo('karmanya')" class="nav-btn">
-        🎟️ KARMANYA 2025 – Details & Payment
-    </button>
-
-    <button onclick="trackAndGo('album')" class="nav-btn">
-        📸 Event Album
-    </button>
-
-    <button onclick="trackAndGo('events')" class="nav-btn">
-        📅 View Events
-    </button>
-
-    <!-- 🎬 PROMO VIDEO -->
-    <div class="video-box">
-        <h2>🎬 KARMANYA 2025 – Official Promo</h2>
-        <p class="text-muted">Feel the vibe of our Annual College Fest</p>
-
-        <video src="karmanya_promo.mp4" controls playsinline preload="metadata"
-               style="width:100%;border-radius:12px;max-height:260px;background:#000;">
-        </video>
-    </div>
-
+<div class="event">
+<h2>📢 IMPORTANT NOTICE</h2>
+<p>Open this app daily for official notices and updates.</p>
 </div>
 
-<script src="script.js"></script>
-<script src="random-colors.js"></script>
+<div class="streak-mini">
+🔥 Daily Streak <b><span id="streakCount">1</span> Day</b>
+</div>
+
+<!-- 🤖 GEMINI AI -->
+<div class="ai-box">
+<h2>🤖 Gemini AI Helper</h2>
+
+<button class="ai-btn" onclick="askGemini('How to pay for Karmanya event at RR International College?')">
+💳 How to pay for Karmanya?
+</button>
+
+<button class="ai-btn" onclick="askGemini('How to play Tic Tac Toe with RR AI Bot in RR Events App?')">
+🎮 How to play with RR AI Bot?
+</button>
+
+<div class="ai-answer" id="aiAnswer"></div>
+</div>
+
+<div class="countdown-box">
+⏳ KARMANYA 2025 COUNTDOWN
+<div class="countdown-time" id="countdown"></div>
+</div>
+
+<img src="karmanya.jpg" class="poster-img" alt="Poster">
+
+<button onclick="trackAndGo('karmanya')" class="nav-btn">🎟️ KARMANYA 2025</button>
+<button onclick="trackAndGo('album')" class="nav-btn">📸 Event Album</button>
+<button onclick="trackAndGo('events')" class="nav-btn">📅 View Events</button>
+
+</div>
 
 <script>
 /* ===== DAILY STREAK ===== */
 let today=new Date().toDateString();
 let lastDate=localStorage.getItem("lastOpenDate");
 let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
-
 if(lastDate!==today){
-    if(new Date(lastDate).getTime()+86400000>=new Date(today).getTime()){
-        streak++;
-    }else{
-        streak=1;
-    }
+    streak = lastDate ? streak+1 : 1;
     localStorage.setItem("dailyStreak",streak);
     localStorage.setItem("lastOpenDate",today);
 }
 document.getElementById("streakCount").innerText=streak;
-gtag('event','daily_streak',{days:streak});
 
-/* ===== AI HELPER ===== */
-function aiReply(type){
+/* 🔑 GEMINI API KEY */
+const GEMINI_API_KEY = "AIzaSyBKHcGArZJqyzRkaFYbpKaDzu5I25YbaqU";
+
+/* 🤖 GEMINI FUNCTION */
+async function askGemini(question){
     const box=document.getElementById("aiAnswer");
+    box.innerText="🤖 Thinking...";
 
-    if(type==="payment"){
-        box.innerText =
-        "💳 Open Karmanya → Scan QR → Pay ₹500 → " +
-        "Send screenshot on WhatsApp with Name, Class, Roll No & Veg/Non-Veg.";
-        gtag('event','ai_helper_used',{question:'karmanya_payment'});
-    }
-
-    if(type==="ai_game"){
-        box.innerText =
-        "🎮 How to play with RR AI Bot:\n\n" +
-        "1️⃣ Open Games Zone\n" +
-        "2️⃣ Select Tic Tac Toe\n" +
-        "3️⃣ Game starts in Friend mode\n" +
-        "4️⃣ Tap 👥 to switch to 🤖 AI Bot\n" +
-        "5️⃣ Choose Medium or Hard mode\n" +
-        "6️⃣ Try to defeat the RR AI Bot 🔥";
-        gtag('event','ai_helper_used',{question:'rr_ai_bot_play'});
+    try{
+        const res = await fetch(
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="+GEMINI_API_KEY,
+          {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({
+              contents:[{parts:[{text:question}]}]
+            })
+          }
+        );
+        const data = await res.json();
+        box.innerText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+    }catch(e){
+        box.innerText="❌ AI error. Try again.";
     }
 }
 
-/* ===== BUTTON TRACKING ===== */
+/* NAV */
 function trackAndGo(type){
-    gtag('event','home_click',{button:type});
     if(type==='karmanya') location.href='karmanya.html';
     if(type==='album') location.href='event_album.html';
-    if(type==='events') openEvents();
+    if(type==='events') openEvents?.();
     if(type==='chairman') location.href='chairman.html';
 }
 
-/* ===== COUNTDOWN ===== */
+/* COUNTDOWN */
 const eventDate=new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
-    const now=new Date().getTime();
-    const diff=eventDate-now;
-    if(diff<=0){
-        document.getElementById("countdown").innerText="🎉 Countdown Ended!";
-        return;
-    }
-    const d=Math.floor(diff/(1000*60*60*24));
-    const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const m=Math.floor((diff%(1000*60*60))/(1000*60));
-    const s=Math.floor((diff%(1000*60))/1000);
+    const diff=eventDate-new Date().getTime();
+    if(diff<=0)return;
+    const d=Math.floor(diff/86400000);
+    const h=Math.floor((diff%86400000)/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
     document.getElementById("countdown").innerText=`${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
 </script>
