@@ -7,16 +7,18 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- ✅ GOOGLE ANALYTICS -->
+<!-- ✅ GOOGLE ANALYTICS (DEEP TRACKING ENABLED) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+
 gtag('js', new Date());
 gtag('config', 'G-9JW1V42V83', {
   page_title: 'RR Events Home',
   page_path: '/index.html'
 });
+
 gtag('event','home_loaded');
 </script>
 
@@ -78,11 +80,11 @@ gtag('event','home_loaded');
     margin-top:8px;
 }
 
-/* ===== POSTER (SHRUNK & CLEAN) ===== */
+/* ===== POSTER ===== */
 .poster-img{
     width:100%;
-    max-height:300px;        /* 👈 controls size (reduce scroll) */
-    object-fit:contain;      /* keeps full poster visible */
+    max-height:300px;
+    object-fit:contain;
     border-radius:14px;
     margin:16px 0;
     box-shadow:0 0 18px rgba(0,0,0,.6);
@@ -157,26 +159,19 @@ Games Zone updated & a <b>new game added</b> 🎉
 </div>
 
 <!-- ⏳ COUNTDOWN -->
-<div class="countdown-box">
+<div class="countdown-box" id="countdownBox">
 ⏳ KARMANYA 2025 COUNTDOWN
 <div class="countdown-time" id="countdown"></div>
 </div>
 
-<!-- 🖼️ POSTER (COMPACT) -->
-<img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
+<!-- 🖼️ POSTER -->
+<img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster"
+     onclick="gtag('event','poster_clicked')">
 
 <!-- 🎟️ BUTTONS -->
-<button onclick="trackAndGo('karmanya')" class="nav-btn">
-🎟️ KARMANYA 2025 – Details & Payment
-</button>
-
-<button onclick="trackAndGo('album')" class="nav-btn">
-📸 Event Album
-</button>
-
-<button onclick="trackAndGo('events')" class="nav-btn">
-📅 View Events
-</button>
+<button onclick="trackAndGo('karmanya')" class="nav-btn">🎟️ KARMANYA 2025</button>
+<button onclick="trackAndGo('album')" class="nav-btn">📸 Event Album</button>
+<button onclick="trackAndGo('events')" class="nav-btn">📅 View Events</button>
 
 <!-- 🎬 VIDEO -->
 <div class="video-box">
@@ -185,6 +180,7 @@ Games Zone updated & a <b>new game added</b> 🎉
 
 <video src="karmanya_promo.mp4"
 controls playsinline preload="metadata"
+onplay="gtag('event','promo_video_played')"
 style="width:100%;border-radius:12px;max-height:260px;background:#000;">
 </video>
 </div>
@@ -206,6 +202,7 @@ if(lastDate !== today){
     localStorage.setItem("lastOpenDate", today);
 }
 document.getElementById("streakCount").innerText = streak;
+gtag('event','daily_streak',{days:streak});
 
 /* ===== AI HELPER ===== */
 function aiReply(type){
@@ -215,6 +212,7 @@ function aiReply(type){
         box.innerText =
         "💳 Open Karmanya → Scan QR → Pay ₹500\n" +
         "Send screenshot on WhatsApp with Name, Class, Roll No & Veg/Non-Veg.";
+        gtag('event','ai_helper_used',{type:'payment'});
     }
 
     if(type === "ai_game"){
@@ -222,15 +220,16 @@ function aiReply(type){
         "🎮 How to play with RR AI Bot:\n\n" +
         "1️⃣ Open Games Zone\n" +
         "2️⃣ Select Tic Tac Toe\n" +
-        "3️⃣ Game starts in Friend mode\n" +
-        "4️⃣ Tap 👥 to switch to 🤖 AI Bot\n" +
-        "5️⃣ Choose Medium or Hard mode\n" +
-        "6️⃣ Try to defeat the RR AI Bot 🔥";
+        "3️⃣ Switch to 🤖 AI Bot\n" +
+        "4️⃣ Choose Medium or Hard\n" +
+        "5️⃣ Try to defeat it 🔥";
+        gtag('event','ai_helper_used',{type:'ai_game'});
     }
 }
 
 /* ===== NAVIGATION ===== */
 function trackAndGo(type){
+    gtag('event','home_button_click',{button:type});
     if(type==='karmanya') location.href='karmanya.html';
     if(type==='album') location.href='event_album.html';
     if(type==='events') openEvents && openEvents();
@@ -252,6 +251,18 @@ setInterval(()=>{
     document.getElementById("countdown").innerText =
     `${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
+
+/* ===== SCROLL DEPTH TRACKING ===== */
+let marks = {25:false,50:false,75:false,100:false};
+window.addEventListener("scroll",()=>{
+    let scrolled = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+    [25,50,75,100].forEach(p=>{
+        if(scrolled >= p && !marks[p]){
+            marks[p]=true;
+            gtag('event','scroll_depth',{percent:p});
+        }
+    });
+});
 </script>
 
 </body>
