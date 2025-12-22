@@ -81,7 +81,6 @@ gtag('event','home_loaded');
 
 <div class="container">
 
-<!-- ✅ CHAIRMAN BUTTON (KEPT) -->
 <button onclick="trackAndGo('chairman')" class="nav-btn">
 👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
 </button>
@@ -91,7 +90,6 @@ gtag('event','home_loaded');
 <p>Open this app daily for official notices and updates.</p>
 </div>
 
-<!-- 🔥 DAILY STREAK -->
 <div class="streak-mini">
 🔥 Daily Streak <b><span id="streakCount">1</span> Day</b>
 </div>
@@ -111,27 +109,16 @@ gtag('event','home_loaded');
 <div class="ai-answer" id="aiAnswer"></div>
 </div>
 
-<!-- ⏳ COUNTDOWN -->
 <div class="countdown-box">
 ⏳ KARMANYA 2025 COUNTDOWN
 <div class="countdown-time" id="countdown"></div>
 </div>
 
-<!-- 🖼️ POSTER -->
 <img src="karmanya.jpg" class="poster-img" alt="Poster">
 
-<!-- ✅ MAIN NAV BUTTONS (NO GAMES ZONE HERE) -->
-<button onclick="trackAndGo('karmanya')" class="nav-btn">
-🎟️ KARMANYA 2025
-</button>
-
-<button onclick="trackAndGo('album')" class="nav-btn">
-📸 Event Album
-</button>
-
-<button onclick="trackAndGo('events')" class="nav-btn">
-📅 View Events
-</button>
+<button onclick="trackAndGo('karmanya')" class="nav-btn">🎟️ KARMANYA 2025</button>
+<button onclick="trackAndGo('album')" class="nav-btn">📸 Event Album</button>
+<button onclick="trackAndGo('events')" class="nav-btn">📅 View Events</button>
 
 </div>
 
@@ -173,7 +160,7 @@ async function askGemini(question){
     }
 }
 
-/* NAVIGATION */
+/* NAV */
 function trackAndGo(type){
     if(type==='karmanya') location.href='karmanya.html';
     if(type==='album') location.href='event_album.html';
@@ -190,8 +177,7 @@ setInterval(()=>{
     const h=Math.floor((diff%86400000)/3600000);
     const m=Math.floor((diff%3600000)/60000);
     const s=Math.floor((diff%60000)/1000);
-    document.getElementById("countdown").innerText=
-        `${d}d : ${h}h : ${m}m : ${s}s`;
+    document.getElementById("countdown").innerText=`${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
 </script>
 
