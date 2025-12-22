@@ -50,7 +50,7 @@ gtag('event','home_loaded');
     margin-top:6px;
 }
 
-/* ===== STUDENT HELPER (COMPACT) ===== */
+/* ===== STUDENT HELPER ===== */
 .ai-box{
     background:#161a22;
     border-radius:14px;
@@ -119,42 +119,45 @@ gtag('event','home_loaded');
 
 <div class="container">
 
-<!-- 👨‍🏫 CHAIRMAN (UNCHANGED) -->
+<!-- 👨‍🏫 CHAIRMAN -->
 <button onclick="trackAndGo('chairman')" class="nav-btn">
 👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
 </button>
 
+<!-- 📢 IMPORTANT NOTICE -->
 <div class="event">
-  <h2>📢 IMPORTANT NOTICE</h2>
+<h2>📢 IMPORTANT NOTICE</h2>
 
-  <p>
-    All students are instructed to <b>open this app daily</b> for official notices,
-    event updates, and important announcements.
-  </p>
+<p>
+All students are advised to <b>open this application daily</b> to stay updated
+with official notices, event announcements, and important college information.
+</p>
 
-  <p>
-    🆕 <b>New App Updates:</b><br>
-    We have upgraded the <b>RR Events App</b> with a smoother interface,
-    faster navigation, and improved features for students.
-  </p>
+<p>
+🆕 <b>Application Enhancements:</b><br>
+The <b>RR Events App</b> has been upgraded with a more refined interface,
+faster performance, and improved usability for students.
+</p>
 
-  <p>
-    🎮 <b>RR Games Zone Updated:</b><br>
-    New brain games have been added, including <b>2048</b> and other fun challenges.
-    Compete with friends and test your skills!
-  </p>
+<p>
+🎮 <b>RR Games Zone Update:</b><br>
+New brain-stimulating games such as <b>2048</b> and other interactive challenges
+have been added. Students are encouraged to participate and test their skills.
+</p>
 
-  <p>
-    🚀 <b>What’s New:</b><br>
-    • Improved Student Helper 🤖<br>
-    • Better Karmanya 2025 Countdown ⏳<br>
-    • Faster loading & cleaner design ✨
-  </p>
+<p>
+🚀 <b>Recent Improvements:</b><br>
+• Smarter Student Helper 🤖<br>
+• Enhanced Karmanya 2025 Countdown ⏳<br>
+• Faster loading and cleaner design ✨
+</p>
 
-  <p class="text-muted">
-    📌 All college updates and new features will be published only in this app.
-  </p>
+<p class="text-muted">
+📌 All official updates and newly introduced features will be communicated
+exclusively through this application.
+</p>
 </div>
+
 <!-- 🔥 DAILY STREAK -->
 <div class="streak-mini">
 🔥 Daily Streak
@@ -176,18 +179,18 @@ gtag('event','home_loaded');
 
 <div class="ai-content" id="aiContent">
   <button class="ai-btn ai-pay" onclick="aiReply('payment')">
-  💳 How to pay for Karmanya?
+  💳 Payment Process for Karmanya
   </button>
 
   <button class="ai-btn ai-game" onclick="aiReply('ai_game')">
-  🎮 How to play with RR AI Bot?
+  🎮 Playing Against the RR AI Bot
   </button>
 
   <div class="ai-answer" id="aiAnswer"></div>
 </div>
 </div>
 
-<!-- 🔲 2x2 MAIN BUTTONS -->
+<!-- 🔲 MAIN 2x2 BUTTON GRID -->
 <div class="grid">
 <button class="btn-karmanya" onclick="trackAndGo('karmanya')">🎟️ Karmanya</button>
 <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
@@ -232,11 +235,11 @@ function toggleAI(){
 function aiReply(type){
   const box=document.getElementById("aiAnswer");
   if(type==="payment"){
-    box.innerText="Open Karmanya → Scan QR → Pay ₹500\nSend screenshot on WhatsApp with Name, Class & Roll No.";
+    box.innerText="Open Karmanya → Scan QR → Pay ₹500\nSubmit payment screenshot on WhatsApp with Name, Class & Roll Number.";
     gtag('event','helper_used',{type:'payment'});
   }
   if(type==="ai_game"){
-    box.innerText="Open Games Zone → Tic Tac Toe → Switch to 🤖 AI Bot → Select Hard Mode 🔥";
+    box.innerText="Navigate to Games Zone → Tic Tac Toe → Switch to 🤖 AI Bot → Select Hard Mode and play.";
     gtag('event','helper_used',{type:'ai_game'});
   }
 }
