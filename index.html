@@ -91,26 +91,6 @@ gtag('event','home_loaded');
     font-size:15px;
     font-weight:600;
 }
-
-/* ===== POSTER (COMPACT) ===== */
-.poster-img{
-    width:100%;
-    max-height:300px;
-    object-fit:contain;
-    border-radius:14px;
-    margin:16px 0;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
-}
-
-/* ===== VIDEO ===== */
-.video-box{
-    background:#161a22;
-    border-radius:14px;
-    padding:14px;
-    margin:24px 0;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
-}
-.video-box h2{margin-top:0;font-size:18px;}
 </style>
 </head>
 
@@ -149,13 +129,13 @@ Games Zone updated & a <b>new game added</b> 🎉
 </p>
 </div>
 
-<!-- 🔥 DAILY STREAK (SAME LOGIC) -->
+<!-- 🔥 DAILY STREAK -->
 <div class="streak-mini">
 🔥 <span>Daily Streak</span>
 <b><span id="streakCount">1</span> Day</b>
 </div>
 
-<!-- 🤖 STUDENT HELPER (UNCHANGED) -->
+<!-- 🤖 STUDENT HELPER -->
 <div class="ai-box">
 <h2>🤖 Student Helper</h2>
 
@@ -170,14 +150,11 @@ Games Zone updated & a <b>new game added</b> 🎉
 <div class="ai-answer" id="aiAnswer"></div>
 </div>
 
-<!-- ⏳ COUNTDOWN (SAME LOGIC) -->
+<!-- ⏳ COUNTDOWN -->
 <div class="countdown-box">
 ⏳ KARMANYA 2025 COUNTDOWN
 <div class="countdown-time" id="countdown"></div>
 </div>
-
-<!-- 🖼️ POSTER -->
-<img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
 
 <!-- 🎯 MAIN BUTTONS (2x2 GRID) -->
 <div class="grid-buttons">
@@ -200,24 +177,13 @@ Games Zone updated & a <b>new game added</b> 🎉
 
 </div>
 
-<!-- 🎬 PROMO VIDEO -->
-<div class="video-box">
-<h2>🎬 KARMANYA 2025 – Official Promo</h2>
-<p class="text-muted">Feel the vibe of our Annual College Fest</p>
-
-<video src="karmanya_promo.mp4"
-controls playsinline preload="metadata"
-style="width:100%;border-radius:12px;max-height:260px;background:#000;">
-</video>
-</div>
-
 </div>
 
 <script src="script.js"></script>
 <script src="random-colors.js"></script>
 
 <script>
-/* ===== DAILY STREAK LOGIC ===== */
+/* ===== DAILY STREAK ===== */
 let today=new Date().toDateString();
 let lastDate=localStorage.getItem("lastOpenDate");
 let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
