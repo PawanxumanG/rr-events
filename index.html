@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RR International College – Notices</title>
+<title>RR International College - Notices</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="style.css">
@@ -13,61 +13,62 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-9JW1V42V83',{page_title:'Home',page_path:'/index.html'});
+gtag('config', 'G-9JW1V42V83', {
+  page_title: 'RR Events Home',
+  page_path: '/index.html'
+});
+gtag('event','home_loaded');
 </script>
 
 <style>
-/* ===== CLEAN LAYOUT ===== */
-.container{padding:16px}
+.streak-mini{
+    background:#161a22;
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+}
+.streak-mini b{color:#ff9800;}
 
-/* NOTICE */
-.notice{
+.ai-box{
     background:#161a22;
     border-radius:14px;
-    padding:14px;
-    margin-bottom:14px;
-    box-shadow:0 0 14px rgba(0,0,0,.6);
+    padding:16px;
+    margin-bottom:18px;
 }
-.notice h2{margin:0 0 6px;font-size:17px}
-.notice p{margin:0;font-size:14px;opacity:.9}
+.ai-box h2{margin-top:0;}
+.ai-btn{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#ff9800,#ff6a00);
+    color:#fff;
+    font-size:14px;
+}
+.ai-answer{
+    margin-top:12px;
+    font-size:14px;
+    color:#ffcc80;
+    white-space:pre-wrap;
+}
 
-/* COUNTDOWN */
-.countdown{
+.countdown-box{
     background:linear-gradient(90deg,#6a11cb,#2575fc);
     border-radius:14px;
-    padding:12px;
-    text-align:center;
-    margin-bottom:16px;
-}
-.countdown span{
-    display:block;
-    font-size:18px;
-    font-weight:700;
-    margin-top:4px;
-}
-
-/* GRID BUTTONS */
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-.grid button{
-    border:none;
-    border-radius:14px;
-    padding:16px 10px;
-    font-size:15px;
-    font-weight:600;
+    padding:16px;
+    margin:18px 0;
     color:#fff;
-    cursor:pointer;
-    box-shadow:0 6px 16px rgba(0,0,0,.5);
+    text-align:center;
 }
-
-/* BUTTON COLORS */
-.btn-karmanya{background:linear-gradient(90deg,#ff9800,#ff6a00)}
-.btn-album{background:linear-gradient(90deg,#00c6ff,#0072ff)}
-.btn-games{background:linear-gradient(90deg,#2ecc71,#27ae60)}
-.btn-events{background:linear-gradient(90deg,#9b59b6,#8e44ad)}
+.countdown-time{
+    font-size:20px;
+    font-weight:700;
+}
 </style>
 </head>
 
@@ -80,65 +81,117 @@ gtag('config','G-9JW1V42V83',{page_title:'Home',page_path:'/index.html'});
 
 <div class="container">
 
-    <!-- IMPORTANT NOTICE -->
-    <div class="notice">
-        <h2>📢 Important Notice</h2>
-        <p>
-            Students are instructed to <b>open this app daily</b> for
-            official notices, events, and updates.
-        </p>
-    </div>
+<!-- ✅ CHAIRMAN BUTTON (KEPT) -->
+<button onclick="trackAndGo('chairman')" class="nav-btn">
+👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
+</button>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown">
-        ⏳ Karmanya 2025 Countdown
-        <span id="countdown">Loading…</span>
-    </div>
+<div class="event">
+<h2>📢 IMPORTANT NOTICE</h2>
+<p>Open this app daily for official notices and updates.</p>
+</div>
 
-    <!-- 2x2 GRID BUTTONS -->
-    <div class="grid">
+<!-- 🔥 DAILY STREAK -->
+<div class="streak-mini">
+🔥 Daily Streak <b><span id="streakCount">1</span> Day</b>
+</div>
 
-        <button class="btn-karmanya"
-            onclick="location.href='karmanya.html'">
-            🎟️ Karmanya<br>Details
-        </button>
+<!-- 🤖 GEMINI AI -->
+<div class="ai-box">
+<h2>🤖 Gemini AI Helper</h2>
 
-        <button class="btn-album"
-            onclick="location.href='event_album.html'">
-            📸 Event<br>Album
-        </button>
+<button class="ai-btn" onclick="askGemini('How to pay for Karmanya event at RR International College?')">
+💳 How to pay for Karmanya?
+</button>
 
-        <button class="btn-games"
-            onclick="location.href='tictactoe.html'">
-            🎮 Games<br>Zone
-        </button>
+<button class="ai-btn" onclick="askGemini('How to play Tic Tac Toe with RR AI Bot in RR Events App?')">
+🎮 How to play with RR AI Bot?
+</button>
 
-        <button class="btn-events"
-            onclick="openEvents()">
-            📅 View<br>Events
-        </button>
+<div class="ai-answer" id="aiAnswer"></div>
+</div>
 
-    </div>
+<!-- ⏳ COUNTDOWN -->
+<div class="countdown-box">
+⏳ KARMANYA 2025 COUNTDOWN
+<div class="countdown-time" id="countdown"></div>
+</div>
+
+<!-- 🖼️ POSTER -->
+<img src="karmanya.jpg" class="poster-img" alt="Poster">
+
+<!-- ✅ MAIN NAV BUTTONS (NO GAMES ZONE HERE) -->
+<button onclick="trackAndGo('karmanya')" class="nav-btn">
+🎟️ KARMANYA 2025
+</button>
+
+<button onclick="trackAndGo('album')" class="nav-btn">
+📸 Event Album
+</button>
+
+<button onclick="trackAndGo('events')" class="nav-btn">
+📅 View Events
+</button>
 
 </div>
 
-<script src="script.js"></script>
-<script src="random-colors.js"></script>
-
 <script>
+/* ===== DAILY STREAK ===== */
+let today=new Date().toDateString();
+let lastDate=localStorage.getItem("lastOpenDate");
+let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
+if(lastDate!==today){
+    streak = lastDate ? streak+1 : 1;
+    localStorage.setItem("dailyStreak",streak);
+    localStorage.setItem("lastOpenDate",today);
+}
+document.getElementById("streakCount").innerText=streak;
+
+/* 🔑 GEMINI API KEY */
+const GEMINI_API_KEY = "AIzaSyBKHcGArZJqyzRkaFYbpKaDzu5I25YbaqU";
+
+/* 🤖 GEMINI FUNCTION */
+async function askGemini(question){
+    const box=document.getElementById("aiAnswer");
+    box.innerText="🤖 Thinking...";
+
+    try{
+        const res = await fetch(
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key="+GEMINI_API_KEY,
+          {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({
+              contents:[{parts:[{text:question}]}]
+            })
+          }
+        );
+        const data = await res.json();
+        box.innerText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+    }catch(e){
+        box.innerText="❌ AI error. Try again.";
+    }
+}
+
+/* NAVIGATION */
+function trackAndGo(type){
+    if(type==='karmanya') location.href='karmanya.html';
+    if(type==='album') location.href='event_album.html';
+    if(type==='events') openEvents?.();
+    if(type==='chairman') location.href='chairman.html';
+}
+
 /* COUNTDOWN */
 const eventDate=new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
-    const now=new Date().getTime();
-    const d=eventDate-now;
-    if(d<=0){
-        document.getElementById("countdown").innerText="🎉 Started!";
-        return;
-    }
-    const days=Math.floor(d/(1000*60*60*24));
-    const hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+    const diff=eventDate-new Date().getTime();
+    if(diff<=0)return;
+    const d=Math.floor(diff/86400000);
+    const h=Math.floor((diff%86400000)/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
     document.getElementById("countdown").innerText=
-        `${days}d ${hrs}h`;
+        `${d}d : ${h}h : ${m}m : ${s}s`;
 },1000);
 </script>
 
