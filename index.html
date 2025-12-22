@@ -78,6 +78,16 @@ gtag('event','home_loaded');
     margin-top:8px;
 }
 
+/* ===== POSTER (SHRUNK & CLEAN) ===== */
+.poster-img{
+    width:100%;
+    max-height:300px;        /* 👈 controls size (reduce scroll) */
+    object-fit:contain;      /* keeps full poster visible */
+    border-radius:14px;
+    margin:16px 0;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+}
+
 /* ===== VIDEO ===== */
 .video-box{
     background:#161a22;
@@ -152,7 +162,7 @@ Games Zone updated & a <b>new game added</b> 🎉
 <div class="countdown-time" id="countdown"></div>
 </div>
 
-<!-- 🖼️ POSTER -->
+<!-- 🖼️ POSTER (COMPACT) -->
 <img src="karmanya.jpg" class="poster-img" alt="Karmanya Fest Poster">
 
 <!-- 🎟️ BUTTONS -->
