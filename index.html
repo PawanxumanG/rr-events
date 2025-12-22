@@ -34,7 +34,7 @@ gtag('event','home_loaded');
 }
 .streak-mini b{color:#ff9800}
 
-/* ===== COUNTDOWN (COMPACT & PREMIUM) ===== */
+/* ===== COUNTDOWN ===== */
 .countdown-box{
     background:linear-gradient(135deg,#7b2cff,#2575fc);
     border-radius:14px;
@@ -64,18 +64,10 @@ gtag('event','home_loaded');
     align-items:center;
     cursor:pointer;
 }
-.ai-header h2{
-    font-size:16px;
-    margin:0;
-}
-.ai-toggle{
-    font-size:14px;
-    opacity:.7;
-}
-.ai-content{
-    display:none;
-    margin-top:10px;
-}
+.ai-header h2{font-size:16px;margin:0}
+.ai-toggle{font-size:13px;opacity:.7}
+
+.ai-content{display:none;margin-top:10px}
 .ai-btn{
     width:100%;
     padding:10px;
@@ -86,8 +78,8 @@ gtag('event','home_loaded');
     font-size:14px;
     cursor:pointer;
 }
-.ai-pay{background:linear-gradient(90deg,#7b2cff,#2575fc);}
-.ai-game{background:linear-gradient(90deg,#ff2e63,#ff9800);}
+.ai-pay{background:linear-gradient(90deg,#7b2cff,#2575fc)}
+.ai-game{background:linear-gradient(90deg,#ff2e63,#ff9800)}
 .ai-answer{
     margin-top:10px;
     font-size:14px;
@@ -95,12 +87,12 @@ gtag('event','home_loaded');
     white-space:pre-line;
 }
 
-/* ===== GRID BUTTONS ===== */
+/* ===== MAIN GRID ===== */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 .grid button{
     padding:14px;
@@ -111,10 +103,10 @@ gtag('event','home_loaded');
     cursor:pointer;
     box-shadow:0 0 16px rgba(0,0,0,.5);
 }
-.btn-karmanya{background:linear-gradient(135deg,#00c6ff,#0072ff);}
-.btn-promo{background:linear-gradient(135deg,#7b2cff,#ff2e63);}
-.btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63);}
-.btn-events{background:linear-gradient(135deg,#00b09b,#96c93d);}
+.btn-karmanya{background:linear-gradient(135deg,#00c6ff,#0072ff)}
+.btn-promo{background:linear-gradient(135deg,#7b2cff,#ff2e63)}
+.btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63)}
+.btn-events{background:linear-gradient(135deg,#00b09b,#96c93d)}
 </style>
 </head>
 
@@ -146,13 +138,13 @@ gtag('event','home_loaded');
 <b><span id="streakCount">1</span> Day</b>
 </div>
 
-<!-- ⏳ COUNTDOWN (MOVED HERE) -->
+<!-- ⏳ COUNTDOWN -->
 <div class="countdown-box">
 ⏳ KARMANYA 2025 COUNTDOWN
-<div class="countdown-time" id="countdown"></div>
+<div class="countdown-time" id="countdown">Loading...</div>
 </div>
 
-<!-- 🤖 STUDENT HELPER (COMPACT) -->
+<!-- 🤖 STUDENT HELPER -->
 <div class="ai-box">
 <div class="ai-header" onclick="toggleAI()">
   <h2>🤖 Student Helper</h2>
@@ -172,7 +164,7 @@ gtag('event','home_loaded');
 </div>
 </div>
 
-<!-- 🔲 MAIN 2x2 GRID -->
+<!-- 🔲 2x2 MAIN BUTTONS -->
 <div class="grid">
 <button class="btn-karmanya" onclick="trackAndGo('karmanya')">🎟️ Karmanya</button>
 <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
@@ -193,17 +185,18 @@ if(last!==today){
   localStorage.setItem("lastOpenDate",today);
 }
 document.getElementById("streakCount").innerText=streak;
+gtag('event','daily_streak',{days:streak});
 
 /* ===== COUNTDOWN ===== */
 const eventDate=new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
-  const d=eventDate-Date.now();
-  if(d<=0){
-    countdown.innerText="🎉 Countdown Ended!";
+  const diff=eventDate-Date.now();
+  if(diff<=0){
+    document.getElementById("countdown").innerText="🎉 Countdown Ended!";
     return;
   }
-  countdown.innerText=
-  `${Math.floor(d/86400000)}d : ${Math.floor(d%86400000/3600000)}h : ${Math.floor(d%3600000/60000)}m : ${Math.floor(d%60000/1000)}s`;
+  document.getElementById("countdown").innerText=
+  `${Math.floor(diff/86400000)}d : ${Math.floor(diff%86400000/3600000)}h : ${Math.floor(diff%3600000/60000)}m : ${Math.floor(diff%60000/1000)}s`;
 },1000);
 
 /* ===== STUDENT HELPER ===== */
@@ -215,14 +208,19 @@ function toggleAI(){
 }
 function aiReply(type){
   const box=document.getElementById("aiAnswer");
-  if(type==="payment")
+  if(type==="payment"){
     box.innerText="Open Karmanya → Scan QR → Pay ₹500\nSend screenshot on WhatsApp with Name, Class & Roll No.";
-  if(type==="ai_game")
+    gtag('event','helper_used',{type:'payment'});
+  }
+  if(type==="ai_game"){
     box.innerText="Open Games Zone → Tic Tac Toe → Switch to 🤖 AI Bot → Select Hard Mode 🔥";
+    gtag('event','helper_used',{type:'ai_game'});
+  }
 }
 
-/* ===== NAV ===== */
+/* ===== NAVIGATION ===== */
 function trackAndGo(t){
+  gtag('event','home_button_click',{button:t});
   if(t==='karmanya')location.href='karmanya.html';
   if(t==='promo')location.href='promo.html';
   if(t==='album')location.href='event_album.html';
