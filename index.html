@@ -133,6 +133,24 @@ gtag('event','home_loaded');
     color:#e6e6e6;
     font-weight:600;
 }
+
+/* ===== NOTICE TOGGLE ===== */
+.notice-toggle{
+    margin-top:14px;
+    padding:12px 14px;
+    background:#161a22;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+}
+.notice-content{
+    display:none;
+    margin-top:12px;
+}
 </style>
 </head>
 
@@ -141,7 +159,7 @@ gtag('event','home_loaded');
 <!-- ===== HEADER ===== -->
 <div class="header">
   <h1>
-    <img src="vishnu1.png" class="header-logo" alt="RR College Logo">
+    <img src="vishnu1.png" class="header-logo">
     RR INTERNATIONAL COLLEGE
   </h1>
   <p>Notices & Updates</p>
@@ -153,6 +171,7 @@ gtag('event','home_loaded');
 👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
 </button>
 
+<!-- ===== NOTICE ===== -->
 <div class="event">
   <h2>📢 IMPORTANT NOTICE</h2>
 
@@ -161,41 +180,47 @@ gtag('event','home_loaded');
     event updates, and important announcements.
   </p>
 
-  <p>
-    🆕 <b>New App Updates:</b><br>
-    We have upgraded the <b>RR Events App</b> with a smoother interface,
-    faster navigation, and improved features.
-  </p>
-
-  <p>
-    🎮 <b>RR Games Zone Updated:</b><br>
-    New brain games like <b>2048</b> have been added for fun and skill improvement.
-  </p>
-
-  <p>
-    🏏 <b>New Sports Game Added:</b><br>
-    <b>Cricket Superstar</b> is now available in the Games Zone.
-    Students can enjoy a realistic cricket experience directly inside the app.
-  </p>
-
-  <p>
-    🌐 <b>Poki Games Integration:</b><br>
-    A new <b>Poki Games</b> section has been added, allowing students to explore
-    and play many popular online games securely within the app.
-  </p>
-
-  <p>
-    🚀 <b>What’s New:</b><br>
-    • Improved Student Helper 🤖<br>
-    • Better Karmanya 2025 Countdown ⏳<br>
-    • New Cricket Superstar Game 🏏<br>
-    • Poki Games Hub Added 🎮<br>
-    • Faster loading & cleaner design ✨
-  </p>
-
   <p class="text-muted">
     📌 All college updates and newly introduced features will be published only in this app.
   </p>
+
+  <!-- TOGGLE BUTTON -->
+  <div class="notice-toggle" onclick="toggleNotice()">
+    <span>🆕 App Updates & Changes</span>
+    <span id="noticeToggleText">Tap to open</span>
+  </div>
+
+  <!-- COLLAPSIBLE CONTENT -->
+  <div class="notice-content" id="noticeContent">
+
+    <p>
+      📱 <b>RR Events App Update:</b><br>
+      Smoother interface, faster navigation, and improved performance.
+    </p>
+
+    <p>
+      🎮 <b>RR Games Zone:</b><br>
+      Brain games like <b>2048</b> added for fun and skill improvement.
+    </p>
+
+    <p>
+      🏏 <b>Cricket Superstar:</b><br>
+      A new sports game now available for students.
+    </p>
+
+    <p>
+      🌐 <b>Poki Games:</b><br>
+      Students can explore and play popular Poki games inside the app.
+    </p>
+
+    <p>
+      🚀 <b>What’s Improved:</b><br>
+      • Student Helper 🤖<br>
+      • Karmanya 2025 Countdown ⏳<br>
+      • Faster loading & cleaner UI ✨
+    </p>
+
+  </div>
 </div>
 
 <div class="streak-mini">
@@ -208,6 +233,7 @@ gtag('event','home_loaded');
 <div class="countdown-time" id="countdown">Loading...</div>
 </div>
 
+<!-- STUDENT HELPER (UNCHANGED) -->
 <div class="ai-box">
 <div class="ai-header" onclick="toggleAI()">
   <h2>🤖 Student Helper</h2>
@@ -226,14 +252,9 @@ gtag('event','home_loaded');
   <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
   <button class="btn-album" onclick="trackAndGo('album')">📸 Album</button>
   <button class="btn-events" onclick="trackAndGo('events')">📅 Events</button>
-
-  <!-- ✅ NEW ATTENDANCE BUTTON -->
-  <button class="btn-events" onclick="location.href='attendance.html'">
-    📊 Attendance
-  </button>
+  <button class="btn-events" onclick="location.href='attendance.html'">📊 Attendance</button>
 </div>
 
-<!-- 🔻 POWERED BY -->
 <div class="app-footer">
   <span class="powered-text">Powered by </span>
   <span class="powered-brand">RR International College</span>
@@ -242,6 +263,18 @@ gtag('event','home_loaded');
 </div>
 
 <script>
+function toggleNotice(){
+  const box=document.getElementById("noticeContent");
+  const text=document.getElementById("noticeToggleText");
+  if(box.style.display==="block"){
+    box.style.display="none";
+    text.innerText="Tap to open";
+  }else{
+    box.style.display="block";
+    text.innerText="Tap to close";
+  }
+}
+
 let today=new Date().toDateString();
 let last=localStorage.getItem("lastOpenDate");
 let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
