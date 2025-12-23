@@ -241,14 +241,14 @@ function aiReply(type){
   }
 }
 
-/* ===== NAVIGATION ===== */
 function trackAndGo(t){
   gtag('event','home_button_click',{button:t});
-  if(t==='karmanya')location.href='karmanya.html';
-  if(t==='promo')location.href='promo.html';
-  if(t==='album')location.href='event_album.html';
-  if(t==='events')openEvents&&openEvents();
-  if(t==='chairman')location.href='chairman.html';
+
+  if(t==='karmanya') location.href='karmanya.html';
+  if(t==='promo') location.href='promo.html';
+  if(t==='album') location.href='event_album.html';
+  if(t==='events') location.href='events.html'; // ✅ FIX
+  if(t==='chairman') location.href='chairman.html';
 }
 </script>
 
