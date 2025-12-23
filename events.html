@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* ===== LOCAL PAGE STYLES ===== */
+/* ===== HEADER ===== */
 .header {
     background: linear-gradient(90deg, #ff6a00, #ff9800);
     color: #ffffff;
@@ -28,12 +28,46 @@
     opacity: 0.9;
 }
 
+/* ===== CONTAINER ===== */
 .container {
     padding: 16px;
 }
 
-/* BACK BUTTON BASE STYLE */
-.nav-btn.back {
+/* ===== EVENT CARD ===== */
+.event-card {
+    background: #161a22;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 0 16px rgba(0,0,0,.6);
+}
+
+.event-card h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #ff9800;
+}
+
+.event-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #e0e0e0;
+    margin-bottom: 12px;
+}
+
+.event-card ul {
+    padding-left: 18px;
+    margin: 10px 0;
+}
+
+.event-card li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #dcdcdc;
+}
+
+/* ===== BUTTON ===== */
+.nav-btn {
     width: calc(100% - 32px);
     padding: 14px;
     font-size: 15px;
@@ -41,12 +75,13 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin: 0 16px 20px;
+    margin: 16px;
     color: #ffffff;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    background: linear-gradient(90deg, #2196f3, #00bcd4);
+    box-shadow: 0 0 14px rgba(0,188,212,.6);
 }
 
-.nav-btn.back:active {
+.nav-btn:active {
     transform: scale(0.97);
 }
 </style>
@@ -57,42 +92,69 @@
 <!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
-    <p>Events</p>
+    <p>Official College Event</p>
 </div>
 
-<!-- EVENTS (Injected by script.js) -->
-<div class="container" id="events">
-    <!-- Events load dynamically -->
+<div class="container">
+
+<!-- KARMANYA EVENT -->
+<div class="event-card">
+    <h2>🎉 KARMANYA 2025 – Annual Cultural & Technical Fest</h2>
+
+    <p>
+        <b>KARMANYA 2025</b> is the official annual flagship event of
+        <b>RR International College</b>, designed to promote
+        overall student development through cultural, technical,
+        sports, and creative activities.
+    </p>
+
+    <p>
+        This event provides students with a platform to showcase
+        their talents, teamwork, leadership skills, and active
+        participation beyond academics.
+    </p>
+
+    <h3 style="color:#ffcc80;margin-bottom:6px;">📌 Event Highlights</h3>
+    <ul>
+        <li>Cultural performances (Dance, Music, Drama)</li>
+        <li>Technical & fun competitions</li>
+        <li>Games, activities, and student challenges</li>
+        <li>Inter-department participation</li>
+        <li>Certificates & recognition</li>
+    </ul>
+
+    <h3 style="color:#ffcc80;margin-bottom:6px;">⚠️ Important Notice (Mandatory Participation)</h3>
+    <p>
+        Participation in <b>KARMANYA 2025 is compulsory for all students</b>.
+        The event is officially recognized by the college and is
+        directly linked to internal assessment and academic engagement.
+    </p>
+
+    <ul>
+        <li>Attendance may be considered for <b>internal marks</b></li>
+        <li>Non-participation without valid reason may affect evaluation</li>
+        <li>Active involvement reflects discipline and teamwork</li>
+        <li>Mandatory for overall academic and co-curricular assessment</li>
+    </ul>
+
+    <p>
+        Students are strongly advised to actively participate and
+        follow all instructions issued by the college authorities
+        regarding event registration and attendance.
+    </p>
+
+    <p style="opacity:.75;">
+        📢 Further updates, schedules, and payment details will be
+        announced only through this app.
+    </p>
 </div>
 
-<!-- BACK BUTTON -->
-<button onclick="goBack()" class="nav-btn back" id="backBtn">
-    ⬅ Back to Notices
+</div>
+
+<!-- BACK TO HOME -->
+<button onclick="location.href='index.html'" class="nav-btn">
+    ⬅ Back to Home
 </button>
-
-<script src="script.js"></script>
-
-<!-- RANDOM COLOR + GLOW FOR BACK BUTTON -->
-<script>
-(function () {
-    const gradients = [
-        ["#2196f3", "#00bcd4"],
-        ["#ff6a00", "#ff9800"],
-        ["#8e24aa", "#d81b60"],
-        ["#43a047", "#66bb6a"],
-        ["#e53935", "#fb8c00"],
-        ["#3949ab", "#1e88e5"]
-    ];
-
-    const btn = document.getElementById("backBtn");
-    if (!btn) return;
-
-    const g = gradients[Math.floor(Math.random() * gradients.length)];
-
-    btn.style.background = `linear-gradient(90deg, ${g[0]}, ${g[1]})`;
-    btn.style.boxShadow = `0 0 14px ${g[1]}99`;
-})();
-</script>
 
 </body>
 </html>
