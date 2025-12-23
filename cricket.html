@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cricket Superstar – RR Games Zone</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-9JW1V42V83', {
+  page_title: 'Cricket Superstar',
+  page_path: '/cricket.html'
+});
+gtag('event','cricket_opened');
+</script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:#0f1117;
+    color:#fff;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(90deg,#1abc9c,#16a085);
+    padding:14px;
+    text-align:center;
+}
+.header h1{
+    font-size:18px;
+    font-weight:700;
+}
+.header p{
+    font-size:12px;
+    opacity:.9;
+    margin-top:4px;
+}
+
+/* GAME AREA */
+.game-box{
+    flex:1;
+    background:#000;
+}
+
+/* IFRAME */
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    margin:12px;
+    padding:14px;
+    font-size:15px;
+    font-weight:700;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(90deg,#34495e,#2c3e50);
+    color:#fff;
+    cursor:pointer;
+}
+.back-btn:active{
+    transform:scale(0.97);
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>🏏 Cricket Superstar</h1>
+    <p>RR Games Zone</p>
+</div>
+
+<!-- GAME -->
+<div class="game-box">
+    <iframe 
+        src="https://www.poki.com/en/g/cricket-superstar"
+        allow="fullscreen; autoplay"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<!-- BACK -->
+<button class="back-btn" onclick="goBack()">
+    ⬅ Back to Games Zone
+</button>
+
+<script>
+function goBack(){
+    gtag('event','cricket_exit',{method:'button'});
+    location.href='games.html';
+}
+
+/* PHONE BACK BUTTON SUPPORT */
+history.pushState(null,null,location.href);
+window.onpopstate=function(){
+    gtag('event','cricket_exit',{method:'device_back'});
+    location.href='games.html';
+};
+</script>
+
+</body>
+</html>
