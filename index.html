@@ -21,6 +21,15 @@ gtag('event','home_loaded');
 </script>
 
 <style>
+/* ===== HEADER LOGO ===== */
+.header-logo{
+    width:42px;
+    height:42px;
+    margin-right:10px;
+    vertical-align:middle;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,0.6));
+}
+
 /* ===== DAILY STREAK ===== */
 .streak-mini{
     background:#161a22;
@@ -108,7 +117,7 @@ gtag('event','home_loaded');
 .btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63)}
 .btn-events{background:linear-gradient(135deg,#00b09b,#96c93d)}
 
-/* ===== POWERED BY (PRO LOOK) ===== */
+/* ===== POWERED BY ===== */
 .app-footer{
     margin-top:18px;
     padding-top:14px;
@@ -118,21 +127,23 @@ gtag('event','home_loaded');
 .powered-text{
     font-size:13px;
     color:#9aa0a6;
-    margin-right:4px;
 }
 .powered-brand{
     font-size:13px;
     color:#e6e6e6;
     font-weight:600;
-    letter-spacing:0.3px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- ===== HEADER ===== -->
 <div class="header">
-  <h1>RR INTERNATIONAL COLLEGE</h1>
+  <h1>
+    <img src="vishnu1.png" class="header-logo" alt="RR College Logo">
+    RR INTERNATIONAL COLLEGE
+  </h1>
   <p>Notices & Updates</p>
 </div>
 
@@ -193,7 +204,7 @@ gtag('event','home_loaded');
 
 <!-- 🔻 POWERED BY -->
 <div class="app-footer">
-  <span class="powered-text">Powered by</span>
+  <span class="powered-text">Powered by </span>
   <span class="powered-brand">RR International College</span>
 </div>
 
