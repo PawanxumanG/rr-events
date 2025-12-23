@@ -50,7 +50,7 @@ gtag('event','home_loaded');
     margin-top:6px;
 }
 
-/* ===== STUDENT HELPER ===== */
+/* ===== STUDENT HELPER (COMPACT) ===== */
 .ai-box{
     background:#161a22;
     border-radius:14px;
@@ -66,8 +66,8 @@ gtag('event','home_loaded');
 }
 .ai-header h2{font-size:16px;margin:0}
 .ai-toggle{font-size:13px;opacity:.7}
-.ai-content{display:none;margin-top:10px}
 
+.ai-content{display:none;margin-top:10px}
 .ai-btn{
     width:100%;
     padding:10px;
@@ -80,7 +80,6 @@ gtag('event','home_loaded');
 }
 .ai-pay{background:linear-gradient(90deg,#7b2cff,#2575fc)}
 .ai-game{background:linear-gradient(90deg,#ff2e63,#ff9800)}
-
 .ai-answer{
     margin-top:10px;
     font-size:14px;
@@ -93,7 +92,7 @@ gtag('event','home_loaded');
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:12px;
-    margin-bottom:24px;
+    margin-bottom:22px;
 }
 .grid button{
     padding:14px;
@@ -108,14 +107,6 @@ gtag('event','home_loaded');
 .btn-promo{background:linear-gradient(135deg,#7b2cff,#ff2e63)}
 .btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63)}
 .btn-events{background:linear-gradient(135deg,#00b09b,#96c93d)}
-
-/* ===== FOOTER ===== */
-.app-footer{
-    text-align:center;
-    font-size:13px;
-    opacity:.6;
-    padding:14px 0 6px;
-}
 </style>
 </head>
 
@@ -128,37 +119,42 @@ gtag('event','home_loaded');
 
 <div class="container">
 
-<!-- 👨‍🏫 CHAIRMAN -->
+<!-- 👨‍🏫 CHAIRMAN (UNCHANGED) -->
 <button onclick="trackAndGo('chairman')" class="nav-btn">
 👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
 </button>
 
-<!-- 📢 NOTICE -->
 <div class="event">
-<h2>📢 IMPORTANT NOTICE</h2>
+  <h2>📢 IMPORTANT NOTICE</h2>
 
-<p>
-All students are instructed to <b>open this app daily</b> for official notices,
-event updates, and important announcements.
-</p>
+  <p>
+    All students are instructed to <b>open this app daily</b> for official notices,
+    event updates, and important announcements.
+  </p>
 
-<p>
-🆕 <b>Recent Improvements:</b><br>
-Smarter Student Helper 🤖, enhanced Karmanya 2025 Countdown ⏳,
-and a faster, cleaner app experience.
-</p>
+  <p>
+    🆕 <b>New App Updates:</b><br>
+    We have upgraded the <b>RR Events App</b> with a smoother interface,
+    faster navigation, and improved features for students.
+  </p>
 
-<p>
-🎮 <b>RR Games Zone Updated:</b><br>
-New brain games added including <b>2048</b>.
-Compete with friends and sharpen your skills!
-</p>
+  <p>
+    🎮 <b>RR Games Zone Updated:</b><br>
+    New brain games have been added, including <b>2048</b> and other fun challenges.
+    Compete with friends and test your skills!
+  </p>
 
-<p class="text-muted">
-📌 All official updates and new features will be published only in this app.
-</p>
+  <p>
+    🚀 <b>What’s New:</b><br>
+    • Improved Student Helper 🤖<br>
+    • Better Karmanya 2025 Countdown ⏳<br>
+    • Faster loading & cleaner design ✨
+  </p>
+
+  <p class="text-muted">
+    📌 All college updates and new features will be published only in this app.
+  </p>
 </div>
-
 <!-- 🔥 DAILY STREAK -->
 <div class="streak-mini">
 🔥 Daily Streak
@@ -180,28 +176,23 @@ Compete with friends and sharpen your skills!
 
 <div class="ai-content" id="aiContent">
   <button class="ai-btn ai-pay" onclick="aiReply('payment')">
-    💳 How to pay for Karmanya?
+  💳 How to pay for Karmanya?
   </button>
 
   <button class="ai-btn ai-game" onclick="aiReply('ai_game')">
-    🎮 How to play with RR AI Bot?
+  🎮 How to play with RR AI Bot?
   </button>
 
   <div class="ai-answer" id="aiAnswer"></div>
 </div>
 </div>
 
-<!-- 🔲 MAIN BUTTON GRID -->
+<!-- 🔲 2x2 MAIN BUTTONS -->
 <div class="grid">
 <button class="btn-karmanya" onclick="trackAndGo('karmanya')">🎟️ Karmanya</button>
 <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
 <button class="btn-album" onclick="trackAndGo('album')">📸 Album</button>
 <button class="btn-events" onclick="trackAndGo('events')">📅 Events</button>
-</div>
-
-<!-- 🔻 FOOTER -->
-<div class="app-footer">
-Powered by RR International College
 </div>
 
 </div>
@@ -224,10 +215,10 @@ const eventDate=new Date("2025-12-30T23:59:59").getTime();
 setInterval(()=>{
   const diff=eventDate-Date.now();
   if(diff<=0){
-    countdown.innerText="🎉 Countdown Ended!";
+    document.getElementById("countdown").innerText="🎉 Countdown Ended!";
     return;
   }
-  countdown.innerText=
+  document.getElementById("countdown").innerText=
   `${Math.floor(diff/86400000)}d : ${Math.floor(diff%86400000/3600000)}h : ${Math.floor(diff%3600000/60000)}m : ${Math.floor(diff%60000/1000)}s`;
 },1000);
 
@@ -245,19 +236,19 @@ function aiReply(type){
     gtag('event','helper_used',{type:'payment'});
   }
   if(type==="ai_game"){
-    box.innerText="Games Zone → Tic Tac Toe → Switch to 🤖 AI Bot → Hard Mode 🔥";
+    box.innerText="Open Games Zone → Tic Tac Toe → Switch to 🤖 AI Bot → Select Hard Mode 🔥";
     gtag('event','helper_used',{type:'ai_game'});
   }
 }
 
-/* ===== NAVIGATION (FIXED EVENTS BUTTON ✅) ===== */
+/* ===== NAVIGATION ===== */
 function trackAndGo(t){
   gtag('event','home_button_click',{button:t});
-  if(t==='karmanya') location.href='karmanya.html';
-  if(t==='promo') location.href='promo.html';
-  if(t==='album') location.href='event_album.html';
-  if(t==='events') location.href='event.html';
-  if(t==='chairman') location.href='chairman.html';
+  if(t==='karmanya')location.href='karmanya.html';
+  if(t==='promo')location.href='promo.html';
+  if(t==='album')location.href='event_album.html';
+  if(t==='events')openEvents&&openEvents();
+  if(t==='chairman')location.href='chairman.html';
 }
 </script>
 
