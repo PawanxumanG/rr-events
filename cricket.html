@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RR Cricket Game</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="cricket.css">
+</head>
+
+<body>
+
+<div class="header">
+  🏏 RR CRICKET CHALLENGE
+</div>
+
+<div class="container">
+
+<div class="mode-box">
+  <button onclick="startGame('solo')">🎯 Solo Tap Cricket</button>
+  <button onclick="startGame('ai_easy')">🤖 RR AI (Easy)</button>
+  <button onclick="startGame('ai_hard')">🔥 RR AI (Hard)</button>
+  <button onclick="startGame('multi')">👥 2 Player Mode</button>
+</div>
+
+<div class="score-box">
+  <div>Score: <span id="score">0</span></div>
+  <div>Wickets: <span id="wicket">0</span>/10</div>
+</div>
+
+<div class="result" id="result">Tap BAT to start</div>
+
+<button class="bat-btn" onclick="bat()">🏏 BAT</button>
+
+<button class="back-btn" onclick="location.href='index.html'">
+⬅ Back to Home
+</button>
+
+</div>
+
+<script src="cricket.js"></script>
+</body>
+</html>
