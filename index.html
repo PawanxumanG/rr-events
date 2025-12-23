@@ -50,7 +50,7 @@ gtag('event','home_loaded');
     margin-top:6px;
 }
 
-/* ===== STUDENT HELPER ===== */
+/* ===== STUDENT HELPER (COMPACT) ===== */
 .ai-box{
     background:#161a22;
     border-radius:14px;
@@ -87,7 +87,7 @@ gtag('event','home_loaded');
     white-space:pre-line;
 }
 
-/* ===== GRID ===== */
+/* ===== MAIN GRID ===== */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -119,11 +119,75 @@ gtag('event','home_loaded');
 
 <div class="container">
 
+<!-- 👨‍🏫 CHAIRMAN (UNCHANGED) -->
 <button onclick="trackAndGo('chairman')" class="nav-btn">
 👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
 </button>
 
-<!-- 🔲 MAIN BUTTONS -->
+<div class="event">
+  <h2>📢 IMPORTANT NOTICE</h2>
+
+  <p>
+    All students are instructed to <b>open this app daily</b> for official notices,
+    event updates, and important announcements.
+  </p>
+
+  <p>
+    🆕 <b>New App Updates:</b><br>
+    We have upgraded the <b>RR Events App</b> with a smoother interface,
+    faster navigation, and improved features for students.
+  </p>
+
+  <p>
+    🎮 <b>RR Games Zone Updated:</b><br>
+    New brain games have been added, including <b>2048</b> and other fun challenges.
+    Compete with friends and test your skills!
+  </p>
+
+  <p>
+    🚀 <b>What’s New:</b><br>
+    • Improved Student Helper 🤖<br>
+    • Better Karmanya 2025 Countdown ⏳<br>
+    • Faster loading & cleaner design ✨
+  </p>
+
+  <p class="text-muted">
+    📌 All college updates and new features will be published only in this app.
+  </p>
+</div>
+<!-- 🔥 DAILY STREAK -->
+<div class="streak-mini">
+🔥 Daily Streak
+<b><span id="streakCount">1</span> Day</b>
+</div>
+
+<!-- ⏳ COUNTDOWN -->
+<div class="countdown-box">
+⏳ KARMANYA 2025 COUNTDOWN
+<div class="countdown-time" id="countdown">Loading...</div>
+</div>
+
+<!-- 🤖 STUDENT HELPER -->
+<div class="ai-box">
+<div class="ai-header" onclick="toggleAI()">
+  <h2>🤖 Student Helper</h2>
+  <span class="ai-toggle" id="aiToggle">Tap to open</span>
+</div>
+
+<div class="ai-content" id="aiContent">
+  <button class="ai-btn ai-pay" onclick="aiReply('payment')">
+  💳 How to pay for Karmanya?
+  </button>
+
+  <button class="ai-btn ai-game" onclick="aiReply('ai_game')">
+  🎮 How to play with RR AI Bot?
+  </button>
+
+  <div class="ai-answer" id="aiAnswer"></div>
+</div>
+</div>
+
+<!-- 🔲 2x2 MAIN BUTTONS -->
 <div class="grid">
 <button class="btn-karmanya" onclick="trackAndGo('karmanya')">🎟️ Karmanya</button>
 <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
@@ -134,14 +198,57 @@ gtag('event','home_loaded');
 </div>
 
 <script>
-/* ===== NAVIGATION (FIXED) ===== */
+/* ===== DAILY STREAK ===== */
+let today=new Date().toDateString();
+let last=localStorage.getItem("lastOpenDate");
+let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
+if(last!==today){
+  streak=last?streak+1:1;
+  localStorage.setItem("dailyStreak",streak);
+  localStorage.setItem("lastOpenDate",today);
+}
+document.getElementById("streakCount").innerText=streak;
+gtag('event','daily_streak',{days:streak});
+
+/* ===== COUNTDOWN ===== */
+const eventDate=new Date("2025-12-30T23:59:59").getTime();
+setInterval(()=>{
+  const diff=eventDate-Date.now();
+  if(diff<=0){
+    document.getElementById("countdown").innerText="🎉 Countdown Ended!";
+    return;
+  }
+  document.getElementById("countdown").innerText=
+  `${Math.floor(diff/86400000)}d : ${Math.floor(diff%86400000/3600000)}h : ${Math.floor(diff%3600000/60000)}m : ${Math.floor(diff%60000/1000)}s`;
+},1000);
+
+/* ===== STUDENT HELPER ===== */
+function toggleAI(){
+  const box=document.getElementById("aiContent");
+  const t=document.getElementById("aiToggle");
+  box.style.display=box.style.display==="block"?"none":"block";
+  t.innerText=box.style.display==="block"?"Tap to close":"Tap to open";
+}
+function aiReply(type){
+  const box=document.getElementById("aiAnswer");
+  if(type==="payment"){
+    box.innerText="Open Karmanya → Scan QR → Pay ₹500\nSend screenshot on WhatsApp with Name, Class & Roll No.";
+    gtag('event','helper_used',{type:'payment'});
+  }
+  if(type==="ai_game"){
+    box.innerText="Open Games Zone → Tic Tac Toe → Switch to 🤖 AI Bot → Select Hard Mode 🔥";
+    gtag('event','helper_used',{type:'ai_game'});
+  }
+}
+
+/* ===== NAVIGATION ===== */
 function trackAndGo(t){
   gtag('event','home_button_click',{button:t});
-  if(t==='karmanya') location.href='karmanya.html';
-  if(t==='promo') location.href='promo.html';
-  if(t==='album') location.href='event_album.html';
-  if(t==='events') location.href='events.html';   // ✅ FIXED HERE
-  if(t==='chairman') location.href='chairman.html';
+  if(t==='karmanya')location.href='karmanya.html';
+  if(t==='promo')location.href='promo.html';
+  if(t==='album')location.href='event_album.html';
+  if(t==='events')openEvents&&openEvents();
+  if(t==='chairman')location.href='chairman.html';
 }
 </script>
 
