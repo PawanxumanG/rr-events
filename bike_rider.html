@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RR Bike Rider</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+body{
+    background:#0f1117;
+    font-family:Segoe UI, Arial, sans-serif;
+    color:#fff;
+    overflow:hidden;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(90deg,#ff9800,#ff6a00);
+    padding:14px;
+    text-align:center;
+    font-weight:700;
+    font-size:16px;
+}
+
+/* GAME AREA */
+.game{
+    position:relative;
+    width:100%;
+    height:calc(100vh - 120px);
+    background:#222;
+    overflow:hidden;
+}
+
+/* ROAD */
+.road{
+    position:absolute;
+    width:100%;
+    height:200%;
+    background:repeating-linear-gradient(
+        #333 0px,
+        #333 40px,
+        #555 40px,
+        #555 80px
+    );
+    animation:roadMove 1s linear infinite;
+}
+
+@keyframes roadMove{
+    from{top:-100%}
+    to{top:0}
+}
+
+/* BIKE */
+.bike{
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:40px;
+    height:70px;
+    background:#ff1744;
+    border-radius:6px;
+}
+
+/* OBSTACLES */
+.car{
+    position:absolute;
+    width:40px;
+    height:70px;
+    background:#00e5ff;
+    border-radius:6px;
+}
+
+/* SCORE */
+.score{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:14px;
+}
+
+/* GAME OVER */
+.game-over{
+    display:none;
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.game-over h2{
+    margin-bottom:10px;
+}
+
+.restart{
+    margin-top:14px;
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#ff9800;
+    color:#000;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+}
+
+/* CONTROLS */
+.controls{
+    display:flex;
+    gap:10px;
+    padding:14px;
+}
+.ctrl-btn{
+    flex:1;
+    padding:14px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    font-weight:700;
+    background:#161a22;
+    color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🏍️ RR Bike Rider</div>
+
+<div class="game" id="game">
+    <div class="road"></div>
+    <div class="bike" id="bike"></div>
+
+    <div class="score">
+        Score: <span id="score">0</span><br>
+        Best: <span id="best">0</span>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <h2>💥 Game Over</h2>
+        <p>Your Bike Crashed!</p>
+        <button class="restart" onclick="restartGame()">Restart</button>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="ctrl-btn" onclick="moveLeft()">⬅️</button>
+    <button class="ctrl-btn" onclick="moveRight()">➡️</button>
+</div>
+
+<script>
+const bike = document.getElementById("bike");
+const game = document.getElementById("game");
+const scoreEl = document.getElementById("score");
+const bestEl = document.getElementById("best");
+const overBox = document.getElementById("gameOver");
+
+let bikeX = game.offsetWidth / 2 - 20;
+let score = 0;
+let speed = 3;
+let running = true;
+
+let best = localStorage.getItem("bikeBest") || 0;
+bestEl.innerText = best;
+
+function moveLeft(){
+    bikeX -= 40;
+    if(bikeX < 10) bikeX = 10;
+    bike.style.left = bikeX + "px";
+}
+
+function moveRight(){
+    bikeX += 40;
+    if(bikeX > game.offsetWidth - 50) bikeX = game.offsetWidth - 50;
+    bike.style.left = bikeX + "px";
+}
+
+/* TOUCH SWIPE */
+let startX = 0;
+game.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+});
+game.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if(endX - startX > 40) moveRight();
+    if(startX - endX > 40) moveLeft();
+});
+
+/* CREATE CARS */
+function createCar(){
+    if(!running) return;
+    const car = document.createElement("div");
+    car.className = "car";
+    car.style.left = Math.random() * (game.offsetWidth - 50) + "px";
+    car.style.top = "-80px";
+    game.appendChild(car);
+
+    let fall = setInterval(()=>{
+        if(!running){
+            clearInterval(fall);
+            car.remove();
+            return;
+        }
+
+        let top = parseInt(car.style.top);
+        car.style.top = top + speed + "px";
+
+        // collision
+        const bikeRect = bike.getBoundingClientRect();
+        const carRect = car.getBoundingClientRect();
+
+        if(
+            bikeRect.left < carRect.right &&
+            bikeRect.right > carRect.left &&
+            bikeRect.top < carRect.bottom &&
+            bikeRect.bottom > carRect.top
+        ){
+            endGame();
+            clearInterval(fall);
+        }
+
+        if(top > game.offsetHeight){
+            car.remove();
+            clearInterval(fall);
+        }
+    },20);
+}
+
+setInterval(createCar, 900);
+
+/* SCORE LOOP */
+setInterval(()=>{
+    if(!running) return;
+    score++;
+    scoreEl.innerText = score;
+    speed = 3 + Math.floor(score / 200);
+},100);
+
+function endGame(){
+    running = false;
+    overBox.style.display = "flex";
+    if(score > best){
+        best = score;
+        localStorage.setItem("bikeBest", best);
+        bestEl.innerText = best;
+    }
+}
+
+function restartGame(){
+    location.reload();
+}
+</script>
+
+</body>
+</html>
