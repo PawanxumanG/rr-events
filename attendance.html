@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RR International College - Attendance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+    background:#0f1117;
+    color:#fff;
+    font-family:Arial, sans-serif;
+    margin:0;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(90deg,#ff6a00,#ff9800);
+    padding:18px;
+    text-align:center;
+}
+.header h1{
+    margin:0;
+    font-size:20px;
+}
+.header p{
+    margin-top:4px;
+    font-size:13px;
+    opacity:.9;
+}
+
+/* CONTAINER */
+.container{
+    padding:16px;
+}
+
+/* CARD */
+.att-card{
+    background:#161a22;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:16px;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
+}
+.att-card h2{
+    margin:0 0 8px;
+    font-size:17px;
+}
+
+/* PROGRESS */
+.progress-wrap{
+    margin-top:10px;
+}
+.progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    margin-bottom:6px;
+    opacity:.9;
+}
+.progress{
+    height:12px;
+    background:#2a2f3a;
+    border-radius:10px;
+    overflow:hidden;
+}
+.progress-bar{
+    height:100%;
+    border-radius:10px;
+}
+
+/* COLORS */
+.good{background:linear-gradient(90deg,#00c853,#64dd17);}
+.warn{background:linear-gradient(90deg,#ff9800,#ffb300);}
+.danger{background:linear-gradient(90deg,#e53935,#ff5252);}
+
+/* NOTE */
+.note{
+    font-size:13px;
+    opacity:.8;
+    margin-top:8px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    width:100%;
+    margin-top:24px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#34495e;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📊 Attendance Overview</h1>
+    <p>Overall Class Attendance Status</p>
+</div>
+
+<div class="container">
+
+<!-- FYJC -->
+<div class="att-card">
+    <h2>FYJC</h2>
+    <div class="progress-wrap">
+        <div class="progress-label">
+            <span>Attendance</span>
+            <span>78%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar good" style="width:78%"></div>
+        </div>
+        <div class="note">Minimum required: 75%</div>
+    </div>
+</div>
+
+<!-- SYJC -->
+<div class="att-card">
+    <h2>SYJC</h2>
+    <div class="progress-wrap">
+        <div class="progress-label">
+            <span>Attendance</span>
+            <span>72%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar warn" style="width:72%"></div>
+        </div>
+        <div class="note">⚠ Below required attendance (75%)</div>
+    </div>
+</div>
+
+<!-- FY DEGREE -->
+<div class="att-card">
+    <h2>FY Degree</h2>
+    <div class="progress-wrap">
+        <div class="progress-label">
+            <span>Attendance</span>
+            <span>81%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar good" style="width:81%"></div>
+        </div>
+        <div class="note">Eligible for exams</div>
+    </div>
+</div>
+
+<!-- SY DEGREE -->
+<div class="att-card">
+    <h2>SY Degree</h2>
+    <div class="progress-wrap">
+        <div class="progress-label">
+            <span>Attendance</span>
+            <span>69%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar danger" style="width:69%"></div>
+        </div>
+        <div class="note">❌ Attendance shortage</div>
+    </div>
+</div>
+
+<!-- TY DEGREE -->
+<div class="att-card">
+    <h2>TY Degree</h2>
+    <div class="progress-wrap">
+        <div class="progress-label">
+            <span>Attendance</span>
+            <span>85%</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar good" style="width:85%"></div>
+        </div>
+        <div class="note">Excellent attendance</div>
+    </div>
+</div>
+
+<button class="back-btn" onclick="location.href='index.html'">
+⬅ Back to Home
+</button>
+
+</div>
+
+</body>
+</html>
