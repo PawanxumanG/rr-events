@@ -44,13 +44,11 @@ body{
 }
 
 /* CONTAINER */
-.container{
-    padding:16px;
-}
+.container{padding:16px}
 
 /* SECTION TITLE */
 .section-title{
-    margin:24px 4px 12px;
+    margin:26px 4px 12px;
     font-size:18px;
     font-weight:700;
 }
@@ -63,15 +61,8 @@ body{
     margin-bottom:18px;
     box-shadow:0 10px 24px rgba(0,0,0,.6);
 }
-.game-card h2{
-    margin:0;
-    font-size:20px;
-}
-.game-card p{
-    margin:8px 0 0;
-    font-size:14px;
-    opacity:.85;
-}
+.game-card h2{margin:0;font-size:20px}
+.game-card p{margin:8px 0 0;font-size:14px;opacity:.85}
 
 /* BADGE */
 .badge{
@@ -82,11 +73,11 @@ body{
     font-size:12px;
     font-weight:600;
 }
-.badge-hot{background:#e74c3c;}
-.badge-ai{background:#ff9800;}
-.badge-brain{background:#3498db;}
-.badge-quick{background:#2ecc71;}
-.badge-sport{background:#1abc9c;}
+.badge-hot{background:#e74c3c}
+.badge-ai{background:#ff9800}
+.badge-brain{background:#3498db}
+.badge-quick{background:#2ecc71}
+.badge-sport{background:#1abc9c}
 
 /* PLAY BUTTON */
 .play-btn{
@@ -102,10 +93,11 @@ body{
 }
 
 /* BUTTON COLORS */
-.btn-ttt{background:linear-gradient(90deg,#ff9800,#ff6a00);}
-.btn-2048{background:linear-gradient(90deg,#00c6ff,#0072ff);}
-.btn-reaction{background:linear-gradient(90deg,#2ecc71,#27ae60);}
-.btn-cricket{background:linear-gradient(90deg,#1abc9c,#16a085);}
+.btn-ttt{background:linear-gradient(90deg,#ff9800,#ff6a00)}
+.btn-2048{background:linear-gradient(90deg,#00c6ff,#0072ff)}
+.btn-reaction{background:linear-gradient(90deg,#2ecc71,#27ae60)}
+.btn-cricket{background:linear-gradient(90deg,#1abc9c,#16a085)}
+.btn-poki{background:linear-gradient(90deg,#e91e63,#ff5722)}
 
 /* FOOTER BUTTON */
 .back-btn{
@@ -120,6 +112,13 @@ body{
     color:#fff;
     cursor:pointer;
 }
+
+/* SMALL NOTE */
+.note{
+    margin-top:8px;
+    font-size:12px;
+    opacity:.65;
+}
 </style>
 </head>
 
@@ -133,84 +132,86 @@ body{
 
 <div class="container">
 
-    <!-- FEATURED -->
-    <div class="section-title">🔥 Featured Challenge</div>
+<!-- FEATURED -->
+<div class="section-title">🔥 Featured Challenge</div>
 
-    <div class="game-card">
-        <h2>❌⭕ Tic Tac Toe</h2>
-        <p>
-            Think you’re smart?  
-            Try defeating the <b>RR AI Bot (Hard Mode)</b>.
-        </p>
-        <span class="badge badge-hot">🧠 Power</span>
-        <span class="badge badge-ai">🤖 AI Challenge</span>
+<div class="game-card">
+    <h2>❌⭕ Tic Tac Toe</h2>
+    <p>Think you’re smart? Try defeating the <b>RR AI Bot (Hard Mode)</b>.</p>
+    <span class="badge badge-hot">🧠 Power</span>
+    <span class="badge badge-ai">🤖 AI Challenge</span>
 
-        <button class="play-btn btn-ttt"
-            onclick="gtag('event','play_tictactoe'); location.href='tictactoe_game.html'">
-            ▶ Play Now
-        </button>
-    </div>
-
-    <!-- SPORTS GAMES -->
-    <div class="section-title">🏏 Sports Games</div>
-
-    <div class="game-card">
-        <h2>🏏 Cricket Superstar</h2>
-        <p>
-            Step onto the pitch and become a cricket legend.  
-            Smash boundaries and chase high scores!
-        </p>
-        <span class="badge badge-sport">🔥 Popular</span>
-
-        <button class="play-btn btn-cricket"
-onclick="gtag('event','play_cricket_superstar');
-window.open('https://poki.com/en/g/cricket-superstar','_blank');">
-▶ Play Cricket Superstar
-</button>
-    </div>
-
-    <!-- BRAIN GAMES -->
-    <div class="section-title">🧠 Brain Games</div>
-
-    <div class="game-card">
-        <h2>🧩 2048</h2>
-        <p>
-            Simple to play.  
-            Hard to master.  
-            Only legends reach <b>2048</b>.
-        </p>
-        <span class="badge badge-brain">🔥 Trending</span>
-
-        <button class="play-btn btn-2048"
-            onclick="gtag('event','play_2048'); location.href='2048.html'">
-            ▶ Play 2048
-        </button>
-    </div>
-
-    <!-- QUICK GAMES -->
-    <div class="section-title">⚡ Quick Games</div>
-
-    <div class="game-card">
-        <h2>⚡ Reaction Time</h2>
-        <p>
-            Blink and you lose.  
-            Tap fast when it turns green.
-        </p>
-        <span class="badge badge-quick">⏱ Ego Game</span>
-
-        <button class="play-btn btn-reaction"
-            onclick="gtag('event','play_reaction_time'); location.href='reaction.html'">
-            ▶ Test Your Speed
-        </button>
-    </div>
-
-    <!-- BACK -->
-    <button class="back-btn"
-        onclick="gtag('event','back_to_notices'); location.href='index.html'">
-        ⬅ Back to Notices
+    <button class="play-btn btn-ttt"
+        onclick="gtag('event','play_tictactoe'); location.href='tictactoe_game.html'">
+        ▶ Play Now
     </button>
-
 </div>
 
+<!-- BRAIN GAMES -->
+<div class="section-title">🧠 Brain Games</div>
+
+<div class="game-card">
+    <h2>🧩 2048</h2>
+    <p>Simple to play. Hard to master. Only legends reach <b>2048</b>.</p>
+    <span class="badge badge-brain">🔥 Trending</span>
+
+    <button class="play-btn btn-2048"
+        onclick="gtag('event','play_2048'); location.href='2048.html'">
+        ▶ Play 2048
+    </button>
+</div>
+
+<!-- QUICK GAMES -->
+<div class="section-title">⚡ Quick Games</div>
+
+<div class="game-card">
+    <h2>⚡ Reaction Time</h2>
+    <p>Blink and you lose. Tap fast when it turns green.</p>
+    <span class="badge badge-quick">⏱ Ego Game</span>
+
+    <button class="play-btn btn-reaction"
+        onclick="gtag('event','play_reaction_time'); location.href='reaction.html'">
+        ▶ Test Your Speed
+    </button>
+</div>
+
+<!-- SPORTS GAME -->
+<div class="section-title">🏏 Sports Game</div>
+
+<div class="game-card">
+    <h2>🏏 Cricket Superstar</h2>
+    <p>Step onto the pitch and become a cricket legend. Smash boundaries!</p>
+    <span class="badge badge-sport">🔥 Popular</span>
+
+    <button class="play-btn btn-cricket"
+        onclick="gtag('event','play_cricket_superstar');
+        location.href='https://poki.com/en/g/cricket-superstar'">
+        ▶ Play Cricket Superstar
+    </button>
+
+    <div class="note"> Co Powered by Poki Games</div>
+</div>
+
+<!-- POKI GAMES HUB -->
+<div class="section-title">🌐 Poki Games</div>
+
+<div class="game-card">
+    <h2>🎮 Explore More Games</h2>
+    <p>Play hundreds of free online games directly inside the app.</p>
+
+    <button class="play-btn btn-poki"
+        onclick="gtag('event','open_poki_games');
+        location.href='https://poki.com'">
+        ▶ Open Poki Games
+    </button>
+</div>
+
+<!-- BACK -->
+<button class="back-btn"
+    onclick="gtag('event','back_to_notices'); location.href='index.html'">
+    ⬅ Back to Notices
+</button>
+
+</div>
 </body>
 </html>
