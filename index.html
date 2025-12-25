@@ -2,251 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>RR International College - Notices</title>
+<title>Update Required – RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-
-<!-- ✅ GOOGLE ANALYTICS (DEEP TRACKING) -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-9JW1V42V83',{
-  page_title:'RR Events Home',
-  page_path:'/index.html'
-});
-gtag('event','home_loaded');
+gtag('config','G-9JW1V42V83',{page_title:'Force Update'});
 </script>
 
 <style>
-/* ===== HEADER LOGO ===== */
-.header-logo{
-    width:42px;
-    height:42px;
-    margin-right:10px;
-    vertical-align:middle;
-    filter:drop-shadow(0 0 6px rgba(255,255,255,0.6));
-}
-
-/* ===== DAILY STREAK ===== */
-.streak-mini{
-    background:#161a22;
-    border-radius:12px;
-    padding:12px 14px;
-    margin:14px 0;
+body{
+    margin:0;
+    background:#0f1117;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont;
+    color:#ffffff;
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
-    box-shadow:0 0 12px rgba(0,0,0,.5);
-}
-.streak-mini b{color:#ff9800}
-
-/* ===== COUNTDOWN ===== */
-.countdown-box{
-    background:linear-gradient(135deg,#7b2cff,#2575fc);
-    border-radius:14px;
-    padding:14px;
-    margin-bottom:18px;
-    text-align:center;
-    color:#fff;
-    box-shadow:0 0 18px rgba(123,44,255,.6);
-}
-.countdown-time{
-    font-size:18px;
-    font-weight:700;
-    margin-top:6px;
+    min-height:100vh;
 }
 
-/* ===== STUDENT HELPER ===== */
-.ai-box{
+.update-box{
+    width:92%;
+    max-width:420px;
     background:#161a22;
-    border-radius:14px;
-    padding:12px;
-    margin-bottom:18px;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
-}
-.ai-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    cursor:pointer;
-}
-.ai-header h2{font-size:16px;margin:0}
-.ai-toggle{font-size:13px;opacity:.7}
-
-.ai-content{display:none;margin-top:10px}
-.ai-btn{
-    width:100%;
-    padding:10px;
-    margin-top:8px;
-    border:none;
-    border-radius:10px;
-    color:#fff;
-    font-size:14px;
-    cursor:pointer;
-}
-.ai-pay{background:linear-gradient(90deg,#7b2cff,#2575fc)}
-.ai-game{background:linear-gradient(90deg,#ff2e63,#ff9800)}
-.ai-answer{
-    margin-top:10px;
-    font-size:14px;
-    color:#ffcc80;
-    white-space:pre-line;
-}
-
-/* ===== MAIN GRID ===== */
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-bottom:22px;
-}
-.grid button{
-    padding:14px;
-    border:none;
-    border-radius:14px;
-    font-size:15px;
-    color:#fff;
-    cursor:pointer;
-    box-shadow:0 0 16px rgba(0,0,0,.5);
-}
-.btn-karmanya{background:linear-gradient(135deg,#00c6ff,#0072ff)}
-.btn-promo{background:linear-gradient(135deg,#7b2cff,#ff2e63)}
-.btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63)}
-.btn-events{background:linear-gradient(135deg,#00b09b,#96c93d)}
-
-/* ===== POWERED BY ===== */
-.app-footer{
-    margin-top:18px;
-    padding-top:14px;
+    border-radius:18px;
+    padding:28px 22px;
     text-align:center;
-    border-top:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 0 30px rgba(0,0,0,.85);
 }
-.powered-text{
-    font-size:13px;
-    color:#9aa0a6;
+
+.logo{
+    width:74px;
+    height:74px;
+    margin-bottom:14px;
+    filter:drop-shadow(0 0 10px rgba(255,255,255,.25));
 }
-.powered-brand{
-    font-size:13px;
-    color:#e6e6e6;
+
+h1{
+    font-size:21px;
+    margin:8px 0;
+    letter-spacing:.4px;
+}
+
+p{
+    font-size:14px;
+    line-height:1.7;
+    color:#d0d0d0;
+}
+
+.highlight{
+    color:#ff9800;
     font-weight:600;
+}
+
+.version{
+    margin-top:10px;
+    font-size:13px;
+    color:#ffb74d;
+}
+
+.update-btn{
+    margin-top:24px;
+    width:100%;
+    padding:15px;
+    font-size:16px;
+    font-weight:700;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg,#7b2cff,#2575fc);
+    box-shadow:0 0 20px rgba(123,44,255,.6);
+}
+
+.update-btn:active{
+    transform:scale(.98);
+}
+
+.note{
+    margin-top:18px;
+    font-size:12px;
+    color:#9aa0a6;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
-  <h1>
-    <img src="vishnu1.png" class="header-logo" alt="RR College Logo">
-    RR INTERNATIONAL COLLEGE
-  </h1>
-  <p>Notices & Updates</p>
-</div>
+<div class="update-box">
+    <img src="vishnu1.png" alt="RR International College Logo" class="logo">
 
-<div class="container">
+    <h1>Update Required</h1>
 
-<button onclick="trackAndGo('chairman')" class="nav-btn">
-👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
-</button>
+    <p>
+        A <span class="highlight">new version</span> of the <b>RR Events App</b> is available.<br><br>
+        All students are <b>requested to update</b> the app to the latest version
+        to continue receiving official notices, event updates, and announcements.
+    </p>
 
-<div class="event">
-  <h2>📢 IMPORTANT NOTICE</h2>
+    <div class="version">
+        Latest Version: <b>2.1</b>
+    </div>
 
-  <p>All students are instructed to <b>open this app daily</b> for official notices, event updates, and important announcements.</p>
+    <button class="update-btn" onclick="updateNow()">
+        🔄 Update Now
+    </button>
 
-  <p>🆕 <b>New App Updates:</b><br>
-  We have upgraded the <b>RR Events App</b> with a smoother interface, faster navigation, and improved features.</p>
-
-  <p>🎮 <b>RR Games Zone Updated:</b><br>
-  New brain games like <b>2048</b> have been added.</p>
-
-  <p>🚀 <b>What’s New:</b><br>
-  • Improved Student Helper 🤖<br>
-  • Better Karmanya 2025 Countdown ⏳<br>
-  • Faster loading ✨</p>
-
-  <p class="text-muted">📌 All updates will be published only in this app.</p>
-</div>
-
-<div class="streak-mini">
-🔥 Daily Streak
-<b><span id="streakCount">1</span> Day</b>
-</div>
-
-<div class="countdown-box">
-⏳ KARMANYA 2025 COUNTDOWN
-<div class="countdown-time" id="countdown">Loading...</div>
-</div>
-
-<div class="ai-box">
-<div class="ai-header" onclick="toggleAI()">
-  <h2>🤖 Student Helper</h2>
-  <span class="ai-toggle" id="aiToggle">Tap to open</span>
-</div>
-
-<div class="ai-content" id="aiContent">
-  <button class="ai-btn ai-pay" onclick="aiReply('payment')">💳 How to pay for Karmanya?</button>
-  <button class="ai-btn ai-game" onclick="aiReply('ai_game')">🎮 How to play with RR AI Bot?</button>
-  <div class="ai-answer" id="aiAnswer"></div>
-</div>
-</div>
-
-<div class="grid">
-  <button class="btn-karmanya" onclick="trackAndGo('karmanya')">🎟️ Karmanya</button>
-  <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
-  <button class="btn-album" onclick="trackAndGo('album')">📸 Album</button>
-  <button class="btn-events" onclick="trackAndGo('events')">📅 Events</button>
-</div>
-
-<!-- 🔻 POWERED BY -->
-<div class="app-footer">
-  <span class="powered-text">Powered by </span>
-  <span class="powered-brand">RR International College</span>
-</div>
-
+    <div class="note">
+        Please join the official WhatsApp channel<br>
+        to download the latest version of the app.
+    </div>
 </div>
 
 <script>
-let today=new Date().toDateString();
-let last=localStorage.getItem("lastOpenDate");
-let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
-if(last!==today){
-  streak=last?streak+1:1;
-  localStorage.setItem("dailyStreak",streak);
-  localStorage.setItem("lastOpenDate",today);
-}
-document.getElementById("streakCount").innerText=streak;
-
-const eventDate=new Date("2025-12-30T23:59:59").getTime();
-setInterval(()=>{
-  const diff=eventDate-Date.now();
-  document.getElementById("countdown").innerText=
-  diff<=0 ? "🎉 Countdown Ended!" :
-  `${Math.floor(diff/86400000)}d : ${Math.floor(diff%86400000/3600000)}h : ${Math.floor(diff%3600000/60000)}m : ${Math.floor(diff%60000/1000)}s`;
-},1000);
-
-function toggleAI(){
-  const box=document.getElementById("aiContent");
-  const t=document.getElementById("aiToggle");
-  box.style.display=box.style.display==="block"?"none":"block";
-  t.innerText=box.style.display==="block"?"Tap to close":"Tap to open";
-}
-function aiReply(type){
-  document.getElementById("aiAnswer").innerText =
-  type==="payment"
-  ? "Open Karmanya → Scan QR → Pay ₹500"
-  : "Open Games Zone → Tic Tac Toe → Hard Mode 🔥";
-}
-function trackAndGo(t){
-  if(t==='karmanya')location.href='karmanya.html';
-  if(t==='promo')location.href='promo.html';
-  if(t==='album')location.href='event_album.html';
-  if(t==='events')location.href='events.html';
-  if(t==='chairman')location.href='chairman.html';
+function updateNow(){
+    window.location.href =
+    "https://whatsapp.com/channel/0029Vb77eeGKgsO1752R723C";
 }
 </script>
 
