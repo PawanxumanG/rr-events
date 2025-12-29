@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RR Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  background:#0f1117;
+  color:#fff;
+  font-family:system-ui;
+  padding:16px;
+}
+h2{margin-bottom:16px}
+input,button{
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin-top:8px;
+}
+button{
+  background:#ff9800;
+  font-weight:700;
+}
+.card{
+  background:#161a22;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+.small{font-size:13px;opacity:.8}
+</style>
+</head>
+
+<body>
+
+<h2>👑 RR Admin Panel</h2>
+
+<div class="card">
+  <input id="newKey" placeholder="RR-NEW-KEY-XXX">
+  <button onclick="createKey()">Create Key</button>
+</div>
+
+<div id="list"></div>
+
+<script src="firebase.js"></script>
+
+<script>
+async function loadKeys(){
+  const list = document.getElementById("list");
+  list.innerHTML="";
+
+  const snap = await db.collection("keys").get();
+  snap.forEach(doc=>{
+    const d = doc.data();
+    list.innerHTML += `
+      <div class="card">
+        <b>${d.key}</b><br>
+        <span class="small">Used: ${d.used}</span><br>
+        <span class="small">Role: ${d.role}</span>
+      </div>
+    `;
+  });
+}
+
+async function createKey(){
+  const key = document.getElementById("newKey").value.trim();
+  if(!key) return alert("Enter key");
+
+  await db.collection("keys").add({
+    key:key,
+    used:false,
+    deviceId:"",
+    role:"student",
+    createdAt:new Date()
+  });
+
+  alert("Key Created");
+  loadKeys();
+}
+
+loadKeys();
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Update Required – RR Events App</title>
+<title>RR Events App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Google Analytics -->
@@ -11,120 +11,16 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-9JW1V42V83',{page_title:'Force Update'});
+gtag('config','G-9JW1V42V83',{page_title:'Login Redirect'});
 </script>
 
-<style>
-body{
-    margin:0;
-    background:#0f1117;
-    font-family:system-ui,-apple-system,BlinkMacSystemFont;
-    color:#ffffff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
-
-.update-box{
-    width:92%;
-    max-width:420px;
-    background:#161a22;
-    border-radius:18px;
-    padding:28px 22px;
-    text-align:center;
-    box-shadow:0 0 30px rgba(0,0,0,.85);
-}
-
-.logo{
-    width:74px;
-    height:74px;
-    margin-bottom:14px;
-    filter:drop-shadow(0 0 10px rgba(255,255,255,.25));
-}
-
-h1{
-    font-size:21px;
-    margin:8px 0;
-    letter-spacing:.4px;
-}
-
-p{
-    font-size:14px;
-    line-height:1.7;
-    color:#d0d0d0;
-}
-
-.highlight{
-    color:#ff9800;
-    font-weight:600;
-}
-
-.version{
-    margin-top:10px;
-    font-size:13px;
-    color:#ffb74d;
-}
-
-.update-btn{
-    margin-top:24px;
-    width:100%;
-    padding:15px;
-    font-size:16px;
-    font-weight:700;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    color:#fff;
-    background:linear-gradient(135deg,#7b2cff,#2575fc);
-    box-shadow:0 0 20px rgba(123,44,255,.6);
-}
-
-.update-btn:active{
-    transform:scale(.98);
-}
-
-.note{
-    margin-top:18px;
-    font-size:12px;
-    color:#9aa0a6;
-}
-</style>
+<script>
+  // 🔐 Redirect to Login Page
+  window.location.replace("login.html");
+</script>
 </head>
 
 <body>
-
-<div class="update-box">
-    <img src="vishnu1.png" alt="RR International College Logo" class="logo">
-
-    <h1>Update Required</h1>
-
-    <p>
-        A <span class="highlight">new version</span> of the <b>RR Events App</b> is available.<br><br>
-        All students are <b>requested to update</b> the app to the latest version
-        to continue receiving official notices, event updates, and announcements.
-    </p>
-
-    <div class="version">
-        Latest Version: <b>2.1</b>
-    </div>
-
-    <button class="update-btn" onclick="updateNow()">
-        🔄 Update Now
-    </button>
-
-    <div class="note">
-        Please join the official WhatsApp channel<br>
-        to download the latest version of the app.
-    </div>
-</div>
-
-<script>
-function updateNow(){
-    window.location.href =
-    "https://whatsapp.com/channel/0029Vb77eeGKgsO1752R723C";
-}
-</script>
-
+<!-- Intentionally empty -->
 </body>
 </html>
