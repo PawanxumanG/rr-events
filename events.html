@@ -33,25 +33,46 @@
     padding: 16px;
 }
 
+/* ===== ANIMATIONS ===== */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== EVENT CARD ===== */
 .event-card {
-    background: #161a22;
-    border-radius: 14px;
-    padding: 16px;
+    background: linear-gradient(
+        135deg,
+        #0f2027,
+        #203a43,
+        #2c5364,
+        #1c92d2
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite, fadeUp 0.6s ease;
+    border-radius: 18px;
+    padding: 18px;
     margin-bottom: 18px;
-    box-shadow: 0 0 16px rgba(0,0,0,.6);
+    box-shadow: 0 0 28px rgba(0,0,0,.7);
+    color: #ffffff;
 }
 
 .event-card h2 {
     margin-top: 0;
-    font-size: 18px;
-    color: #ff9800;
+    font-size: 19px;
+    color: #ffffff;
 }
 
 .event-card p {
     font-size: 14px;
     line-height: 1.6;
-    color: #e0e0e0;
+    color: #eaeaea;
     margin-bottom: 12px;
 }
 
@@ -63,7 +84,15 @@
 .event-card li {
     margin-bottom: 8px;
     font-size: 14px;
-    color: #dcdcdc;
+    color: #f1f1f1;
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffcc80;
 }
 
 /* ===== BUTTON ===== */
@@ -73,12 +102,12 @@
     font-size: 15px;
     font-weight: 600;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     margin: 16px;
     color: #ffffff;
     background: linear-gradient(90deg, #2196f3, #00bcd4);
-    box-shadow: 0 0 14px rgba(0,188,212,.6);
+    box-shadow: 0 0 16px rgba(0,188,212,.6);
 }
 
 .nav-btn:active {
@@ -92,61 +121,66 @@
 <!-- HEADER -->
 <div class="header">
     <h1>RR INTERNATIONAL COLLEGE</h1>
-    <p>Official College Event</p>
+    <p>Events & Upcoming Activities</p>
 </div>
 
 <div class="container">
 
-<!-- KARMANYA EVENT -->
+<!-- EVENTS CARD -->
 <div class="event-card">
-    <h2>🎉 KARMANYA 2025 – Annual Cultural & Technical Fest</h2>
+
+    <h2>📅 Upcoming College Events</h2>
 
     <p>
-        <b>KARMANYA 2025</b> is the official annual flagship event of
-        <b>RR International College</b>, designed to promote
-        overall student development through cultural, technical,
-        sports, and creative activities.
+        RR International College regularly organizes academic,
+        cultural, sports, and competitive events to encourage
+        student participation, teamwork, and overall development.
     </p>
 
+    <!-- SPORTS DAY -->
+    <div class="section-title">🏅 Sports Day (Coming Soon)</div>
     <p>
-        This event provides students with a platform to showcase
-        their talents, teamwork, leadership skills, and active
-        participation beyond academics.
-    </p>
-
-    <h3 style="color:#ffcc80;margin-bottom:6px;">📌 Event Highlights</h3>
-    <ul>
-        <li>Cultural performances (Dance, Music, Drama)</li>
-        <li>Technical & fun competitions</li>
-        <li>Games, activities, and student challenges</li>
-        <li>Inter-department participation</li>
-        <li>Certificates & recognition</li>
-    </ul>
-
-    <h3 style="color:#ffcc80;margin-bottom:6px;">⚠️ Important Notice (Mandatory Participation)</h3>
-    <p>
-        Participation in <b>KARMANYA 2025 is compulsory for all students</b>.
-        The event is officially recognized by the college and is
-        directly linked to internal assessment and academic engagement.
+        The college will soon announce the official <b>Sports Day</b>,
+        featuring multiple indoor and outdoor sports events.
     </p>
 
     <ul>
-        <li>Attendance may be considered for <b>internal marks</b></li>
-        <li>Non-participation without valid reason may affect evaluation</li>
-        <li>Active involvement reflects discipline and teamwork</li>
-        <li>Mandatory for overall academic and co-curricular assessment</li>
+        <li>Track & field events</li>
+        <li>Team sports & individual games</li>
+        <li>House-wise & department-wise competitions</li>
+        <li>Certificates and recognition</li>
     </ul>
 
-    <p>
-        Students are strongly advised to actively participate and
-        follow all instructions issued by the college authorities
-        regarding event registration and attendance.
+    <p style="opacity:.85;">
+        📢 Detailed schedule, rules, and participation process will be
+        announced shortly. Students are advised to stay active and prepared.
     </p>
 
-    <p style="opacity:.75;">
-        📢 Further updates, schedules, and payment details will be
-        announced only through this app.
+    <!-- ESPORTS -->
+    <div class="section-title">🎮 Esports Tournament – Free Fire MAX</div>
+    <p>
+        RR International College is planning to conduct an official
+        <b>Esports Tournament</b> featuring
+        <b>Free Fire MAX</b> for interested students.
     </p>
+
+    <ul>
+        <li>Competitive Free Fire MAX matches</li>
+        <li>Team & solo formats (to be confirmed)</li>
+        <li>Fair play & college-level competition</li>
+        <li>Exciting rewards & recognition</li>
+    </ul>
+
+    <p style="opacity:.85;">
+        🔔 Tournament format, registration details, rules, and schedule
+        will be announced soon through this app.
+    </p>
+
+    <p style="margin-top:14px;opacity:.9;">
+        🚀 Stay tuned for official announcements and make sure to
+        regularly check this app for updates.
+    </p>
+
 </div>
 
 </div>
