@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payments – RR International College</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9JW1V42V83', {
+    page_title: 'Payments',
+    page_path: '/payments.html'
+  });
+</script>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+body{
+  margin:0;
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#0f1117;
+  color:#ffffff;
+}
+.header{
+  background:linear-gradient(90deg,#34495e,#2c3e50);
+  padding:16px;
+  text-align:center;
+}
+.header h1{
+  margin:0;
+  font-size:20px;
+}
+.header p{
+  margin-top:4px;
+  font-size:13px;
+  opacity:.85;
+}
+
+.container{
+  padding:18px;
+  max-width:480px;
+  margin:auto;
+}
+
+.card{
+  background:#161a22;
+  border-radius:16px;
+  padding:22px 18px;
+  margin-top:24px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,0,0,.6);
+}
+
+.icon{
+  font-size:42px;
+  margin-bottom:12px;
+}
+
+.card h2{
+  margin:0;
+  font-size:20px;
+}
+
+.card p{
+  margin-top:10px;
+  font-size:14px;
+  line-height:1.6;
+  color:#dcdcdc;
+}
+
+.note{
+  margin-top:14px;
+  font-size:13px;
+  color:#ffcc80;
+}
+
+.btn{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  color:#fff;
+}
+
+.btn-home{
+  background:linear-gradient(90deg,#00c6ff,#0072ff);
+  box-shadow:0 6px 14px rgba(0,198,255,.35);
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+.footer{
+  margin-top:26px;
+  text-align:center;
+  font-size:12px;
+  opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>RR INTERNATIONAL COLLEGE</h1>
+  <p>Payments & Registrations</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <div class="icon">🚧</div>
+
+    <h2>No Active Event</h2>
+
+    <p>
+      There are currently <b>no active events or payments</b> available.
+    </p>
+
+    <p>
+      When a new event is announced, payment and registration
+      details will appear here automatically.
+    </p>
+
+    <div class="note">
+      🔔 Please check this section later for updates.
+    </div>
+
+    <button class="btn btn-home" onclick="goHome()">
+      ⬅ Back to Home
+    </button>
+  </div>
+
+  <div class="footer">
+    Powered by RR International College
+  </div>
+
+</div>
+
+<script>
+function goHome(){
+  gtag('event','back_to_home',{
+    event_category:'Navigation',
+    event_label:'Payments Page'
+  });
+  location.href="index.html";
+}
+</script>
+
+</body>
+</html>
