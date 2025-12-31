@@ -15,13 +15,11 @@
     text-align: center;
     padding: 16px 10px;
 }
-
 .header h1 {
     margin: 0;
     font-size: 18px;
     letter-spacing: 0.5px;
 }
-
 .header p {
     margin: 4px 0 0;
     font-size: 13px;
@@ -34,45 +32,46 @@
 }
 
 /* ===== ANIMATIONS ===== */
-@keyframes gradientShift {
+@keyframes gradientFlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(14px) scale(.97); }
+    to { opacity: 1; transform: none; }
 }
 
 /* ===== EVENT CARD ===== */
 .event-card {
     background: linear-gradient(
         135deg,
-        #1c1f26,
-        #232733,
-        #1c1f26
+        #ff9800,
+        #ff5722,
+        #7b2cff,
+        #2575fc
     );
-    background-size: 300% 300%;
-    animation: gradientShift 10s ease infinite, fadeUp 0.6s ease;
-    border-radius: 18px;
-    padding: 20px;
+    background-size: 400% 400%;
+    animation: gradientFlow 8s ease infinite, fadeUp .7s ease;
+    border-radius: 20px;
+    padding: 22px;
     margin-bottom: 18px;
-    box-shadow: 0 0 22px rgba(0,0,0,.7);
+    box-shadow: 0 0 30px rgba(255,152,0,.55);
     color: #ffffff;
 }
 
 .event-card h2 {
     margin-top: 0;
-    font-size: 18px;
-    color: #ff9800;
+    font-size: 19px;
+    letter-spacing: .4px;
 }
 
 .event-card p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: #e0e0e0;
-    margin-bottom: 12px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    opacity: .95;
+    margin-bottom: 14px;
 }
 
 /* ===== BUTTON ===== */
@@ -80,16 +79,15 @@
     width: calc(100% - 32px);
     padding: 14px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
     margin: 16px;
     color: #ffffff;
-    background: linear-gradient(90deg, #2196f3, #00bcd4);
-    box-shadow: 0 0 16px rgba(0,188,212,.6);
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    box-shadow: 0 0 18px rgba(0,198,255,.6);
 }
-
 .nav-btn:active {
     transform: scale(0.97);
 }
@@ -122,7 +120,7 @@
     <p>
         Participation in these events will be considered for
         <b>internal marks and academic engagement</b> as per college guidelines.
-        Detailed schedules, rules, and further instructions will be
+        Detailed schedules and further instructions will be
         announced shortly through this app.
         Students are advised to stay tuned for updates.
     </p>
