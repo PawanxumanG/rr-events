@@ -2,62 +2,107 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Karmanya 2025 – Official Aftermovie</title>
+<title>Karmanya 2025 – Memories</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="style.css">
 
 <style>
-.promo-box{
-    background:#161a22;
-    border-radius:16px;
-    padding:16px;
-    margin:16px;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
-    text-align:center;
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-.promo-box h2{
-    margin:0 0 6px;
-    font-size:20px;
+
+@keyframes popIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
-.promo-box p{
-    font-size:14px;
-    opacity:.85;
-    line-height:1.6;
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 20px rgba(255,152,0,.4); }
+  50% { box-shadow: 0 0 40px rgba(123,44,255,.7); }
+  100% { box-shadow: 0 0 20px rgba(255,152,0,.4); }
 }
-.promo-img{
-    width:100%;
-    max-height:320px;
-    object-fit:contain;
-    border-radius:12px;
-    margin:14px 0;
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,"Segoe UI",Arial;
+  background:#0f1117;
+  color:#fff;
 }
-video{
-    width:100%;
-    border-radius:12px;
-    background:#000;
-    margin-top:12px;
+
+.header{
+  background:linear-gradient(90deg,#ff6a00,#ff9800);
+  padding:16px;
+  text-align:center;
 }
+.header h1{margin:0;font-size:20px}
+.header p{margin:4px 0 0;font-size:13px;opacity:.9}
+
+.container{
+  padding:18px;
+}
+
+/* MAIN MESSAGE CARD */
+.message-box{
+  background:linear-gradient(135deg,#ff9800,#ff5722,#7b2cff,#2575fc);
+  background-size:400% 400%;
+  animation:gradientShift 7s ease infinite, popIn .7s ease, glowPulse 2.5s infinite;
+  border-radius:20px;
+  padding:22px 18px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(0,0,0,.6);
+}
+
+.message-box h2{
+  margin:0 0 10px;
+  font-size:22px;
+  letter-spacing:.5px;
+}
+
+.message-box p{
+  font-size:15px;
+  line-height:1.7;
+  opacity:.95;
+}
+
 .highlight{
-    color:#ff9800;
-    font-weight:600;
+  font-weight:700;
+  color:#fff;
 }
+
+.divider{
+  margin:14px auto;
+  width:60px;
+  height:3px;
+  border-radius:6px;
+  background:rgba(255,255,255,.6);
+}
+
+/* BACK BUTTON */
 .back-btn{
-    width:90%;
-    max-width:300px;
-    margin:24px auto;
-    padding:14px;
-    font-size:16px;
-    font-weight:bold;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(135deg,#ff9800,#ff5722);
-    color:#fff;
-    cursor:pointer;
-    box-shadow:0 0 16px rgba(255,152,0,.45);
+  margin:26px auto 0;
+  width:90%;
+  max-width:320px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  color:#fff;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  display:block;
+  box-shadow:0 0 18px rgba(0,198,255,.45);
 }
-.back-btn:active{
-    transform:scale(.97);
+.back-btn:active{transform:scale(.97)}
+
+.footer{
+  text-align:center;
+  margin-top:18px;
+  font-size:13px;
+  opacity:.7;
 }
 </style>
 </head>
@@ -66,50 +111,49 @@ video{
 
 <!-- HEADER -->
 <div class="header">
-    <h1>RR INTERNATIONAL COLLEGE</h1>
-    <p>Karmanya Fest 2025 • Official Memories</p>
+  <h1>RR INTERNATIONAL COLLEGE</h1>
+  <p>Karmanya Fest 2025</p>
 </div>
 
-<!-- CONTENT -->
-<div class="promo-box">
+<div class="container">
+
+  <!-- ANIMATED MESSAGE -->
+  <div class="message-box">
     <h2>🔥 KARMANYA 2025</h2>
-    <p class="highlight">An Unforgettable Celebration</p>
+    <div class="divider"></div>
 
     <p>
-        Karmanya 2025 was not just an event — it was a celebration of
-        <b>energy, creativity, unity, and unforgettable moments</b>.
-        From electrifying performances to powerful memories,
-        this fest truly reflected the vibrant spirit of
-        RR International College.
+      Karmanya 2025 was not just an event —  
+      it was a <span class="highlight">celebration of energy, unity, and passion</span>.
     </p>
-
-    <!-- POSTER -->
-    <img src="karmanya.jpg" alt="Karmanya 2025 Poster" class="promo-img">
 
     <p>
-        Every smile, every cheer, and every moment captured here
-        tells a story of passion, participation, and pride.
+      From electrifying performances to unforgettable moments,
+      every second reflected the vibrant spirit of our students
+      and the pride of <span class="highlight">RR International College</span>.
     </p>
 
-    <!-- VIDEO -->
-    <video
-        src="karmanya_promo.mp4"
-        controls
-        playsinline
-        preload="metadata">
-    </video>
-
-    <p style="margin-top:14px;">
-        🎬 Relive the moments.  
-        💫 Celebrate the memories.  
-        🏆 Karmanya 2025 will always remain special.
+    <p>
+      🎉 Memories were made.  
+      💫 Moments were lived.  
+      🏆 And Karmanya 2025 became history.
     </p>
+
+    <p class="highlight">
+      Thank you to everyone who made it unforgettable ❤️
+    </p>
+  </div>
+
+  <!-- BACK -->
+  <button class="back-btn" onclick="location.href='index.html'">
+    ⬅ Back to Home
+  </button>
+
+  <div class="footer">
+    Powered by RR International College
+  </div>
+
 </div>
-
-<!-- BACK BUTTON -->
-<button class="back-btn" onclick="location.href='index.html'">
-⬅ Back to Home
-</button>
 
 </body>
 </html>
