@@ -28,7 +28,7 @@ html, body {
     }
 }
 
-/* ===== BODY (NEW THEME BG) ===== */
+/* ===== BODY (NEW THEME BACKGROUND) ===== */
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -44,7 +44,7 @@ body {
     text-align: center;
 }
 
-/* ===== HEADER (DO NOT CHANGE – OFFICIAL ORANGE) ===== */
+/* ===== HEADER (OFFICIAL ORANGE – DO NOT CHANGE) ===== */
 .header {
     background: linear-gradient(90deg, #ff6a00, #ff9800);
     color: #ffffff;
@@ -137,7 +137,7 @@ body {
     box-shadow: 0 8px 18px rgba(0,0,0,0.75);
 }
 
-/* ===== BUTTONS (COLOR COMES FROM JS / PAGE) ===== */
+/* ===== BUTTONS ===== */
 .nav-btn,
 .btn,
 button {
@@ -173,7 +173,7 @@ button:active {
     transform: scale(0.96);
 }
 
-/* ===== SMOOTH IMAGE LOADING ===== */
+/* ===== IMAGES ===== */
 img {
     max-width: 100%;
     height: auto;
