@@ -7,66 +7,161 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- GOOGLE ANALYTICS -->
+<!-- ✅ GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-9JW1V42V83');
+gtag('config','G-9JW1V42V83',{
+  page_title:'RR Events Home',
+  page_path:'/index.html'
+});
+gtag('event','home_loaded');
 </script>
 
 <style>
-@keyframes gradientShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-@keyframes popIn{
-  from{transform:scale(.85);opacity:0}
-  to{transform:scale(1);opacity:1}
+
+@keyframes popIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 .header-logo{
-  width:42px;height:42px;margin-right:10px;vertical-align:middle;
+    width:42px;
+    height:42px;
+    margin-right:10px;
+    vertical-align:middle;
+    filter:drop-shadow(0 0 6px rgba(255,255,255,0.6));
 }
+
 .streak-mini{
-  background:#161a22;border-radius:12px;padding:12px 14px;
-  margin:14px 0;display:flex;justify-content:space-between;
+    background:#161a22;
+    border-radius:12px;
+    padding:12px 14px;
+    margin:14px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 0 12px rgba(0,0,0,.5);
 }
 .streak-mini b{color:#ff9800}
 
-.countdown-box{
-  background:linear-gradient(135deg,#6a11cb,#2575fc);
-  border-radius:18px;padding:18px;text-align:center;
-  box-shadow:0 0 30px rgba(123,44,255,.9);
-}
-.countdown-title{font-size:14px;font-weight:700}
-.countdown-time{font-size:24px;font-weight:900}
-.countdown-sub{font-size:14px;opacity:.9}
 
+/* ===== STUDENT HELPER ===== */
 .ai-box{
-  background:#161a22;border-radius:14px;padding:12px;margin-bottom:18px;
+    background:#161a22;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:18px;
+    box-shadow:0 0 18px rgba(0,0,0,.6);
 }
-.ai-content{display:none}
+.ai-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    cursor:pointer;
+}
+.ai-header h2{font-size:16px;margin:0}
+.ai-toggle{font-size:13px;opacity:.7}
+.ai-content{display:none;margin-top:10px}
 .ai-btn{
-  width:100%;padding:10px;margin-top:8px;border:none;
-  border-radius:10px;color:#fff;font-size:14px;
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+    border:none;
+    border-radius:10px;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
 }
-.ai-pay{background:linear-gradient(90deg,#00c6ff,#0072ff)}
+.ai-pay{background:linear-gradient(90deg,#7b2cff,#2575fc)}
 .ai-game{background:linear-gradient(90deg,#ff2e63,#ff9800)}
+.ai-answer{
+    margin-top:10px;
+    font-size:14px;
+    color:#ffcc80;
+    white-space:pre-line;
+}
 
 .grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
 }
 .grid button{
-  padding:14px;border:none;border-radius:14px;color:#fff;font-size:15px;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    font-size:15px;
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 0 16px rgba(0,0,0,.5);
 }
-.btn-payment{background:linear-gradient(135deg,#00c6ff,#0072ff)}
+.btn-karmanya{background:linear-gradient(135deg,#00c6ff,#0072ff)}
 .btn-promo{background:linear-gradient(135deg,#7b2cff,#ff2e63)}
 .btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63)}
 .btn-events{background:linear-gradient(135deg,#00b09b,#96c93d)}
 
-.app-footer{text-align:center;font-size:13px;opacity:.8}
+.share-app-btn{
+    margin:10px 0 6px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#ff9800,#ff5722);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 0 16px rgba(255,152,0,.45);
+}
+.share-app-btn:active{transform:scale(.98)}
+
+.app-footer{
+    margin-top:12px;
+    padding-top:14px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+.powered-text{font-size:13px;color:#9aa0a6}
+.powered-brand{font-size:13px;color:#e6e6e6;font-weight:600}
+
+.update-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+    cursor:pointer;
+}
+.update-header b{color:#ff9800}
+.update-toggle{font-size:13px;color:#ff9800}
+.update-content{
+    display:none;
+    margin-top:10px;
+    font-size:14px;
+    line-height:1.6;
+}
+.poster-caption{
+    margin-top:10px;
+    text-align:center;
+    font-size:15px;
+    font-weight:600;
+    color:#ffcc80;
+    letter-spacing:0.3px;
+}
+.poster-caption span{
+    display:block;
+    margin-top:4px;
+    font-size:13px;
+    color:#cfcfcf;
+    font-weight:400;
+}
 </style>
 </head>
 
@@ -83,118 +178,280 @@ gtag('config','G-9JW1V42V83');
 <div class="container">
 
 <button onclick="trackAndGo('chairman')" class="nav-btn">
-👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
+ OUR CHAIRMAN – Shri R. R. Pardeshi
 </button>
 
+<!-- NOTICE -->
 <div class="event">
-<h2>📢 IMPORTANT NOTICE</h2>
-<p>All students are instructed to <b>open this app daily</b> for official updates.</p>
-<p>📌 All notices will be published only in this app.</p>
-</div>
+  <h2>📢 IMPORTANT NOTICE</h2>
 
-<div class="streak-mini">
-🔥 Daily Streak
-<b><span id="streakCount">1</span> Day</b>
-</div>
+  <p>
+    All students are instructed to <b>open this app daily</b> for official notices,
+    event updates, and important announcements.
+  </p>
 
-<div class="countdown-box">
-  <div class="countdown-title">⏳ Upcoming Event</div>
-  <div class="countdown-time" id="countdown">Loading...</div>
-  <div class="countdown-sub" id="countdownSub">Stay tuned for updates</div>
-</div>
+  <p class="text-muted">📌 All updates will be published only in this app.</p>
 
-<div class="ai-box">
-  <div onclick="toggleAI()">🤖 Student Helper (Tap)</div>
-  <div class="ai-content" id="aiContent">
-    <button class="ai-btn ai-pay" onclick="aiReply('payment')">💳 Payment Info</button>
-    <button class="ai-btn ai-game" onclick="aiReply('ai_game')">🎮 Games & Fun</button>
-    <div id="aiAnswer" style="margin-top:10px;color:#ffcc80"></div>
+  <p class="text-muted">
+    📸 All <b>Karmanya Fest</b> photos will be shared in the <b>Album</b> section.
+  </p>
+
+  <div class="update-header" onclick="toggleUpdates()">
+    <b>🆕 New App Updates v2.1</b>
+    <span class="update-toggle" id="updateToggle">Tap to open</span>
+  </div>
+
+  <div class="update-content" id="updateContent">
+    <p>
+      🚀 <b>What’s New:</b><br>
+      • Image & other download support ⬇️<br>
+      • Improved Event Album 📸<br>
+      • Faster loading & improved stability ✨
+    </p>
   </div>
 </div>
 
+<div class="ai-box">
+<div class="ai-header" onclick="toggleAI()">
+  <h2>🤖 Student Helper</h2>
+  <span class="ai-toggle" id="aiToggle">Tap to open</span>
+</div>
+<div class="ai-content" id="aiContent">
+  <button class="ai-btn ai-pay" onclick="aiReply('payment')">💳 How to pay for Karmanya?</button>
+  <button class="ai-btn ai-game" onclick="aiReply('ai_game')">🎮 How to play with RR AI Bot?</button>
+  <div class="ai-answer" id="aiAnswer"></div>
+</div>
+</div>
+
 <div class="grid">
-  <button class="btn-payment" onclick="trackAndGo('payment')">💳 Payment</button>
+  <button class="btn-karmanya" onclick="trackAndGo('karmanya')">🎟️ Payments</button>
   <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
   <button class="btn-album" onclick="trackAndGo('album')">📸 Album</button>
   <button class="btn-events" onclick="trackAndGo('events')">📅 Events</button>
 </div>
 
+<button class="share-app-btn" onclick="location.href='shareapp.html'">
+📤 Share RR Events App
+</button>
+
 <div class="app-footer">
-Powered by <b>RR International College</b>
+  <span class="powered-text">Powered by </span>
+  <span class="powered-brand">RR International College</span>
 </div>
 
 </div>
 
 <script>
-/* DAILY STREAK */
-let today=new Date().toDateString();
-let last=localStorage.getItem("lastOpenDate");
-let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
-if(last!==today){
-  streak=last?streak+1:1;
-  localStorage.setItem("dailyStreak",streak);
-  localStorage.setItem("lastOpenDate",today);
-}
-document.getElementById("streakCount").innerText=streak;
+/* ================= DAILY STREAK ================= */
+let today = new Date().toDateString();
+let last = localStorage.getItem("lastOpenDate");
+let streak = parseInt(localStorage.getItem("dailyStreak") || "0");
 
-/* COUNTDOWN (GENERIC – FUTURE READY) */
-setInterval(()=>{
-  document.getElementById("countdown").innerText="Event Updates Coming Soon";
-},1000);
-
-/* STUDENT HELPER */
-function toggleAI(){
-  const box=document.getElementById("aiContent");
-  box.style.display=box.style.display==="block"?"none":"block";
+if (last !== today) {
+  streak = last ? streak + 1 : 1;
+  localStorage.setItem("dailyStreak", streak);
+  localStorage.setItem("lastOpenDate", today);
 }
-function aiReply(type){
-  document.getElementById("aiAnswer").innerText=
-    type==="payment"
-    ?"Payment details will be announced here."
-    :"Games & activities will appear soon 🎉";
+document.getElementById("streakCount").innerText = streak;
+
+
+
+/* ================= STUDENT HELPER ================= */
+function toggleAI() {
+  const box = document.getElementById("aiContent");
+  const t = document.getElementById("aiToggle");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+  t.innerText = box.style.display === "block" ? "Tap to close" : "Tap to open";
 }
 
-/* NAVIGATION */
-function trackAndGo(t){
-  if(t==="promo")location.href="promo.html";
-  if(t==="album")location.href="event_album.html";
-  if(t==="events")location.href="events.html";
-  if(t==="chairman")location.href="chairman.html";
-  if(t==="payment")location.href="payment.html";
+function toggleUpdates() {
+  const box = document.getElementById("updateContent");
+  const t = document.getElementById("updateToggle");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+  t.innerText = box.style.display === "block" ? "Tap to close" : "Tap to open";
 }
 
-/* ANNOUNCEMENT POPUP (KEEP FOR FUTURE) */
+function aiReply(type) {
+  document.getElementById("aiAnswer").innerText =
+    type === "payment"
+      ? " Nothing Available"
+      : "Open Games Zone → Tic Tac Toe → Hard Mode 🔥";
+}
+
+
+/* ================= NAVIGATION ================= */
+function trackAndGo(t) {
+  if (t === "payments") location.href = "payemts.html";
+  if (t === "promo") location.href = "promo.html";
+  if (t === "album") location.href = "event_album.html";
+  if (t === "events") location.href = "events.html";
+  if (t === "chairman") location.href = "chairman.html";
+}
+/* ================= ANNOUNCEMENT FETCH ================= */
+fetch('announcement.json?t=' + Date.now())
+  .then(res => res.json())
+  .then(data => {
+    if (!data.show) return;
+
+    const ann = document.createElement('div');
+    ann.style.background = 'linear-gradient(135deg,#ff9800,#ff5722)';
+    ann.style.padding = '14px';
+    ann.style.borderRadius = '14px';
+    ann.style.marginBottom = '16px';
+    ann.style.boxShadow = '0 0 20px rgba(255,152,0,.45)';
+    ann.innerHTML = `
+      <div style="font-weight:700;font-size:15px;">${data.title}</div>
+      <div style="margin-top:6px;font-size:14px;line-height:1.5;">
+        ${data.message.replace(/\n/g,'<br>')}
+      </div>
+    `;
+
+    // Insert announcement at TOP of page content
+    document.querySelector('.container').prepend(ann);
+  })
+  .catch(err => console.log('Announcement error:', err));
+  
+  /* ================= FIREWORKS ================= */
+
+let fireworksStarted = false;
+
+function startFireworks() {
+  if (fireworksStarted) return;
+  fireworksStarted = true;
+
+  const canvas = document.createElement("canvas");
+  canvas.style.position = "fixed";
+  canvas.style.inset = "0";
+  canvas.style.zIndex = "9999";
+  canvas.style.pointerEvents = "none";
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const fireworks = [];
+
+  class Firework {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height;
+      this.t = Math.random() * canvas.height * 0.5;
+      this.exploded = false;
+      this.p = [];
+    }
+    update() {
+      if (!this.exploded) {
+        this.y -= 6;
+        if (this.y < this.t) {
+          this.exploded = true;
+          for (let i = 0; i < 40; i++) {
+            this.p.push({
+              x: this.x,
+              y: this.y,
+              vx: Math.random() * 6 - 3,
+              vy: Math.random() * 6 - 3,
+              a: 1
+            });
+          }
+        }
+      } else {
+        this.p.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.a -= 0.02;
+        });
+      }
+    }
+    draw() {
+      this.p.forEach(p => {
+        ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+        ctx.fillRect(p.x, p.y, 3, 3);
+      });
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (Math.random() < 0.05) fireworks.push(new Firework());
+    fireworks.forEach(f => {
+      f.update();
+      f.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  setTimeout(() => canvas.remove(), 20 * 60 * 1000);
+}
+
 function closeAnnouncement(){
-  document.getElementById("announcementPopup").style.display="none";
+  document.getElementById("announcementPopup").style.display = "none";
 }
-fetch("announcement.json?t="+Date.now())
-.then(r=>r.json())
-.then(d=>{
-  if(!d.show)return;
-  const last=localStorage.getItem("announcementLastSeen");
-  if(last===d.id)return;
-  document.getElementById("annTitle").innerText=d.title;
-  document.getElementById("annMsg").innerHTML=d.message.replace(/\n/g,"<br>");
-  document.getElementById("announcementPopup").style.display="flex";
-  localStorage.setItem("announcementLastSeen",d.id);
-});
+
+fetch("announcement.json?t=" + Date.now())
+  .then(res => res.json())
+  .then(data => {
+    if (!data.show) return;
+
+    const lastSeenId = localStorage.getItem("announcementLastSeen");
+
+    // 🔥 Show popup only if NEW announcement
+    if (lastSeenId === data.id) return;
+
+    document.getElementById("annTitle").innerText =
+      data.title || "Announcement";
+
+    document.getElementById("annMsg").innerHTML =
+      (data.message || "").replace(/\n/g, "<br>");
+
+    document.getElementById("announcementPopup").style.display = "flex";
+
+    // Save current announcement id
+    localStorage.setItem("announcementLastSeen", data.id);
+  })
+  .catch(err => console.log("Announcement error:", err));
 </script>
-
-<!-- ANNOUNCEMENT POPUP -->
+<!-- 🔔 ANNOUNCEMENT POPUP -->
 <div id="announcementPopup" style="
-position:fixed;inset:0;background:rgba(0,0,0,.85);
-display:none;align-items:center;justify-content:center;z-index:9999;">
-<div style="
-background:linear-gradient(135deg,#ff9800,#ff5722,#7b2cff,#2575fc);
-background-size:400% 400%;animation:gradientShift 6s infinite,popIn .6s;
-padding:20px;border-radius:18px;width:90%;max-width:360px;text-align:center;">
-<h2 id="annTitle">Announcement</h2>
-<p id="annMsg"></p>
-<button onclick="closeAnnouncement()" style="
-margin-top:12px;width:100%;padding:12px;border:none;border-radius:12px;
-background:#000;color:#fff;font-weight:700;">OK, GOT IT 👍</button>
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+">
+  <div style="
+  background:linear-gradient(135deg,#ff9800,#ff5722,#7b2cff,#2575fc);
+  background-size:400% 400%;
+  animation:gradientShift 6s ease infinite, popIn 0.6s ease;
+  padding:20px;
+  border-radius:18px;
+  width:90%;
+  max-width:360px;
+  box-shadow:0 0 35px rgba(255,152,0,.7);
+  text-align:center;
+  color:#fff;
+">
+    <h2 id="annTitle" style="margin:0 0 10px;">📢 Announcement</h2>
+    <p id="annMsg" style="font-size:15px;line-height:1.5;"></p>
+    <button onclick="closeAnnouncement()" style="
+      margin-top:14px;
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      background:#000;
+      color:#fff;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+    ">
+      Continue To App 🔥
+    </button>
+  </div>
 </div>
-</div>
-
 </body>
 </html>
