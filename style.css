@@ -10,16 +10,41 @@ html, body {
     overflow-x: hidden;
 }
 
-/* ===== BODY ===== */
+/* ===== ANIMATIONS ===== */
+@keyframes bgShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== BODY (NEW THEME BG) ===== */
 body {
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #0f1117;
+    background: linear-gradient(
+        135deg,
+        #0b0e13,
+        #121722,
+        #0b0e13
+    );
+    background-size: 300% 300%;
+    animation: bgShift 18s ease infinite;
     color: #eaeaea;
     text-align: center;
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER (DO NOT CHANGE – OFFICIAL ORANGE) ===== */
 .header {
     background: linear-gradient(90deg, #ff6a00, #ff9800);
     color: #ffffff;
@@ -46,14 +71,22 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== EVENT / CARD ===== */
+/* ===== EVENT / CARD (GLASS STYLE) ===== */
 .event {
-    background: #161a22;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 18px;
-    box-shadow: 0 0 18px rgba(0,0,0,0.6);
+    background: linear-gradient(
+        135deg,
+        rgba(30,34,45,0.95),
+        rgba(20,24,33,0.95)
+    );
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.6),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
     text-align: left;
+    animation: fadeUp 0.6s ease;
 }
 
 /* ===== HEADINGS ===== */
@@ -64,7 +97,7 @@ body {
 }
 
 .event h3 {
-    margin: 10px 0 8px;
+    margin: 12px 0 8px;
     font-size: 16px;
     color: #ffcc80;
     text-align: center;
@@ -74,7 +107,7 @@ body {
 .event p {
     color: #dcdcdc;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .text-muted {
@@ -89,22 +122,22 @@ body {
 
 /* ===== POSTER / IMAGE BOX ===== */
 .poster-box {
-    background: #0f1117;
-    border-radius: 12px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 14px;
     padding: 12px;
     margin-top: 14px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+    box-shadow: inset 0 0 14px rgba(0,0,0,0.7);
 }
 
 .poster-box img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-top: 8px;
     display: block;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.7);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.75);
 }
 
-/* ===== BUTTONS (COLOR COMES FROM JS) ===== */
+/* ===== BUTTONS (COLOR COMES FROM JS / PAGE) ===== */
 .nav-btn,
 .btn,
 button {
@@ -113,25 +146,31 @@ button {
     font-size: 15px;
     font-weight: 600;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     margin: 14px 0 20px;
     color: #ffffff;
 
-    /* DEFAULT FALLBACK (in case JS fails) */
+    /* FALLBACK */
     background: linear-gradient(90deg, #2196f3, #00bcd4);
-    box-shadow: 0 6px 14px rgba(33,150,243,0.35);
+    box-shadow: 0 8px 18px rgba(33,150,243,0.35);
 
     transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease,
-        background 0.2s ease;
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        filter 0.15s ease;
+}
+
+.nav-btn:hover,
+.btn:hover,
+button:hover {
+    filter: brightness(1.08);
 }
 
 .nav-btn:active,
 .btn:active,
 button:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
 }
 
 /* ===== SMOOTH IMAGE LOADING ===== */

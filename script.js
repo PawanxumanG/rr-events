@@ -1,5 +1,5 @@
 // =====================================
-// RR EVENTS APP - SCRIPT (CLEAN & SAFE)
+// RR EVENTS APP - SCRIPT (THEME ENHANCED)
 // =====================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -11,73 +11,78 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Inject Events Content (TABLE FORMAT)
     eventsContainer.innerHTML = `
-        <div class="event">
+        <div class="event" style="
+            animation: fadeUp 0.6s ease;
+        ">
 
             <h2>📣 CULTURAL WEEK – SCHEDULE</h2>
 
-            <p class="meta">
+            <p class="meta" style="opacity:.9;">
                 📍 RR INTERNATIONAL COLLEGE <br>
                 📅 <b>15 – 20 December 2025</b>
             </p>
 
-            <div style="overflow-x:auto; margin-top:14px;">
+            <div style="overflow-x:auto; margin-top:16px;">
                 <table style="
                     width:100%;
                     border-collapse: collapse;
                     font-size:14px;
+                    border-spacing:0;
                 ">
                     <thead>
-                        <tr style="background:#1e2330; color:#ffcc80;">
-                            <th style="padding:10px; border-radius:8px 0 0 8px;">Date</th>
-                            <th style="padding:10px;">Day</th>
-                            <th style="padding:10px; border-radius:0 8px 8px 0;">Theme</th>
+                        <tr style="
+                            background: linear-gradient(90deg,#1e2330,#2a3042);
+                            color:#ffcc80;
+                        ">
+                            <th style="padding:12px; border-radius:10px 0 0 10px;">Date</th>
+                            <th style="padding:12px;">Day</th>
+                            <th style="padding:12px; border-radius:0 10px 10px 0;">Theme</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="padding:10px;">15/12/2025</td>
-                            <td style="padding:10px;">Monday</td>
-                            <td style="padding:10px;">👗 Kurta & Saree Day</td>
-                        </tr>
-                        <tr>
-                            <td style="padding:10px;">16/12/2025</td>
-                            <td style="padding:10px;">Tuesday</td>
-                            <td style="padding:10px;">🕴️ Formals Day</td>
-                        </tr>
-                        <tr>
-                            <td style="padding:10px;">17/12/2025</td>
-                            <td style="padding:10px;">Wednesday</td>
-                            <td style="padding:10px;">👖 Denim Day</td>
-                        </tr>
-                        <tr>
-                            <td style="padding:10px;">18/12/2025</td>
-                            <td style="padding:10px;">Thursday</td>
-                            <td style="padding:10px;">⚫⚪ Black & White Day</td>
-                        </tr>
-                        <tr>
-                            <td style="padding:10px;">19/12/2025</td>
-                            <td style="padding:10px;">Friday</td>
-                            <td style="padding:10px;">🧥 Hoodie Day</td>
-                        </tr>
-                        <tr>
-                            <td style="padding:10px;">20/12/2025</td>
-                            <td style="padding:10px;">Saturday</td>
-                            <td style="padding:10px;">🎨 Mess & Joy Day</td>
-                        </tr>
+                        ${row("15/12/2025","Monday","👗 Kurta & Saree Day")}
+                        ${row("16/12/2025","Tuesday","🕴️ Formals Day")}
+                        ${row("17/12/2025","Wednesday","👖 Denim Day")}
+                        ${row("18/12/2025","Thursday","⚫⚪ Black & White Day")}
+                        ${row("19/12/2025","Friday","🧥 Hoodie Day")}
+                        ${row("20/12/2025","Saturday","🎨 Mess & Joy Day")}
                     </tbody>
                 </table>
             </div>
 
-            <p style="margin-top:14px; color:#ff5252; font-weight:600;">
+            <p style="
+                margin-top:16px;
+                color:#ff6b6b;
+                font-weight:600;
+            ">
                 ⚠️ Attendance will be taken for all the above activities.
             </p>
 
-            <p style="margin-top:8px; font-size:13px; color:#aaaaaa;">
+            <p style="
+                margin-top:8px;
+                font-size:13px;
+                color:#aaaaaa;
+            ">
                 🕒 Last updated: December 2025
             </p>
 
         </div>
     `;
+
+    // Helper to create animated rows
+    function row(date, day, theme) {
+        return `
+        <tr style="
+            transition: background 0.2s ease;
+        "
+        onmouseenter="this.style.background='rgba(255,255,255,0.04)'"
+        onmouseleave="this.style.background='transparent'"
+        >
+            <td style="padding:12px;">${date}</td>
+            <td style="padding:12px;">${day}</td>
+            <td style="padding:12px;">${theme}</td>
+        </tr>`;
+    }
 });
 
 // ================================
@@ -89,7 +94,7 @@ function openEvents() {
     window.location.href = "events.html";
 }
 
-// Back to Notices (COLOR WILL CHANGE AUTOMATICALLY)
+// Back to Notices
 function goBack() {
     window.location.href = "index.html";
 }
