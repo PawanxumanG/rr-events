@@ -2,129 +2,199 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Update Required – RR Events App</title>
+<title>RR International College - Notices</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Google Analytics -->
+<link rel="stylesheet" href="style.css">
+
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-9JW1V42V83',{page_title:'Force Update'});
+gtag('config','G-9JW1V42V83');
 </script>
 
 <style>
-body{
-    margin:0;
-    background:#0f1117;
-    font-family:system-ui,-apple-system,BlinkMacSystemFont;
-    color:#ffffff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
+@keyframes popIn{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.header-logo{
+  width:42px;height:42px;margin-right:10px;vertical-align:middle;
+}
+.streak-mini{
+  background:#161a22;border-radius:12px;padding:12px 14px;
+  margin:14px 0;display:flex;justify-content:space-between;
+}
+.streak-mini b{color:#ff9800}
 
-.update-box{
-    width:92%;
-    max-width:420px;
-    background:#161a22;
-    border-radius:18px;
-    padding:28px 22px;
-    text-align:center;
-    box-shadow:0 0 30px rgba(0,0,0,.85);
+.countdown-box{
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
+  border-radius:18px;padding:18px;text-align:center;
+  box-shadow:0 0 30px rgba(123,44,255,.9);
 }
+.countdown-title{font-size:14px;font-weight:700}
+.countdown-time{font-size:24px;font-weight:900}
+.countdown-sub{font-size:14px;opacity:.9}
 
-.logo{
-    width:74px;
-    height:74px;
-    margin-bottom:14px;
-    filter:drop-shadow(0 0 10px rgba(255,255,255,.25));
+.ai-box{
+  background:#161a22;border-radius:14px;padding:12px;margin-bottom:18px;
 }
+.ai-content{display:none}
+.ai-btn{
+  width:100%;padding:10px;margin-top:8px;border:none;
+  border-radius:10px;color:#fff;font-size:14px;
+}
+.ai-pay{background:linear-gradient(90deg,#00c6ff,#0072ff)}
+.ai-game{background:linear-gradient(90deg,#ff2e63,#ff9800)}
 
-h1{
-    font-size:21px;
-    margin:8px 0;
-    letter-spacing:.4px;
+.grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;
 }
+.grid button{
+  padding:14px;border:none;border-radius:14px;color:#fff;font-size:15px;
+}
+.btn-payment{background:linear-gradient(135deg,#00c6ff,#0072ff)}
+.btn-promo{background:linear-gradient(135deg,#7b2cff,#ff2e63)}
+.btn-album{background:linear-gradient(135deg,#ff9800,#ff2e63)}
+.btn-events{background:linear-gradient(135deg,#00b09b,#96c93d)}
 
-p{
-    font-size:14px;
-    line-height:1.7;
-    color:#d0d0d0;
-}
-
-.highlight{
-    color:#ff9800;
-    font-weight:600;
-}
-
-.version{
-    margin-top:10px;
-    font-size:13px;
-    color:#ffb74d;
-}
-
-.update-btn{
-    margin-top:24px;
-    width:100%;
-    padding:15px;
-    font-size:16px;
-    font-weight:700;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    color:#fff;
-    background:linear-gradient(135deg,#7b2cff,#2575fc);
-    box-shadow:0 0 20px rgba(123,44,255,.6);
-}
-
-.update-btn:active{
-    transform:scale(.98);
-}
-
-.note{
-    margin-top:18px;
-    font-size:12px;
-    color:#9aa0a6;
-}
+.app-footer{text-align:center;font-size:13px;opacity:.8}
 </style>
 </head>
 
 <body>
 
-<div class="update-box">
-    <img src="vishnu1.png" alt="RR International College Logo" class="logo">
+<div class="header">
+  <h1>
+    <img src="vishnu1.png" class="header-logo">
+    RR INTERNATIONAL COLLEGE
+  </h1>
+  <p>Notices & Updates</p>
+</div>
 
-    <h1>Update Required</h1>
+<div class="container">
 
-    <p>
-        A <span class="highlight">new version</span> of the <b>RR Events App</b> is available.<br><br>
-        All students are <b>requested to update</b> the app to the latest version
-        to continue receiving official notices, event updates, and announcements.
-    </p>
+<button onclick="trackAndGo('chairman')" class="nav-btn">
+👨‍🏫 OUR CHAIRMAN – Shri R. R. Pardeshi
+</button>
 
-    <div class="version">
-        Latest Version: <b>2.1</b>
-    </div>
+<div class="event">
+<h2>📢 IMPORTANT NOTICE</h2>
+<p>All students are instructed to <b>open this app daily</b> for official updates.</p>
+<p>📌 All notices will be published only in this app.</p>
+</div>
 
-    <button class="update-btn" onclick="updateNow()">
-        🔄 Update Now
-    </button>
+<div class="streak-mini">
+🔥 Daily Streak
+<b><span id="streakCount">1</span> Day</b>
+</div>
 
-    <div class="note">
-        Please join the official WhatsApp channel<br>
-        to download the latest version of the app.
-    </div>
+<div class="countdown-box">
+  <div class="countdown-title">⏳ Upcoming Event</div>
+  <div class="countdown-time" id="countdown">Loading...</div>
+  <div class="countdown-sub" id="countdownSub">Stay tuned for updates</div>
+</div>
+
+<div class="ai-box">
+  <div onclick="toggleAI()">🤖 Student Helper (Tap)</div>
+  <div class="ai-content" id="aiContent">
+    <button class="ai-btn ai-pay" onclick="aiReply('payment')">💳 Payment Info</button>
+    <button class="ai-btn ai-game" onclick="aiReply('ai_game')">🎮 Games & Fun</button>
+    <div id="aiAnswer" style="margin-top:10px;color:#ffcc80"></div>
+  </div>
+</div>
+
+<div class="grid">
+  <button class="btn-payment" onclick="trackAndGo('payment')">💳 Payment</button>
+  <button class="btn-promo" onclick="trackAndGo('promo')">🎬 Promo</button>
+  <button class="btn-album" onclick="trackAndGo('album')">📸 Album</button>
+  <button class="btn-events" onclick="trackAndGo('events')">📅 Events</button>
+</div>
+
+<div class="app-footer">
+Powered by <b>RR International College</b>
+</div>
+
 </div>
 
 <script>
-function updateNow(){
-    window.location.href =
-    "https://whatsapp.com/channel/0029Vb77eeGKgsO1752R723C";
+/* DAILY STREAK */
+let today=new Date().toDateString();
+let last=localStorage.getItem("lastOpenDate");
+let streak=parseInt(localStorage.getItem("dailyStreak")||"0");
+if(last!==today){
+  streak=last?streak+1:1;
+  localStorage.setItem("dailyStreak",streak);
+  localStorage.setItem("lastOpenDate",today);
 }
+document.getElementById("streakCount").innerText=streak;
+
+/* COUNTDOWN (GENERIC – FUTURE READY) */
+setInterval(()=>{
+  document.getElementById("countdown").innerText="Event Updates Coming Soon";
+},1000);
+
+/* STUDENT HELPER */
+function toggleAI(){
+  const box=document.getElementById("aiContent");
+  box.style.display=box.style.display==="block"?"none":"block";
+}
+function aiReply(type){
+  document.getElementById("aiAnswer").innerText=
+    type==="payment"
+    ?"Payment details will be announced here."
+    :"Games & activities will appear soon 🎉";
+}
+
+/* NAVIGATION */
+function trackAndGo(t){
+  if(t==="promo")location.href="promo.html";
+  if(t==="album")location.href="event_album.html";
+  if(t==="events")location.href="events.html";
+  if(t==="chairman")location.href="chairman.html";
+  if(t==="payment")location.href="payment.html";
+}
+
+/* ANNOUNCEMENT POPUP (KEEP FOR FUTURE) */
+function closeAnnouncement(){
+  document.getElementById("announcementPopup").style.display="none";
+}
+fetch("announcement.json?t="+Date.now())
+.then(r=>r.json())
+.then(d=>{
+  if(!d.show)return;
+  const last=localStorage.getItem("announcementLastSeen");
+  if(last===d.id)return;
+  document.getElementById("annTitle").innerText=d.title;
+  document.getElementById("annMsg").innerHTML=d.message.replace(/\n/g,"<br>");
+  document.getElementById("announcementPopup").style.display="flex";
+  localStorage.setItem("announcementLastSeen",d.id);
+});
 </script>
+
+<!-- ANNOUNCEMENT POPUP -->
+<div id="announcementPopup" style="
+position:fixed;inset:0;background:rgba(0,0,0,.85);
+display:none;align-items:center;justify-content:center;z-index:9999;">
+<div style="
+background:linear-gradient(135deg,#ff9800,#ff5722,#7b2cff,#2575fc);
+background-size:400% 400%;animation:gradientShift 6s infinite,popIn .6s;
+padding:20px;border-radius:18px;width:90%;max-width:360px;text-align:center;">
+<h2 id="annTitle">Announcement</h2>
+<p id="annMsg"></p>
+<button onclick="closeAnnouncement()" style="
+margin-top:12px;width:100%;padding:12px;border:none;border-radius:12px;
+background:#000;color:#fff;font-weight:700;">OK, GOT IT 👍</button>
+</div>
+</div>
 
 </body>
 </html>
