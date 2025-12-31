@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Karmanya 2025 – Promo</title>
+<title>Karmanya 2025 – Official Aftermovie</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="style.css">
@@ -17,20 +17,30 @@
     text-align:center;
 }
 .promo-box h2{
-    margin-top:0;
+    margin:0 0 6px;
+    font-size:20px;
+}
+.promo-box p{
+    font-size:14px;
+    opacity:.85;
+    line-height:1.6;
 }
 .promo-img{
     width:100%;
     max-height:320px;
     object-fit:contain;
     border-radius:12px;
-    margin-bottom:14px;
+    margin:14px 0;
 }
 video{
     width:100%;
     border-radius:12px;
     background:#000;
-    margin-top:10px;
+    margin-top:12px;
+}
+.highlight{
+    color:#ff9800;
+    font-weight:600;
 }
 .back-btn{
     width:90%;
@@ -41,38 +51,62 @@ video{
     font-weight:bold;
     border:none;
     border-radius:12px;
-    background:#f36b21;
+    background:linear-gradient(135deg,#ff9800,#ff5722);
     color:#fff;
     cursor:pointer;
+    box-shadow:0 0 16px rgba(255,152,0,.45);
+}
+.back-btn:active{
+    transform:scale(.97);
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-    <h1>KARMANYA 2025</h1>
-    <p>Official Promo</p>
+    <h1>RR INTERNATIONAL COLLEGE</h1>
+    <p>Karmanya Fest 2025 • Official Memories</p>
 </div>
 
+<!-- CONTENT -->
 <div class="promo-box">
-    <h2>🎉 Feel the Vibe</h2>
+    <h2>🔥 KARMANYA 2025</h2>
+    <p class="highlight">An Unforgettable Celebration</p>
+
+    <p>
+        Karmanya 2025 was not just an event — it was a celebration of
+        <b>energy, creativity, unity, and unforgettable moments</b>.
+        From electrifying performances to powerful memories,
+        this fest truly reflected the vibrant spirit of
+        RR International College.
+    </p>
 
     <!-- POSTER -->
-    <img src="karmanya.jpg" alt="Karmanya Poster" class="promo-img">
+    <img src="karmanya.jpg" alt="Karmanya 2025 Poster" class="promo-img">
+
+    <p>
+        Every smile, every cheer, and every moment captured here
+        tells a story of passion, participation, and pride.
+    </p>
 
     <!-- VIDEO -->
-    <video src="karmanya_promo.mp4"
-           controls
-           playsinline
-           preload="metadata">
+    <video
+        src="karmanya_promo.mp4"
+        controls
+        playsinline
+        preload="metadata">
     </video>
 
-    <p style="opacity:.8;margin-top:12px;">
-        RR International College Annual Fest
+    <p style="margin-top:14px;">
+        🎬 Relive the moments.  
+        💫 Celebrate the memories.  
+        🏆 Karmanya 2025 will always remain special.
     </p>
 </div>
 
+<!-- BACK BUTTON -->
 <button class="back-btn" onclick="location.href='index.html'">
 ⬅ Back to Home
 </button>
