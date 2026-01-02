@@ -1,0 +1,41 @@
+{
+  "settings": {
+    "downloadPassword": "RR2025",
+    "theme": {
+      "cardGradient": "linear-gradient(135deg,#161a22,#0f1117)",
+      "buttonGradient": "linear-gradient(135deg,#f36b21,#ff8c42)"
+    }
+  },
+
+  "events": [
+    {
+      "id": "formal_day",
+      "title": "👔 Formal Day",
+      "description": "Students followed official formal dress code.",
+      "images": [
+        {
+          "label": "👨 Boys Formal",
+          "src": "boys_formal.jpg",
+          "downloadName": "Formal_Day_Boys.jpg"
+        },
+        {
+          "label": "👩 Girls Formal",
+          "src": "girls_formal.jpg",
+          "downloadName": "Formal_Day_Girls.jpg"
+        }
+      ]
+    },
+    {
+      "id": "denim_day",
+      "title": "👖 Denim Day",
+      "description": "Denim outfits and group memories.",
+      "images": [
+        {
+          "label": "💙 Denim Group",
+          "src": "denim.png",
+          "downloadName": "Denim_Day.jpg"
+        }
+      ]
+    }
+  ]
+}

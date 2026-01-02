@@ -6,202 +6,155 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 
-<!-- ================= GOOGLE ANALYTICS ================= -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config','G-9JW1V42V83',{
-  page_title:'Event Album',
-  page_path:'/event_album.html'
-});
+gtag('config','G-9JW1V42V83',{ page_path:'/event_album.html' });
 </script>
-<!-- =================================================== -->
 
 <style>
 .poster-box{
-    background:#161a22;
-    border-radius:14px;
-    padding:14px;
-    margin-bottom:16px;
-    text-align:center;
-    box-shadow:0 0 18px rgba(0,0,0,.6);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:16px;
+  text-align:center;
+  box-shadow:0 0 18px rgba(0,0,0,.6);
 }
 .poster-box img{
-    width:100%;
-    border-radius:12px;
-    margin-top:8px;
+  width:100%;
+  border-radius:12px;
+  margin-top:8px;
 }
-
 .download-btn{
-    margin-top:12px;
-    display:inline-block;
-    padding:10px 18px;
-    background:linear-gradient(135deg,#f36b21,#ff8c42);
-    color:#fff;
-    border-radius:999px;
-    font-size:14px;
-    font-weight:600;
-    cursor:pointer;
-    box-shadow:0 0 12px rgba(243,107,33,.6);
+  margin-top:12px;
+  display:inline-block;
+  padding:10px 18px;
+  color:#fff;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
 }
-
 .dialog-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.65);
-    z-index:999;
-    justify-content:center;
-    align-items:center;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  z-index:999;
+  justify-content:center;
+  align-items:center;
 }
 .dialog-box{
-    background:#161a22;
-    padding:22px;
-    border-radius:16px;
-    text-align:center;
-    width:85%;
-    max-width:320px;
+  background:#161a22;
+  padding:22px;
+  border-radius:16px;
+  width:85%;
+  max-width:320px;
+  text-align:center;
 }
-.dialog-box h3{color:#f36b21;}
 .dialog-box input{
-    width:100%;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    margin-top:10px;
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  margin-top:10px;
 }
-.dialog-box button{
-    margin-top:14px;
-    padding:10px 22px;
-    border:none;
-    background:#f36b21;
-    color:#fff;
-    border-radius:999px;
-    font-weight:600;
-}
-.error{
-    color:#ff5252;
-    font-size:13px;
-    display:none;
-}
+.error{color:#ff5252;font-size:13px;display:none;}
 </style>
 </head>
 
 <body>
 
 <div class="header">
-    <h1>EVENT ALBUM</h1>
-    <p>College Events & Memories</p>
+  <h1>EVENT ALBUM</h1>
+  <p>College Events & Memories</p>
 </div>
 
-<div class="container">
+<div class="container" id="albumContainer"></div>
 
-<div class="event">
-<h2 onclick="trackSection('Formal Day')">👔 Formal Day</h2>
-
-<div class="poster-box">
-<h3>👨 Boys Formal</h3>
-<img src="boys_formal.jpg" onclick="trackImage('Formal Day - Boys')">
-<div class="download-btn" onclick="requestDownload('boys_formal.jpg','Formal_Day_Boys.jpg')">
-⬇ Download Image
-</div>
-</div>
-
-<div class="poster-box">
-<h3>👩 Girls Formal</h3>
-<img src="girls_formal.jpg" onclick="trackImage('Formal Day - Girls')">
-<div class="download-btn" onclick="requestDownload('girls_formal.jpg','Formal_Day_Girls.jpg')">
-⬇ Download Image
-</div>
-</div>
-</div>
-
-<div class="event">
-<h2 onclick="trackSection('Denim Day')">👖 Denim Day</h2>
-<div class="poster-box">
-<img src="denim.png" onclick="trackImage('Denim Day')">
-<div class="download-btn" onclick="requestDownload('denim.png','Denim_Day.jpg')">
-⬇ Download Image
-</div>
-</div>
-</div>
-
-<button onclick="goBack()" class="nav-btn">⬅ Back to Home</button>
-</div>
+<button onclick="history.back()" class="nav-btn">⬅ Back to Home</button>
 
 <!-- PASSWORD POPUP -->
 <div class="dialog-overlay" id="passwordDialog">
-<div class="dialog-box">
-<h3>🔒 Enter Password</h3>
-<input type="password" id="passwordInput" placeholder="Enter download password">
-<p class="error" id="passwordError">Wrong password</p>
-<button onclick="verifyPassword()">Unlock Download</button>
-</div>
-</div>
-
-<!-- DOWNLOAD INFO -->
-<div class="dialog-overlay" id="downloadDialog">
-<div class="dialog-box">
-<h3>Download Started</h3>
-<p>Check your Downloads folder.</p>
-<button onclick="closeDialog()">OK</button>
-</div>
+  <div class="dialog-box">
+    <h3>🔒 Enter Password</h3>
+    <input id="passwordInput" type="password">
+    <p class="error" id="passwordError">Wrong password</p>
+    <button onclick="verifyPassword()">Unlock</button>
+  </div>
 </div>
 
 <script>
-const DOWNLOAD_PASSWORD = "RR2025"; // 🔑 CHANGE PASSWORD HERE
+let ALBUM_DATA = null;
 let pendingDownload = null;
 
-function requestDownload(url, filename){
-    if(sessionStorage.getItem("albumUnlocked")==="yes"){
-        startDownload(url, filename);
-    }else{
-        pendingDownload = {url, filename};
-        document.getElementById("passwordDialog").style.display="flex";
-    }
+fetch("album.json?t="+Date.now())
+  .then(res=>res.json())
+  .then(data=>{
+    ALBUM_DATA = data;
+    renderAlbum(data);
+  });
+
+function renderAlbum(data){
+  const c = document.getElementById("albumContainer");
+  data.events.forEach(event=>{
+    const section = document.createElement("div");
+    section.className="event";
+    section.innerHTML = `<h2>${event.title}</h2><p>${event.description}</p>`;
+    
+    event.images.forEach(img=>{
+      const box=document.createElement("div");
+      box.className="poster-box";
+      box.style.background=data.settings.theme.cardGradient;
+      box.innerHTML=`
+        <h3>${img.label}</h3>
+        <img src="${img.src}">
+        <div class="download-btn"
+          style="background:${data.settings.theme.buttonGradient}"
+          onclick="requestDownload('${img.src}','${img.downloadName}')">
+          ⬇ Download
+        </div>
+      `;
+      section.appendChild(box);
+    });
+
+    c.appendChild(section);
+  });
+}
+
+function requestDownload(url,name){
+  if(sessionStorage.getItem("albumUnlocked")==="yes"){
+    startDownload(url,name);
+  }else{
+    pendingDownload={url,name};
+    document.getElementById("passwordDialog").style.display="flex";
+  }
 }
 
 function verifyPassword(){
-    const input = document.getElementById("passwordInput").value;
-    if(input === DOWNLOAD_PASSWORD){
-        sessionStorage.setItem("albumUnlocked","yes");
-        document.getElementById("passwordDialog").style.display="none";
-        document.getElementById("passwordError").style.display="none";
-        startDownload(pendingDownload.url, pendingDownload.filename);
-    }else{
-        document.getElementById("passwordError").style.display="block";
-    }
+  const pass=document.getElementById("passwordInput").value;
+  if(pass===ALBUM_DATA.settings.downloadPassword){
+    sessionStorage.setItem("albumUnlocked","yes");
+    document.getElementById("passwordDialog").style.display="none";
+    document.getElementById("passwordError").style.display="none";
+    startDownload(pendingDownload.url,pendingDownload.name);
+  }else{
+    document.getElementById("passwordError").style.display="block";
+  }
 }
 
-function startDownload(url, filename){
-    const a=document.createElement('a');
-    a.href=url;
-    a.download=filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+function startDownload(url,name){
+  const a=document.createElement("a");
+  a.href=url;
+  a.download=name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 
-    gtag('event','image_download',{
-        event_category:'Event Album',
-        event_label:filename
-    });
-
-    document.getElementById('downloadDialog').style.display='flex';
+  gtag('event','album_download',{event_label:name});
 }
-
-function closeDialog(){
-    document.getElementById('downloadDialog').style.display='none';
-}
-
-function trackSection(name){
-    gtag('event','album_section_view',{event_label:name});
-}
-function trackImage(name){
-    gtag('event','album_image_click',{event_label:name});
-}
-function goBack(){ history.back(); }
 </script>
 
 </body>
