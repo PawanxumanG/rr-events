@@ -2,85 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Event Album – RR International College</title>
+<title>RR Events Album</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-
-<!-- ================= GOOGLE ANALYTICS ================= -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config','G-9JW1V42V83',{
-  page_title:'Event Album',
-  page_path:'/event_album.html'
-});
-</script>
-<!-- =================================================== -->
 
 <style>
-@keyframes gradientFlow{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-@keyframes popFade{
-  from{opacity:0; transform:translateY(20px) scale(.96)}
-  to{opacity:1; transform:none}
-}
-
-.album-box{
-  margin:18px;
-  padding:22px;
-  border-radius:20px;
-  text-align:center;
+body{
+  margin:0;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont;
+  background:#0f1117;
   color:#fff;
-  background:linear-gradient(135deg,#ff9800,#ff5722,#7b2cff,#2575fc);
-  background-size:400% 400%;
-  animation:gradientFlow 7s ease infinite, popFade .7s ease;
-  box-shadow:0 0 35px rgba(255,152,0,.6);
 }
 
-.album-box h2{
-  margin-top:0;
-  font-size:22px;
-  letter-spacing:.5px;
+.header{
+  background:linear-gradient(90deg,#ff6a00,#ff9800);
+  padding:16px;
+  text-align:center;
+}
+.header h1{
+  margin:0;
+  font-size:18px;
 }
 
-.album-box p{
-  font-size:15px;
-  line-height:1.7;
-  opacity:.95;
-}
-
-.album-note{
-  margin-top:14px;
-  font-size:14px;
-  opacity:.9;
-}
-
-.back-btn{
-  width:90%;
-  max-width:320px;
-  margin:26px auto;
+.album{
   padding:14px;
-  font-size:16px;
-  font-weight:700;
-  border:none;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.card{
+  background:#161a22;
   border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 12px rgba(0,0,0,.4);
+}
+
+.card img{
+  width:100%;
+  display:block;
+}
+
+.card button{
+  width:100%;
+  border:none;
+  padding:10px;
+  font-weight:700;
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   color:#fff;
   cursor:pointer;
-  box-shadow:0 0 18px rgba(0,198,255,.6);
 }
-.back-btn:active{transform:scale(.97)}
 
-.footer{
+/* PASSWORD POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.popup-box{
+  background:#111;
+  padding:20px;
+  border-radius:16px;
+  width:90%;
+  max-width:320px;
   text-align:center;
+}
+
+.popup-box h2{
+  margin-top:0;
+}
+
+.popup-box input{
+  width:100%;
+  padding:12px;
+  margin:12px 0;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  font-size:15px;
+}
+
+.popup-box button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  font-weight:700;
+  background:#ff9800;
+  color:#000;
+}
+.error{
+  color:#ff5252;
   font-size:13px;
-  color:#aaa;
-  margin-bottom:20px;
+  display:none;
 }
 </style>
 </head>
@@ -88,43 +106,68 @@ gtag('config','G-9JW1V42V83',{
 <body>
 
 <div class="header">
-  <h1>RR INTERNATIONAL COLLEGE</h1>
-  <p>Event Album</p>
+  <h1>📸 RR Events Album</h1>
 </div>
 
-<div class="container">
-
-  <div class="album-box">
-    <h2>📸 KARMANYA FEST 2025</h2>
-
-    <p>
-      The official <b>Karmanya Fest 2025</b> photos will be uploaded here very soon.
-    </p>
-
-    <p>
-      Every moment, performance, and memory captured during the fest
-      will be available in this album section.
-    </p>
-
-    <p>
-      Please stay connected with the app and check back regularly
-      for the complete photo collection.
-    </p>
-
-    <div class="album-note">
-      ✨ Albums will be updated officially by RR International College
-    </div>
+<div class="album">
+  <!-- IMAGE 1 -->
+  <div class="card">
+    <img src="img1.jpg">
+    <button onclick="requestDownload('img1.jpg')">⬇ Download</button>
   </div>
 
-  <button class="back-btn" onclick="location.href='index.html'">
-    ← Back to Home
-  </button>
-
+  <!-- IMAGE 2 -->
+  <div class="card">
+    <img src="img2.jpg">
+    <button onclick="requestDownload('img2.jpg')">⬇ Download</button>
+  </div>
 </div>
 
-<div class="footer">
-  Powered by RR International College
+<!-- PASSWORD POPUP -->
+<div class="popup" id="passwordPopup">
+  <div class="popup-box">
+    <h2>🔒 Enter Password</h2>
+    <input type="password" id="passwordInput" placeholder="Enter download password">
+    <p class="error" id="errorText">Wrong password</p>
+    <button onclick="verifyPassword()">Unlock Download</button>
+  </div>
 </div>
+
+<script>
+const DOWNLOAD_PASSWORD = "RR2025"; // 🔐 CHANGE PASSWORD HERE
+let pendingFile = null;
+
+// CHECK SESSION
+function requestDownload(file){
+  if(sessionStorage.getItem("albumUnlocked") === "yes"){
+    downloadFile(file);
+  }else{
+    pendingFile = file;
+    document.getElementById("passwordPopup").style.display="flex";
+  }
+}
+
+function verifyPassword(){
+  const input = document.getElementById("passwordInput").value;
+  if(input === DOWNLOAD_PASSWORD){
+    sessionStorage.setItem("albumUnlocked","yes");
+    document.getElementById("passwordPopup").style.display="none";
+    document.getElementById("errorText").style.display="none";
+    downloadFile(pendingFile);
+  }else{
+    document.getElementById("errorText").style.display="block";
+  }
+}
+
+function downloadFile(file){
+  const a = document.createElement("a");
+  a.href = file;
+  a.download = "";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
 
 </body>
 </html>
