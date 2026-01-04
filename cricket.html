@@ -2,82 +2,122 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cricket Superstar – RR Games Zone</title>
+<title>Live Cricket – RR Events</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- GOOGLE ANALYTICS -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-9JW1V42V83', {
-  page_title: 'Cricket Superstar',
-  page_path: '/cricket.html'
-});
-gtag('event','cricket_opened');
-</script>
-
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box}
 body{
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:#0f1117;
-    color:#fff;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
+  margin:0;
+  font-family:Segoe UI, Arial, sans-serif;
+  background:#0f1117;
+  color:#fff;
 }
 
 /* HEADER */
 .header{
-    background:linear-gradient(90deg,#1abc9c,#16a085);
-    padding:14px;
-    text-align:center;
+  background:linear-gradient(135deg,#ff9800,#ff5722);
+  padding:20px 16px;
+  text-align:center;
 }
 .header h1{
-    font-size:18px;
-    font-weight:700;
+  margin:0;
+  font-size:22px;
 }
 .header p{
-    font-size:12px;
-    opacity:.9;
-    margin-top:4px;
+  margin-top:6px;
+  font-size:13px;
+  opacity:.9;
 }
 
-/* GAME AREA */
-.game-box{
-    flex:1;
-    background:#000;
+/* UPDATE NOTE */
+.update-note{
+  margin:10px 16px 0;
+  padding:10px 14px;
+  background:#1c2330;
+  border-left:4px solid #ff9800;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.5;
+  color:#f1f1f1;
+  box-shadow:0 0 12px rgba(0,0,0,.4);
 }
 
-/* IFRAME */
-iframe{
-    width:100%;
-    height:100%;
-    border:none;
+/* CONTAINER */
+.container{
+  padding:16px;
 }
+
+/* SCORE CARD */
+.score-card{
+  background:#161a22;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 0 20px rgba(0,0,0,.6);
+  text-align:center;
+}
+.score{
+  font-size:34px;
+  font-weight:800;
+  margin:6px 0;
+}
+.over{
+  font-size:14px;
+  opacity:.85;
+}
+
+/* TEAMS */
+.teams{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:12px;
+  font-weight:700;
+}
+
+/* INFO BOX */
+.info-box{
+  background:#1c2330;
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:14px;
+  font-size:14px;
+}
+.info-box b{
+  color:#ff9800;
+}
+
+/* BALL TAGS */
+.ball-tags{
+  margin-top:10px;
+}
+.tag{
+  display:inline-block;
+  padding:4px 10px;
+  margin:4px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:700;
+}
+.tag-nb{background:#e74c3c}
+.tag-wide{background:#9b59b6}
+.tag-four{background:#3498db}
+.tag-six{background:#2ecc71}
 
 /* BACK BUTTON */
 .back-btn{
-    margin:12px;
-    padding:14px;
-    font-size:15px;
-    font-weight:700;
-    border:none;
-    border-radius:14px;
-    background:linear-gradient(90deg,#34495e,#2c3e50);
-    color:#fff;
-    cursor:pointer;
+  width:100%;
+  margin-top:20px;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:700;
+  background:#34495e;
+  color:#fff;
+  cursor:pointer;
 }
-.back-btn:active{
-    transform:scale(0.97);
-}
+.back-btn:active{transform:scale(.97)}
 </style>
 </head>
 
@@ -85,36 +125,65 @@ iframe{
 
 <!-- HEADER -->
 <div class="header">
-    <h1>🏏 Cricket Superstar</h1>
-    <p>RR Games Zone</p>
+  <h1>🏏 LIVE BOX CRICKET</h1>
+  <p>RR International College</p>
 </div>
 
-<!-- GAME -->
-<div class="game-box">
-    <iframe 
-        src="https://www.poki.com/en/g/cricket-superstar"
-        allow="fullscreen; autoplay"
-        allowfullscreen>
-    </iframe>
+<!-- UPDATE NOTE -->
+<div class="update-note">
+  ⏱️ Scores update automatically every <b>30 seconds</b>.  
+  Please stay on this screen for live updates.
 </div>
 
-<!-- BACK -->
-<button class="back-btn" onclick="goBack()">
-    ⬅ Back to Games Zone
-</button>
+<div class="container">
+
+  <!-- SCORE CARD -->
+  <div class="score-card">
+    <div class="teams">
+      <span id="teamA">Team A</span>
+      <span>vs</span>
+      <span id="teamB">Team B</span>
+    </div>
+
+    <div class="score" id="score">0 / 0</div>
+    <div class="over" id="overs">Overs: 0.0</div>
+  </div>
+
+  <!-- MATCH INFO -->
+  <div class="info-box">
+    🏏 Batting: <b id="batting">Team A</b><br><br>
+    👤 Striker: <b id="striker">Player 1</b><br>
+    👤 Non-Striker: <b id="nonStriker">Player 2</b><br><br>
+    🎯 Bowler: <b id="bowler">Bowler 1</b>
+
+    <div class="ball-tags">
+      <span class="tag tag-nb">NB</span>
+      <span class="tag tag-wide">WIDE</span>
+      <span class="tag tag-four">4</span>
+      <span class="tag tag-six">6</span>
+    </div>
+  </div>
+
+  <button class="back-btn" onclick="location.href='index.html'">
+    ⬅ Back to Home
+  </button>
+
+</div>
 
 <script>
-function goBack(){
-    gtag('event','cricket_exit',{method:'button'});
-    location.href='games.html';
+/* 🔥 SIMULATED LIVE DATA (ADMIN CAN CONTROL LATER) */
+function updateMatch(){
+  const runs = Math.floor(Math.random()*80)+20;
+  const wickets = Math.floor(Math.random()*4);
+  const over = (Math.floor(Math.random()*4)+1) + "." + Math.floor(Math.random()*6);
+
+  document.getElementById("score").innerText = `${runs} / ${wickets}`;
+  document.getElementById("overs").innerText = `Overs: ${over}`;
 }
 
-/* PHONE BACK BUTTON SUPPORT */
-history.pushState(null,null,location.href);
-window.onpopstate=function(){
-    gtag('event','cricket_exit',{method:'device_back'});
-    location.href='games.html';
-};
+/* ⏱️ AUTO UPDATE EVERY 30 SECONDS */
+updateMatch();
+setInterval(updateMatch, 30000);
 </script>
 
 </body>

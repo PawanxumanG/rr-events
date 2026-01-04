@@ -1,0 +1,45 @@
+{
+  "show": true,
+  "meta": {
+    "match_type": "Box Cricket",
+    "update_interval_seconds": 30,
+    "message": "⏱️ Scores update automatically every 30 seconds. Please stay on this screen for live updates."
+  },
+
+  "teams": {
+    "teamA": "CS TY Boys",
+    "teamB": "IT SY Boys"
+  },
+
+  "scoreboard": {
+    "batting": "CS TY Boys",
+    "runs": 42,
+    "wickets": 2,
+    "overs": "3.4",
+    "target": null
+  },
+
+  "players": {
+    "striker": "Rahul",
+    "non_striker": "Aman",
+    "bowler": "Suresh"
+  },
+
+  "last_ball": {
+    "type": "four",
+    "label": "4",
+    "runs": 4
+  },
+
+  "extras": {
+    "no_ball": true,
+    "wide": false
+  },
+
+  "status": {
+    "match_state": "live",
+    "note": "Final over coming 🔥"
+  },
+
+  "updated": "2026-01-04T15:40:00"
+}
