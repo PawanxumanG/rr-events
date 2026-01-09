@@ -43,6 +43,16 @@
           "class": ""
         }
       ]
+    },
+    {
+      "sport": "Testing",
+      "winners": [
+        {
+          "position": 1,
+          "name": "TBD",
+          "class": "N/A"
+        }
+      ]
     }
   ]
 }
