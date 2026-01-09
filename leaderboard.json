@@ -1,0 +1,25 @@
+{
+  "show": true,
+  "title": "🏆 Sports Annual 2026 – Winners",
+  "subtitle": "Official Results | RR International College",
+  "lastUpdated": "2026-02-01",
+
+  "sports": [
+    {
+      "sport": "100m Race",
+      "winners": [
+        { "position": 1, "name": "Rahul Patil", "class": "FY BSc" },
+        { "position": 2, "name": "Aman Singh", "class": "SY BCom" },
+        { "position": 3, "name": "Rohit Sharma", "class": "TY BA" }
+      ]
+    },
+    {
+      "sport": "Long Jump",
+      "winners": [
+        { "position": 1, "name": "Sneha More", "class": "SY BA" },
+        { "position": 2, "name": "Pooja Yadav", "class": "FY BSc" },
+        { "position": 3, "name": "Neha Patil", "class": "TY BCom" }
+      ]
+    }
+  ]
+}
