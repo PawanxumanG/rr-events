@@ -2,67 +2,33 @@
   "show": true,
   "title": "🏆 Sports Annual 2026 – Winners",
   "subtitle": "Official Results | RR International College",
-  "lastUpdated": "2026-02-01",
+
+  "theme": {
+    "backgroundGradients": [
+      ["#0f2027", "#203a43", "#2c5364"],
+      ["#1a2a6c", "#b21f1f", "#fdbb2d"],
+      ["#141E30", "#243B55"]
+    ],
+    "activeBg": 0,
+
+    "cardGradients": [
+      ["#1f2937", "#111827"],
+      ["#0f172a", "#020617"],
+      ["#1e293b", "#020617"]
+    ],
+    "activeCard": 0,
+
+    "animate": true,
+    "animationSpeed": 12
+  },
 
   "sports": [
     {
       "sport": "100m Race",
       "winners": [
-        {
-          "position": 1,
-          "name": "Rahul Patil",
-          "class": "FY BSc"
-        },
-        {
-          "position": 2,
-          "name": "Aman Singh",
-          "class": "SY BCom"
-        },
-        {
-          "position": 3,
-          "name": "Rohit Sharma",
-          "class": "TY BA"
-        }
-      ]
-    },
-    {
-      "sport": "Long Jump",
-      "winners": [
-        {
-          "position": 1,
-          "name": "Sneha More",
-          "class": "SY BA"
-        },
-        {
-          "position": 2,
-          "name": "Pooja Yadav",
-          "class": "FY BSc"
-        },
-        {
-          "position": 3,
-          "name": "Neha Patil",
-          "class": "TY BCom"
-        }
-      ]
-    },
-    {
-      "sport": "Shot Put",
-      "winners": [
-        {
-          "position": 1,
-          "name": "Vikas Jadhav",
-          "class": "TY BSc"
-        },
-        {
-          "position": 2,
-          "name": "Sahil Khan",
-          "class": "SY BA"
-        },
-        {
-          "position": 3,
-          "name": "Akash Verma",
-          "class": "FY BCom"
-        }
+        { "position": 1, "name": "Rahul Patil", "class": "FY BSc" },
+        { "position": 2, "name": "Aman Singh", "class": "SY BCom" },
+        { "position": 3, "name": "Rohit Sharma", "class": "TY BA" }
       ]
     }
   ]
