@@ -9,177 +9,108 @@
 body{
   margin:0;
   background:#0f1117;
-  color:#fff;
   font-family:Arial, sans-serif;
+  color:#fff;
 }
 
-/* ================= HEADER ================= */
 .header{
   background:linear-gradient(90deg,#ff6a00,#ff9800);
   text-align:center;
-  padding:18px;
+  padding:16px;
 }
-.header h1{
-  margin:0;
-  font-size:20px;
-}
-.header p{
-  margin-top:6px;
-  font-size:13px;
-  opacity:.9;
-}
+.header h1{margin:0;font-size:20px;}
+.header p{margin-top:6px;font-size:13px;opacity:.9}
 
-/* ================= CONTAINER ================= */
-.container{
-  padding:14px;
-}
-
-/* ================= HALL OF FAME CARD ================= */
-.leader-card{
-  margin:18px 0;
+.card{
+  margin:18px;
   padding:20px;
-  border-radius:22px;
-  position:relative;
-  background:linear-gradient(135deg,#121826,#1b2436);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06),
-    0 0 30px rgba(0,198,255,0.25);
-  animation:fadeUp .6s ease;
-  overflow:hidden;
+  border-radius:20px;
+  background:#161a22;
+  box-shadow:0 0 40px rgba(0,0,0,.6);
 }
 
-/* 🌈 ANIMATED GLOW BORDER */
-.leader-card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:24px;
-  background:linear-gradient(
-    120deg,
-    #ff9800,
-    #00c6ff,
-    #7b2cff,
-    #ff9800
-  );
-  background-size:300% 300%;
-  animation:borderGlow 7s linear infinite;
-  z-index:-1;
-}
-
-@keyframes borderGlow{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* ================= SPORT TITLE ================= */
-.leader-card h2{
+.card h2{
   margin:0 0 14px;
   font-size:18px;
-  color:#ffcc80;
-  display:flex;
-  align-items:center;
-  gap:8px;
 }
 
-/* ================= WINNER ROW ================= */
-.winner{
+.row{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  background:rgba(255,255,255,0.05);
   padding:12px 14px;
   border-radius:14px;
   margin-top:10px;
-  background:rgba(255,255,255,0.05);
-  font-size:14px;
 }
 
-/* ================= MEDALS ================= */
-.badge{
-  font-weight:900;
-  width:34px;
-  text-align:center;
-}
+.badge{font-weight:800}
 
-.gold{
-  color:#ffd700;
-  text-shadow:0 0 12px rgba(255,215,0,.8);
-}
-.silver{
-  color:#cfd8dc;
-  text-shadow:0 0 10px rgba(200,200,200,.7);
-}
-.bronze{
-  color:#cd7f32;
-  text-shadow:0 0 10px rgba(205,127,50,.7);
-}
-
-/* ================= BACK BUTTON ================= */
 .back-btn{
   width:90%;
   max-width:320px;
-  margin:28px auto;
+  margin:26px auto;
   padding:14px;
   border:none;
-  border-radius:16px;
-  font-size:16px;
-  font-weight:800;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:700;
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   color:#fff;
   display:block;
-  box-shadow:0 0 22px rgba(0,198,255,.6);
-}
-
-/* ================= ANIMATIONS ================= */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(18px)}
-  to{opacity:1;transform:none}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <h1>RR INTERNATIONAL COLLEGE</h1>
   <p>Sports Hall of Fame 🏆</p>
 </div>
 
-<!-- CONTENT -->
-<div class="container" id="leaderboard"></div>
+<div id="content"></div>
 
 <button class="back-btn" onclick="location.href='index.html'">
-  ← Back to Home
+← Back to Home
 </button>
 
-<!-- ================= SCRIPT ================= -->
 <script>
-fetch('leaderboard.json?t=' + Date.now())
+fetch("leaderboard.json?t=" + Date.now())
 .then(res => res.json())
 .then(data => {
-  if(!data.show){
-    document.getElementById('leaderboard').innerHTML =
-      "<p style='text-align:center;opacity:.7'>Results will be announced soon.</p>";
-    return;
-  }
 
-  const container = document.getElementById('leaderboard');
+  if(!data.show) return;
+
+  const theme = data.theme || {};
+  const container = document.getElementById("content");
 
   data.sports.forEach(sport => {
-    const card = document.createElement('div');
-    card.className = 'leader-card';
+    const card = document.createElement("div");
+    card.className = "card";
 
-    let html = `<h2>🏅 ${sport.sport}</h2>`;
+    /* 🎨 CARD THEME */
+    if(theme.cardGradient){
+      card.style.background =
+        `linear-gradient(135deg, ${theme.cardGradient.join(",")})`;
+    }
+    if(theme.glowColor){
+      card.style.boxShadow = `0 0 45px ${theme.glowColor}`;
+    }
+
+    let html = `<h2 style="color:${theme.titleColor || '#ffcc70'}">
+      🥇 ${sport.sport}
+    </h2>`;
 
     sport.winners.forEach(w => {
-      let cls =
-        w.position === 1 ? 'gold' :
-        w.position === 2 ? 'silver' : 'bronze';
+      let color =
+        w.position === 1 ? theme.gold :
+        w.position === 2 ? theme.silver :
+        theme.bronze;
 
       html += `
-        <div class="winner">
-          <span class="badge ${cls}">#${w.position}</span>
+        <div class="row">
+          <span class="badge" style="color:${color}">#${w.position}</span>
           <span>${w.name}</span>
           <span>${w.class}</span>
         </div>
@@ -189,10 +120,7 @@ fetch('leaderboard.json?t=' + Date.now())
     card.innerHTML = html;
     container.appendChild(card);
   });
-})
-.catch(() => {
-  document.getElementById('leaderboard').innerHTML =
-    "<p style='text-align:center;color:#ff5555'>Unable to load leaderboard.</p>";
+
 });
 </script>
 

@@ -1,27 +1,14 @@
 {
   "show": true,
-  "title": "🏆 Sports Annual 2026 – Winners",
-  "subtitle": "Official Results | RR International College",
-
+  "title": "🏆 Sports Hall of Fame",
   "theme": {
-    "backgroundGradients": [
-      ["#0f2027", "#203a43", "#2c5364"],
-      ["#1a2a6c", "#b21f1f", "#fdbb2d"],
-      ["#141E30", "#243B55"]
-    ],
-    "activeBg": 0,
-
-    "cardGradients": [
-      ["#1f2937", "#111827"],
-      ["#0f172a", "#020617"],
-      ["#1e293b", "#020617"]
-    ],
-    "activeCard": 0,
-
-    "animate": true,
-    "animationSpeed": 12
+    "cardGradient": ["#0f2027", "#203a43", "#2c5364"],
+    "glowColor": "rgba(0,198,255,0.6)",
+    "titleColor": "#ffcc70",
+    "gold": "#ffd700",
+    "silver": "#c0c0c0",
+    "bronze": "#cd7f32"
   },
-
   "sports": [
     {
       "sport": "100m Race",
