@@ -13,6 +13,7 @@ body{
   color:#fff;
 }
 
+/* HEADER */
 .header{
   background:linear-gradient(90deg,#ff6a00,#ff9800);
   text-align:center;
@@ -21,31 +22,60 @@ body{
 .header h1{margin:0;font-size:20px;}
 .header p{margin-top:6px;font-size:13px;opacity:.9}
 
+/* 🎨 ANIMATED CARD */
 .card{
   margin:18px;
-  padding:20px;
-  border-radius:20px;
-  background:#161a22;
-  box-shadow:0 0 40px rgba(0,0,0,.6);
+  padding:22px;
+  border-radius:22px;
+  background:linear-gradient(
+    -45deg,
+    #00c6ff,
+    #0072ff,
+    #00b09b,
+    #96c93d
+  );
+  background-size:400% 400%;
+  animation:gradientFlow 10s ease infinite;
+  box-shadow:0 0 45px rgba(0,198,255,.6);
 }
 
+/* Gradient Animation */
+@keyframes gradientFlow{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* TITLE */
 .card h2{
-  margin:0 0 14px;
+  margin:0 0 16px;
   font-size:18px;
+  color:#ffecb3;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
+/* ROW */
 .row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:rgba(255,255,255,0.05);
+  background:rgba(0,0,0,0.25);
   padding:12px 14px;
   border-radius:14px;
   margin-top:10px;
+  backdrop-filter: blur(6px);
 }
 
-.badge{font-weight:800}
+.badge{
+  font-weight:800;
+}
+.gold{color:#ffd700}
+.silver{color:#c0c0c0}
+.bronze{color:#cd7f32}
 
+/* BACK BUTTON */
 .back-btn{
   width:90%;
   max-width:320px;
@@ -58,6 +88,7 @@ body{
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   color:#fff;
   display:block;
+  box-shadow:0 0 25px rgba(0,198,255,.6);
 }
 </style>
 </head>
@@ -82,35 +113,23 @@ fetch("leaderboard.json?t=" + Date.now())
 
   if(!data.show) return;
 
-  const theme = data.theme || {};
   const container = document.getElementById("content");
 
   data.sports.forEach(sport => {
+
     const card = document.createElement("div");
     card.className = "card";
 
-    /* 🎨 CARD THEME */
-    if(theme.cardGradient){
-      card.style.background =
-        `linear-gradient(135deg, ${theme.cardGradient.join(",")})`;
-    }
-    if(theme.glowColor){
-      card.style.boxShadow = `0 0 45px ${theme.glowColor}`;
-    }
-
-    let html = `<h2 style="color:${theme.titleColor || '#ffcc70'}">
-      🥇 ${sport.sport}
-    </h2>`;
+    let html = `<h2>🏅 ${sport.sport}</h2>`;
 
     sport.winners.forEach(w => {
-      let color =
-        w.position === 1 ? theme.gold :
-        w.position === 2 ? theme.silver :
-        theme.bronze;
+      let cls =
+        w.position === 1 ? "gold" :
+        w.position === 2 ? "silver" : "bronze";
 
       html += `
         <div class="row">
-          <span class="badge" style="color:${color}">#${w.position}</span>
+          <span class="badge ${cls}">#${w.position}</span>
           <span>${w.name}</span>
           <span>${w.class}</span>
         </div>
