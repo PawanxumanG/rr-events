@@ -8,17 +8,61 @@
     {
       "sport": "100m Race",
       "winners": [
-        { "position": 1, "name": "Rahul Patil", "class": "FY BSc" },
-        { "position": 2, "name": "Aman Singh", "class": "SY BCom" },
-        { "position": 3, "name": "Rohit Sharma", "class": "TY BA" }
+        {
+          "position": 1,
+          "name": "Rahul Patil",
+          "class": "FY BSc"
+        },
+        {
+          "position": 2,
+          "name": "Aman Singh",
+          "class": "SY BCom"
+        },
+        {
+          "position": 3,
+          "name": "Rohit Sharma",
+          "class": "TY BA"
+        }
       ]
     },
     {
       "sport": "Long Jump",
       "winners": [
-        { "position": 1, "name": "Sneha More", "class": "SY BA" },
-        { "position": 2, "name": "Pooja Yadav", "class": "FY BSc" },
-        { "position": 3, "name": "Neha Patil", "class": "TY BCom" }
+        {
+          "position": 1,
+          "name": "Sneha More",
+          "class": "SY BA"
+        },
+        {
+          "position": 2,
+          "name": "Pooja Yadav",
+          "class": "FY BSc"
+        },
+        {
+          "position": 3,
+          "name": "Neha Patil",
+          "class": "TY BCom"
+        }
+      ]
+    },
+    {
+      "sport": "Shot Put",
+      "winners": [
+        {
+          "position": 1,
+          "name": "Vikas Jadhav",
+          "class": "TY BSc"
+        },
+        {
+          "position": 2,
+          "name": "Sahil Khan",
+          "class": "SY BA"
+        },
+        {
+          "position": 3,
+          "name": "Akash Verma",
+          "class": "FY BCom"
+        }
       ]
     }
   ]

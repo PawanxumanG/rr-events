@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <title>Sports Annual Leaderboard – RR International College</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
 
-<!-- ================= GOOGLE ANALYTICS ================= -->
+<!-- GOOGLE ANALYTICS -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JW1V42V83"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -17,36 +18,53 @@ gtag('config','G-9JW1V42V83',{
   page_path:'/leaderboard.html'
 });
 </script>
-<!-- =================================================== -->
 
 <style>
 body{
+  margin:0;
   background:#0f1117;
   color:#fff;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont;
 }
 
 /* HEADER */
 .header{
   background:linear-gradient(90deg,#ff6a00,#ff9800);
-  text-align:center;
-  padding:16px;
-}
-.header h1{margin:0;font-size:20px;}
-.header p{margin-top:6px;font-size:13px;opacity:.9}
-
-/* CARD */
-.leader-card{
-  margin:16px;
   padding:18px;
-  border-radius:18px;
-  background:#161a22;
-  box-shadow:0 0 22px rgba(0,0,0,.6);
-  animation:fadeUp .6s ease;
+  text-align:center;
 }
+.header h1{
+  margin:0;
+  font-size:20px;
+  letter-spacing:.5px;
+}
+.header p{
+  margin-top:6px;
+  font-size:13px;
+  opacity:.9;
+}
+
+/* CONTAINER */
+.container{
+  padding-bottom:30px;
+}
+
+/* LEADER CARD */
+.leader-card{
+  margin:18px;
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#1f2937,#111827,#1f2937);
+  background-size:300% 300%;
+  animation:gradientMove 8s ease infinite, fadeUp .6s ease;
+  box-shadow:0 0 30px rgba(0,0,0,.65);
+}
+
 .leader-card h2{
-  margin-top:0;
+  margin:0 0 12px;
   font-size:18px;
-  color:#ffb347;
+  color:#ffcc80;
+  letter-spacing:.3px;
 }
 
 /* WINNERS */
@@ -54,36 +72,65 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:#1c2230;
-  border-radius:12px;
-  padding:10px 14px;
+  background:rgba(255,255,255,.06);
+  border-radius:14px;
+  padding:12px 14px;
   margin-top:10px;
   font-size:14px;
+  backdrop-filter:blur(4px);
 }
-.badge{
-  font-weight:700;
-}
-.gold{color:#ffd700}
-.silver{color:#c0c0c0}
-.bronze{color:#cd7f32}
 
+.badge{
+  font-weight:800;
+  min-width:38px;
+}
+
+/* MEDALS */
+.gold{
+  color:#ffd700;
+  text-shadow:0 0 10px rgba(255,215,0,.8);
+  animation:goldGlow 2.5s infinite;
+}
+.silver{
+  color:#cfd8dc;
+  text-shadow:0 0 8px rgba(207,216,220,.7);
+}
+.bronze{
+  color:#cd7f32;
+  text-shadow:0 0 8px rgba(205,127,50,.7);
+}
+
+/* BACK BUTTON */
 .back-btn{
   width:90%;
-  max-width:320px;
+  max-width:340px;
   margin:26px auto;
-  padding:14px;
+  padding:15px;
   border:none;
-  border-radius:14px;
+  border-radius:16px;
   font-size:15px;
-  font-weight:700;
+  font-weight:800;
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   color:#fff;
   display:block;
+  box-shadow:0 0 22px rgba(0,198,255,.45);
 }
+.back-btn:active{transform:scale(.97)}
 
+/* ANIMATIONS */
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(15px)}
+  from{opacity:0;transform:translateY(18px)}
   to{opacity:1;transform:none}
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes goldGlow{
+  0%{text-shadow:0 0 8px rgba(255,215,0,.6)}
+  50%{text-shadow:0 0 16px rgba(255,215,0,1)}
+  100%{text-shadow:0 0 8px rgba(255,215,0,.6)}
 }
 </style>
 </head>
@@ -105,16 +152,12 @@ body{
 fetch('leaderboard.json?t=' + Date.now())
 .then(res => res.json())
 .then(data => {
+
   if(!data.show){
     document.getElementById('leaderboard').innerHTML =
       "<p style='text-align:center;opacity:.7'>Results will be announced soon.</p>";
     return;
   }
-
-  gtag('event','leaderboard_open',{
-    event_category:'Sports',
-    event_label:data.title
-  });
 
   const container = document.getElementById('leaderboard');
 
@@ -125,8 +168,10 @@ fetch('leaderboard.json?t=' + Date.now())
     let html = `<h2>🏅 ${sport.sport}</h2>`;
 
     sport.winners.forEach(w => {
-      let cls = w.position === 1 ? 'gold' :
-                w.position === 2 ? 'silver' : 'bronze';
+      let cls =
+        w.position === 1 ? 'gold' :
+        w.position === 2 ? 'silver' :
+        'bronze';
 
       html += `
         <div class="winner">
@@ -148,7 +193,7 @@ fetch('leaderboard.json?t=' + Date.now())
 })
 .catch(() => {
   document.getElementById('leaderboard').innerHTML =
-    "<p style='text-align:center;color:#ff5555'>Unable to load leaderboard.</p>";
+    "<p style='text-align:center;color:#ff6b6b'>Unable to load leaderboard.</p>";
 });
 </script>
 
